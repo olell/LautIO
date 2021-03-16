@@ -1,4 +1,4 @@
-# LautI/O
+# LautIO
 Mobile PA-System solution
 
 ## Hardware Features
