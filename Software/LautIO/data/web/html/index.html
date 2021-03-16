@@ -42,7 +42,7 @@
                 <h5 class="card-header">Ch. A & B Amplifier
                     <span class="badge rounded-pill bg-success ms-4" id="ampABRunningPill">Running</span>
                     <span class="badge rounded-pill bg-danger ms-4" id="ampABStandbyPill">Standby</span>
-                    <span class="badge rounded-pill bg-dark ms-1" id="ampABMutePill">Mute</span>
+                    <span class="badge rounded-pill bg-dark ms-1" id="ampABMutePill">Muted</span>
                     <button class="btn btn-primary float-end" data-bs-toggle="collapse" data-bs-target="#ampABCollapse" aria-controls="ampABCollapse" aria-expanded="true" aria-label="Toggle Amp AB Settings">
                         Show/Hide
                     </button>
@@ -50,7 +50,17 @@
                 <div class="collapse show" id="ampABCollapse">
                     <div class="card-body">
                         <h5 class="card-title">Amplifier quick settings</h5>
-                        (Change gain via jumper on board)
+                        <div class="form-check form-switch mb-1">
+                            <input class="form-check-input" type="checkbox" id="ampABStandbySwitch" checked>
+                            <label class="form-check-label" for="ampABStandbySwitchLabel">Standby</label>
+                        </div>
+                        <div class="form-check form-switch mb-5">
+                            <input class="form-check-input" type="checkbox" id="ampABMuteSwitch" checked disabled>
+                            <label class="form-check-label" for="ampABMuteSwitchLabel">Mute</label>
+                        </div>
+                        <span>
+                            (Change gain via jumper on board)
+                        </span>
                     </div>
                 </div>
             </div>
@@ -58,7 +68,7 @@
                 <h5 class="card-header">Ch. C & D Amplifier
                     <span class="badge rounded-pill bg-success ms-4" id="ampCDRunningPill">Running</span>
                     <span class="badge rounded-pill bg-danger ms-4" id="ampCDStandbyPill">Standby</span>
-                    <span class="badge rounded-pill bg-dark ms-1" id="ampCDMutePill">Mute</span>
+                    <span class="badge rounded-pill bg-dark ms-1" id="ampCDMutePill">Muted</span>
                     <button class="btn btn-primary float-end" data-bs-toggle="collapse" data-bs-target="#ampCDCollapse" aria-controls="ampCDCollapse" aria-expanded="true" aria-label="Toggle Amp AB Settings">
                         Show/Hide
                     </button>
@@ -66,6 +76,14 @@
                 <div class="collapse show" id="ampCDCollapse">
                     <div class="card-body">
                         <h5 class="card-title">Amplifier quick settings</h5>
+                        <div class="form-check form-switch mb-1">
+                            <input class="form-check-input" type="checkbox" id="ampCDStandbySwitch" checked>
+                            <label class="form-check-label" for="ampCDStandbySwitchLabel">Standby</label>
+                        </div>
+                        <div class="form-check form-switch mb-5">
+                            <input class="form-check-input" type="checkbox" id="ampCDMuteSwitch" checked disabled>
+                            <label class="form-check-label" for="ampCDMuteSwitchLabel">Mute</label>
+                        </div>
                         (Change gain via jumper on board)
                     </div>
                 </div>
@@ -77,6 +95,8 @@
     <script src="/js/bootstrap.min.js"></script> <!--TODO: Static Paths-->
 
     <script>
+
+        /* Amp Stuff */
 
         var amp_ab = {
             mute: true,
@@ -108,6 +128,32 @@
             $("#ampCDStandbyPill").toggle(amp_cd.standby);
             $("#ampCDRunningPill").toggle(!amp_cd.standby);
         }
+
+        /* Amp AB Controls */
+
+        $( "#ampABStandbySwitch" ).change(function () {
+            set_standby_state(amp_ab, $("#ampABStandbySwitch").prop("checked"));
+            $("#ampABMuteSwitch").prop("disabled", amp_ab.standby);
+        });
+
+        $( "#ampABMuteSwitch" ).change(function () {
+            set_mute_state(amp_ab, $("#ampABMuteSwitch").prop("checked"));
+            $("#ampABStandbySwitch").prop("disabled", !amp_ab.mute);
+        });
+
+        /* Amp CD Controls */
+
+        $( "#ampCDStandbySwitch" ).change(function () {
+            set_standby_state(amp_cd, $("#ampCDStandbySwitch").prop("checked"));
+            $("#ampCDMuteSwitch").prop("disabled", amp_cd.standby);
+        });
+
+        $( "#ampCDMuteSwitch" ).change(function () {
+            set_mute_state(amp_cd, $("#ampCDMuteSwitch").prop("checked"));
+            $("#ampCDStandbySwitch").prop("disabled", !amp_cd.mute);
+        });
+
+        /* Common stuff */
 
         $( document ).ready(function () {
             update_amp_pills();
