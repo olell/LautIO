@@ -34,10 +34,86 @@
 
 
     <main role="main" class="container">
-    </main>  
+        <h1>Overview</h1>
+        <hr>
+        <div class="col col-md-6">
+            <div class="card">
+                
+                <h5 class="card-header">Ch. A & B Amplifier
+                    <span class="badge rounded-pill bg-success ms-4" id="ampABRunningPill">Running</span>
+                    <span class="badge rounded-pill bg-danger ms-4" id="ampABStandbyPill">Standby</span>
+                    <span class="badge rounded-pill bg-dark ms-1" id="ampABMutePill">Mute</span>
+                    <button class="btn btn-primary float-end" data-bs-toggle="collapse" data-bs-target="#ampABCollapse" aria-controls="ampABCollapse" aria-expanded="true" aria-label="Toggle Amp AB Settings">
+                        Show/Hide
+                    </button>
+                </h5>
+                <div class="collapse show" id="ampABCollapse">
+                    <div class="card-body">
+                        <h5 class="card-title">Amplifier quick settings</h5>
+                        (Change gain via jumper on board)
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <h5 class="card-header">Ch. C & D Amplifier
+                    <span class="badge rounded-pill bg-success ms-4" id="ampCDRunningPill">Running</span>
+                    <span class="badge rounded-pill bg-danger ms-4" id="ampCDStandbyPill">Standby</span>
+                    <span class="badge rounded-pill bg-dark ms-1" id="ampCDMutePill">Mute</span>
+                    <button class="btn btn-primary float-end" data-bs-toggle="collapse" data-bs-target="#ampCDCollapse" aria-controls="ampCDCollapse" aria-expanded="true" aria-label="Toggle Amp AB Settings">
+                        Show/Hide
+                    </button>
+                </h5>
+                <div class="collapse show" id="ampCDCollapse">
+                    <div class="card-body">
+                        <h5 class="card-title">Amplifier quick settings</h5>
+                        (Change gain via jumper on board)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
     
     <script src="/js/jquery.min.js"></script> <!--TODO: Static Paths-->
     <script src="/js/bootstrap.min.js"></script> <!--TODO: Static Paths-->
+
+    <script>
+
+        var amp_ab = {
+            mute: true,
+            standby: true
+        };
+
+        var amp_cd = {
+            mute: true,
+            standby: true
+        };
+
+        function set_mute_state(amp, state) {
+            amp.mute = state;
+            update_amp_pills();
+        }
+
+        function set_standby_state(amp, state) {
+            amp.standby = state;
+            update_amp_pills();
+        }
+
+        function update_amp_pills() {
+            $("#ampABMutePill").toggle(amp_ab.mute);
+            $("#ampCDMutePill").toggle(amp_cd.mute);
+
+            $("#ampABStandbyPill").toggle(amp_ab.standby);
+            $("#ampABRunningPill").toggle(!amp_ab.standby);
+
+            $("#ampCDStandbyPill").toggle(amp_cd.standby);
+            $("#ampCDRunningPill").toggle(!amp_cd.standby);
+        }
+
+        $( document ).ready(function () {
+            update_amp_pills();
+        });
+
+    </script>
 
 </body>
 </html>
