@@ -10,22 +10,34 @@
     <link rel='stylesheet' type='text/css' media='screen' href='/css/bootstrap.min.css'> <!--TODO: Static Paths-->
     <script src='/js/main.js'></script> <!--TODO: Static Paths-->
 </head>
-<body>
+<body style="padding-top: 5rem">
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="padding: 0.5rem 1.5rem">
         <a class="navbar-brand ml-1" href="#">
             <img src="/svg/logo.svg" width=30 height=30 alt="LautIO Logo"> <!--TODO: Static Paths-->
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-control="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="/">Home</a>
-                <a class="nav-item nav-link float-right" href="#">About</a>
-            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
         </div>
     </nav>
+
+
+    <main role="main" class="container">
+    </main>  
     
+    <script src="/js/jquery.min.js"></script> <!--TODO: Static Paths-->
+    <script src="/js/bootstrap.min.js"></script> <!--TODO: Static Paths-->
+
 </body>
 </html>
