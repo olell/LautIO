@@ -12,6 +12,7 @@
 #include <stdint.h>
 #include <stdarg.h>
 
+#include "log.h"
 #include "config.h"
 
 // ANSI Escape Sequence colors
