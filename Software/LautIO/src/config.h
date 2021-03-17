@@ -12,7 +12,7 @@
 
 #include <stdint.h>
 #include "const.h"
-#include "log.h"
+#include "util/log.h"
 
 // Network Configuration
 #define WIFI_BEHAVIOR        WIFI_AP_CONFIG

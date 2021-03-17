@@ -10,7 +10,7 @@
 
 #include <Arduino.h>
 
-#include "log.h"
+#include "util/log.h"
 
 void setup() {
     init_logging();

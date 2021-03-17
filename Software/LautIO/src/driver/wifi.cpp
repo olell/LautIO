@@ -12,6 +12,7 @@
 #include "WiFi.h"
 
 #include "config.h"
+#include "util/log.h"
 
 #if WIFI_BEHAVIOR == WIFI_AP_ONLY || WIFI_BEHAVIOR == WIFI_AP_CONFIG
     #include "DNSServer.h"
