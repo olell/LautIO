@@ -15,4 +15,10 @@
 #define FS_SPIFFS 0
 #define FS_SDCARD 1
 
+#if FILESYSTEM_TYPE == FS_SPIFFS
+    #define FSHANDLE SPIFFS
+#elif FILESYSTEM_TYPE == FS_SDCARD
+    #define FSHANDLE SDCARD // TODO
+#endif
+
 void init_filesystem();
