@@ -28,6 +28,7 @@
 #define WIFI_CONNECT_TIMEOUT 30000 // 30 sec connect timeout
 
 // Logging Configuration
+#define LOG_SERIAL_BAUD      115200
 #define LOG_LEVEL            LOGLEVEL_DEBUG
 
 // Hardware configuration
