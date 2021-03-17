@@ -14,14 +14,6 @@
 #define FW_VERSION     "0.0.1"
 #define FW_NAME        "Proto"
 
-// Loglevels
-#define LOGLEVEL_DEBUG 0
-#define LOGLEVEL_INFO  1
-#define LOGLEVEL_WARN  2
-#define LOGLEVEL_ERROR 3
-#define LOGLEVEL_FATAL 4
-#define LOGLEVEL_OFF   5
-
 // WiFi behaviors
 // Just opens an access point
 #define WIFI_AP_ONLY     0

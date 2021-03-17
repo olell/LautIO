@@ -12,6 +12,7 @@
 
 #include <stdint.h>
 #include "const.h"
+#include "log.h"
 
 // Network Configuration
 #define WIFI_BEHAVIOR        WIFI_AP_CONFIG
@@ -25,6 +26,9 @@
 #define HOSTNAME             "lautio"
 
 #define WIFI_CONNECT_TIMEOUT 30000 // 30 sec connect timeout
+
+// Logging Configuration
+#define LOG_LEVEL            LOGLEVEL_DEBUG
 
 // Hardware configuration
 #define HARDWARE_VERSION     HW_PROTO1
