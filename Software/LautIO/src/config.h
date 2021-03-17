@@ -17,10 +17,10 @@
 // Network Configuration
 #define WIFI_BEHAVIOR        WIFI_AP_CONFIG
 #define WIFI_SSID            "" // Only required in WIFI_CONFIG_CRED mode
-#define WIFI_PASSPHRASE      "" // Only required in WIFI_CONFIG_CRED mode
+#define WIFI_PASS            "" // Only required in WIFI_CONFIG_CRED mode
 
 #define WIFI_AP_SSID         "LautIO"
-#define WIFI_AP_PSK          "DeutschlandVerrecke"
+#define WIFI_AP_PASS         "DeutschlandVerrecke"
 #define WIFI_AP_IP           10,0,0,1 // Host IP in AP Mode
 
 #define HOSTNAME             "lautio"
