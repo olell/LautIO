@@ -174,7 +174,11 @@ void init_wifi() {
 
     #elif WIFI_BEHAVIOR == WIFI_AP_CONFIG
 
-    // TODO: load cred etc..
+    load_credentials_from_fs();
+
+    if (!wifi_connect()) {
+        init_access_point();
+    }
 
     #elif WIFI_BEHAVIOR == WIFI_CONFIG_CRED
 
