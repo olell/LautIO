@@ -10,8 +10,10 @@
 
 #include <Arduino.h>
 
-void setup() {
+#include "log.h"
 
+void setup() {
+    init_logging();
 }
 
 void loop() {
