@@ -38,7 +38,7 @@ void log_debug(const char* val, ...) {
         va_list args;
         va_start(args, val);
         vsprintf(log_output_str, val, args);
-        Serial.printf("[%sDEBUG%s]   %s%10d%s - %s\r\n", ANSI_GREEN, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
+        Serial.printf("[%sDEBUG%s]   %s%10lu%s - %s\r\n", ANSI_GREEN, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
     #endif
 }
 void log_info(const char* val, ...) {
@@ -46,7 +46,7 @@ void log_info(const char* val, ...) {
         va_list args;
         va_start(args, val);
         vsprintf(log_output_str, val, args);
-        Serial.printf("[%sINFO%s]    %s%10d%s - %s\r\n", ANSI_BLUE, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
+        Serial.printf("[%sINFO%s]    %s%10lu%s - %s\r\n", ANSI_BLUE, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
     #endif
 }
 void log_warn(const char* val, ...) {
@@ -54,7 +54,7 @@ void log_warn(const char* val, ...) {
         va_list args;
         va_start(args, val);
         vsprintf(log_output_str, val, args);
-        Serial.printf("[%sWARNING%s] %s%10d%s - %s\r\n", ANSI_YELLOW, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
+        Serial.printf("[%sWARNING%s] %s%10lu%s - %s\r\n", ANSI_YELLOW, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
     #endif
 }
 void log_error(const char* val, ...) {
@@ -62,7 +62,7 @@ void log_error(const char* val, ...) {
         va_list args;
         va_start(args, val);
         vsprintf(log_output_str, val, args);
-        Serial.printf("[%sERROR%s]   %s%10d%s - %s\r\n", ANSI_RED, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
+        Serial.printf("[%sERROR%s]   %s%10lu%s - %s\r\n", ANSI_RED, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
     #endif
 }
 void log_fatal(const char* val, ...) {
@@ -70,6 +70,6 @@ void log_fatal(const char* val, ...) {
         va_list args;
         va_start(args, val);
         vsprintf(log_output_str, val, args);
-        Serial.printf("[%sFATAL%s]   %s%10d%s - %s\r\n", ANSI_MAGENTA, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
+        Serial.printf("[%sFATAL%s]   %s%10lu%s - %s\r\n", ANSI_MAGENTA, ANSI_RESET, ANSI_CYAN, millis(), ANSI_RESET, log_output_str);
     #endif
 }
