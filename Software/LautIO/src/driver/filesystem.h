@@ -8,16 +8,11 @@
  * 
  */
 
-#include <Arduino.h>
+#pragma once
 
-#include "util/log.h"
-#include "driver/filesystem.h"
+#include "config.h"
 
-void setup() {
-    init_logging();
-    init_filesystem();
-}
+#define FS_SPIFFS 0
+#define FS_SDCARD 1
 
-void loop() {
-
-}
+void init_filesystem();

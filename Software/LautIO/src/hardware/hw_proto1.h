@@ -25,3 +25,5 @@
 #define DSP_IN_DATA    26 // IO26
 #define DSP_IN_BCLK    27 // IO27
 #define DSP_IN_LRCLK   13 // IO13
+
+//#define HARDWARE_HAS_SDCARD // Uncomment on hardware versions which have sd card slots

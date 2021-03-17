@@ -12,7 +12,9 @@
 
 #include <stdint.h>
 #include "const.h"
+
 #include "util/log.h"
+#include "driver/filesystem.h"
 
 // Network Configuration
 #define WIFI_BEHAVIOR        WIFI_AP_CONFIG
@@ -30,6 +32,9 @@
 // Logging Configuration
 #define LOG_SERIAL_BAUD      115200
 #define LOG_LEVEL            LOGLEVEL_DEBUG
+
+// Filesystem Configuration
+#define FILESYSTEM_TYPE      FS_SPIFFS
 
 // Hardware configuration
 #define HARDWARE_VERSION     HW_PROTO1
