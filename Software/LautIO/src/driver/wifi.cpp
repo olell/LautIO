@@ -13,6 +13,7 @@
 
 #include "config.h"
 #include "util/log.h"
+#include "driver/filesystem.h"
 
 #if WIFI_BEHAVIOR == WIFI_AP_ONLY || WIFI_BEHAVIOR == WIFI_AP_CONFIG
     #include "DNSServer.h"
@@ -118,6 +119,51 @@ void init_access_point() {
 }
 #endif
 
+
+void load_credentials_from_fs() {
+    File file = FSHANDLE.open("/wifi_cred.txt");
+    if (!file) {
+        log_error("Couldn't open wifi credential file! (/wifi_cred.txt)");
+    }
+    
+    memset(wifi_ssid, 0, 64);
+    memset(wifi_pass, 0, 64);
+
+    uint8_t read_ptr = 0b00000000;
+    char read;
+    while(file.available()) {
+        read = file.read();
+        if (read == '\n') {
+            if (read_ptr >> 7 == 1)
+                break;
+            read_ptr = 0b10000000;
+        }
+        else {
+            if (read_ptr >> 7) { // psk
+                wifi_pass[read_ptr & 0x7f] = read;
+            }
+            else { // ssid
+                wifi_ssid[read_ptr & 0x7f] = read;
+            }
+            read_ptr ++;
+        }
+    }
+    log_debug("Found SSID in SPIFFS: \"%s\"", wifi_ssid);
+    log_debug("Found PSK in SPIFFS:  \"%s\"", wifi_pass);
+    file.close();
+}
+
+void write_credentials_to_fs() {
+    File file = FSHANDLE.open("/wifi_cred.txt", "w");
+    if(!file) {
+        log_error("Couldn't open wifi credential file! (/wifi_cred.txt)");
+    }
+    char file_content[128];
+    sprintf(file_content, "%s\n%s", wifi_ssid, wifi_pass);
+    file.seek(0);
+    file.print(file_content);
+    file.close();
+}
 
 void init_wifi() {
     log_debug("Begin wifi init");
