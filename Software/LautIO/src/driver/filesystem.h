@@ -16,6 +16,7 @@
 #define FS_SDCARD 1
 
 #if FILESYSTEM_TYPE == FS_SPIFFS
+    #include <SPIFFS.h>
     #define FSHANDLE SPIFFS
 #elif FILESYSTEM_TYPE == FS_SDCARD
     #define FSHANDLE SDCARD // TODO
