@@ -11,11 +11,14 @@
 #include <Arduino.h>
 
 #include "util/log.h"
+
 #include "driver/filesystem.h"
+#include "driver/wifi.h"
 
 void setup() {
     init_logging();
     init_filesystem();
+    init_wifi();
 }
 
 void loop() {
