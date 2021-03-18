@@ -46,7 +46,7 @@ bool wifi_set_credentials(const char* ssid, const char* pass) {
     return true;
 }
 
-#ifdef WIFI_BEHAVIOR == WIFI_CONFIG_CRED || WIFI_AP_CONFIG
+#if WIFI_BEHAVIOR == WIFI_CONFIG_CRED || WIFI_BEHAVIOR == WIFI_AP_CONFIG
 bool wifi_connect() {
     log_info("Starting to connect to network \"%s\"", wifi_ssid);
 
