@@ -148,8 +148,8 @@ void load_credentials_from_fs() {
             read_ptr ++;
         }
     }
-    log_debug("Found SSID in SPIFFS: \"%s\"", wifi_ssid);
-    log_debug("Found PSK in SPIFFS:  \"%s\"", wifi_pass);
+    log_debug("Found SSID in Filesystem: \"%s\"", wifi_ssid);
+    log_debug("Found PSK in Filesystem:  \"%s\"", wifi_pass);
     file.close();
 }
 
