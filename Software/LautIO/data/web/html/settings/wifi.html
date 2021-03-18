@@ -76,5 +76,31 @@
     <script src="/js/jquery.min.js"></script> <!--TODO: Static Paths-->
     <script src="/js/bootstrap.min.js"></script> <!--TODO: Static Paths-->
 
+    <script>
+        function request_networks() {
+            jQuery.get("/scan_networks", function (data) {
+                if (data.status === "ok") {
+                    update_networks_list(data.networks);
+                }
+            })
+        }
+
+        function update_networks_list(ssid_list) {
+            var html = "";
+            ssid_list.forEach(element => {
+                html += `<option value='` + element + `'>\n`
+            });
+                
+            $("#networks").html(html);
+        }
+
+        $(document).ready(function () {
+
+            request_networks();
+            setInterval(request_networks, 60000); // request new network list every minute
+
+        });
+    </script>
+
 </body>
 </html>
