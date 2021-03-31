@@ -19,7 +19,7 @@
 #define AMP_CD_STANDBY 32 // IO32
 
 // DSP Controls
-#define DSP_RESET      12 // IO12
+#define DSP_RESET      14 // IO14
 
 // I2S Output
 #define DSP_IN_DATA    26 // IO26
