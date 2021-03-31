@@ -28,9 +28,6 @@
 #define UDP_PORT 1234
 
 // Math stuff
-#ifndef M_PI
-#define M_PI 3.1415926
-#endif
 
 // Macros
 #define MIN(a,b) (((a)<(b))?(a):(b))
