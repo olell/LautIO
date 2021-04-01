@@ -16,6 +16,11 @@
 #include "driver/filesystem.h"
 
 void view_scan_networks(AsyncWebServerRequest *request) {
+    /*
+    This route scans all networks visible for the ESP32 and returns
+    a list of network names in JSON format.
+    When there are no visible networks the status field becomes "error".
+    */
     String response_json = "{";
 
     int num = WiFi.scanNetworks();
@@ -39,6 +44,7 @@ void view_scan_networks(AsyncWebServerRequest *request) {
 }
 
 void view_wifi_settings(AsyncWebServerRequest *request) {
+    /* This route returns the wifi settings html file */
     request->send(FSHANDLE, "/web/html/settings/wifi.html", "text/html");
 }
 
