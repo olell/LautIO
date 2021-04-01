@@ -19,6 +19,7 @@
 #include "const.h"
 
 #include "util/http/wifi.h"
+#include "util/http/index.h"
 
 AsyncWebServer server(HTTP_PORT);
 
@@ -50,6 +51,7 @@ void init_http() {
     server.on("^\\/static\\/(.*)\\/(.*)$", HTTP_GET, serve_static);
 
     http_wifi_setup_routes(&server);
+    http_index_setup_routes(&server);
 
     server.begin();
     log_debug("HTTP up and running");
