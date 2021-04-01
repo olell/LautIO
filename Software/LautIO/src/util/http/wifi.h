@@ -61,14 +61,15 @@ void view_wifi_set_credentials(AsyncWebServerRequest *request) {
         wifi_ssid = ssid_param->value();
     } else all_params = false;
 
-    if (request->hasParam("psk", true)) {
-        AsyncWebParameter* psk_param = request->getParam("psk", true);
-        wifi_pass = psk_param->value();
+    if (request->hasParam("pass", true)) {
+        AsyncWebParameter* pass_param = request->getParam("pass", true);
+        wifi_pass = pass_param->value();
     } else all_params = false;
 
 
     if (!all_params) {
         request->send(200, "text/plain", "Missing parameter/s, please check your request!");
+        return;
     }
 
     wifi_set_credentials(wifi_ssid.c_str(), wifi_pass.c_str());
