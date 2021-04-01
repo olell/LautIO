@@ -11,3 +11,6 @@
 #pragma once
 
 void init_wifi();
+
+void write_credentials_to_fs();
+bool wifi_set_credentials(const char* ssid, const char* pass);
