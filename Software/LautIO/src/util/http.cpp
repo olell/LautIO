@@ -22,10 +22,32 @@
 
 AsyncWebServer server(HTTP_PORT);
 
+void serve_static(AsyncWebServerRequest *request) {
+    // todo: this is very hacky, you can do it better olel!
+    String dir_name = request->pathArg(0);
+    String file_name = request->pathArg(1);
+
+    if (dir_name.equals("..") || dir_name.equals("/") || file_name.equals("..") || file_name.equals("/")) {
+        request->send(200, "text/plain", "Nahh, don't do this you silly, bad boy!");
+    }
+
+    String path = "/web/" + dir_name + "/" + file_name;
+    String mime;
+    
+    if (dir_name == "css") mime = "text/css";
+    if (dir_name == "js") mime = "application/javascript";
+    if (dir_name == "svg") mime = "image/svg+xml";
+    if (dir_name == "png") mime = "image/png";
+
+    log_debug("Handling request for static file %s", path.c_str());
+    request->send(SPIFFS, path, mime);
+}
+
 void init_http() {
     log_info("Starting http init");
 
-    // Todo: Static file serving
+    // Static file serving
+    server.on("^\\/static\\/(.*)\\/(.*)$", HTTP_GET, serve_static);
 
     http_wifi_setup_routes(&server);
 
