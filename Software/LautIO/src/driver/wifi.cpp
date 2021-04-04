@@ -89,6 +89,7 @@ bool wifi_connect() {
             break;
         }
         else if (current_status == WL_CONNECT_FAILED) {
+            // todo: issue https://github.com/olell/LautIO/issues/7 happens here
             log_warn("WiFi connection failed, maybe invalid credentials?");
             connected = false;
             break;
