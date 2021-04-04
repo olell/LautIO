@@ -15,12 +15,14 @@
 
 #include "driver/filesystem.h"
 #include "driver/wifi.h"
+#include "driver/dsp.h"
 
 void setup() {
     init_logging();
     init_filesystem();
     init_wifi();
     init_http();
+    init_dsp();
 }
 
 void loop() {
