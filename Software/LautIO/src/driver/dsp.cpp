@@ -30,7 +30,7 @@ void init_dsp() {
     log_debug("Waiting two seconds for DSP to come up");
     delay(2000);
 
-    log_info("Pining dsp...");
+    log_info("Pinging dsp...");
     uint8_t dsp_response = dsp.ping();
 
     if (dsp_response == 0) {
