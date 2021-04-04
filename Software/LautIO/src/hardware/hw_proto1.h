@@ -27,3 +27,5 @@
 #define DSP_IN_LRCLK_PIN   13 // IO13
 
 //#define HARDWARE_HAS_SDCARD // Uncomment on hardware versions which have sd card slots
+
+#define HARDWARE_NAME "proto v1"

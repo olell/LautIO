@@ -36,3 +36,7 @@
 
 // Hardware Version
 #define HW_PROTO1 0
+
+// Software Version
+#define SW_VERSION 0
+#define SW_VER_NAME "Zero Cool"
