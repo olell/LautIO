@@ -172,12 +172,22 @@
             $("#ampCDStandbySwitch").prop("disabled", !amp_cd.mute);
         });
 
+        /* websocket stuff */
+        var ws;
+
         /* Common stuff */
 
         $( document ).ready(function () {
             update_amp_pills();
             create_dsp_controls($("#dsp_controls"));
+
+            ws = new WebSocket("ws://" + location.hostname + "/ws");
+            dsp_register_websocket(ws);
         });
+
+        $( window ).on("beforeunload", function () {
+            ws.close();
+        })        
 
     </script>
 

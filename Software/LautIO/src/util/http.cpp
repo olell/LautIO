@@ -18,6 +18,10 @@
 #include "config.h"
 #include "const.h"
 
+/* Handler */
+#include "util/websockets.h"
+
+/* Routes */
 #include "util/http/wifi.h"
 #include "util/http/index.h"
 #include "util/http/dsp.h"
@@ -51,9 +55,13 @@ void init_http() {
     // Static file serving
     server.on("^\\/static\\/(.*)\\/(.*)$", HTTP_GET, serve_static);
 
+    // Routes
     http_wifi_setup_routes(&server);
     http_index_setup_routes(&server);
     http_dsp_setup_routes(&server);
+
+    // Handler
+    init_websockets(&server);
 
     server.begin();
     log_debug("HTTP up and running");

@@ -45,3 +45,9 @@ void init_dsp() {
     log_info("DSP running!");
 
 }
+
+/* controls */
+void dsp_update_volslew(uint8_t id, float volume, uint8_t slew) {
+    uint16_t addr = 24; // todo read this from controls.csv
+    dsp.volume_slew(addr, volume, slew);
+}

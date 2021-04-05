@@ -11,8 +11,6 @@
 #pragma once
 
 #include "ESPAsyncWebServer.h"
-#include "AsyncWebSocket.h"
-#include "ArduinoJson.h"
-void http_dsp_setup_routes(AsyncWebServer* server);
 
-void websocket_dsp_handle_command(DynamicJsonDocument json_doc, AsyncWebSocketClient* client);
+void init_websockets(AsyncWebServer* webserver);
+void websocket_loop();

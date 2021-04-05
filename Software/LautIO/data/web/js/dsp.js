@@ -32,10 +32,10 @@ function generate_volume_control(name, title, ctrl_id) {
     <label for="` + name + `db_value_range" class="form-label">dB Value</label>
     <div class="d-flex justify-content-center">
         <span class="font-weight-bold me-2">-50dB</span>
-        <input type="range" class="form-range" id="` + name + `_db_value" min="-50" max="0" value="0" step="0.5">
+        <input type="range" oninput="update_volslew(` + ctrl_id + `, '` + name + `')" class="form-range" id="` + name + `_db_value" min="-50" max="0" value="0" step="0.5">
         <span class="font-weight-bold ms-2">0dB</span>
     </div>
-    <input type="hidden" id="` + name + `_slew_rate">
+    <input type="hidden" id="` + name + `_slew_rate" value="12">
     `);
 }
 
@@ -65,4 +65,22 @@ function create_dsp_controls(container) {
         console.log(modules);
         container.html(modules);
     });
+}
+
+var ws;
+
+function dsp_register_websocket(websocket) {
+    ws = websocket;
+}
+
+function update_volslew(ctrl_id, name) {
+    var volume = $("#" + name + "_db_value").val();
+    var slew = $("#" + name + "_slew_rate").val();
+    ws.send(JSON.stringify({
+        "command": "dsp",
+        "action": "update_volslew",
+        "id": ctrl_id,
+        "volume": volume,
+        "slew": slew
+    }));
 }

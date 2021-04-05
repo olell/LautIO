@@ -12,6 +12,7 @@
 
 #include "util/log.h"
 #include "util/http.h"
+#include "util/websockets.h"
 
 #include "driver/filesystem.h"
 #include "driver/wifi.h"
@@ -26,5 +27,6 @@ void setup() {
 }
 
 void loop() {
-
+    websocket_loop();
+    delay(10); // reduce cpu usage
 }

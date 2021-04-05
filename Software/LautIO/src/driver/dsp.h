@@ -11,3 +11,5 @@
 #pragma once
 
 void init_dsp();
+
+void dsp_update_volslew(uint8_t id, float volume, uint8_t slew);
