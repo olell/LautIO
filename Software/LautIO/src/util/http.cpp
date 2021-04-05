@@ -20,6 +20,7 @@
 
 #include "util/http/wifi.h"
 #include "util/http/index.h"
+#include "util/http/dsp.h"
 
 AsyncWebServer server(HTTP_PORT);
 
@@ -52,6 +53,7 @@ void init_http() {
 
     http_wifi_setup_routes(&server);
     http_index_setup_routes(&server);
+    http_dsp_setup_routes(&server);
 
     server.begin();
     log_debug("HTTP up and running");

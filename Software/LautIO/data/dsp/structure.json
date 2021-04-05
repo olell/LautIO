@@ -1,0 +1,27 @@
+{
+    "info": "DSP web control dev",
+
+    "modules": [
+        {
+            "name": "main",
+            "info": "main control",
+
+            "groups": [
+                {
+                    "name": "volume",
+                    "info": "volume control",
+
+                    "controls": [
+                        {
+                            "id": 0,
+                            "name": "main volume right",
+                            "type": 0,
+                            "group_idx": -1,
+                            "description": "Master volume control. Multiplied with Potentiometer on board"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
