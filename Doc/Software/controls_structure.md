@@ -9,8 +9,31 @@ A control is a basic element for controlling the DSP. E.G. a volume control or a
 |--------------|------------:|
 | Volume Slew  | 0           |
 
+### Volume Slew (`0`)
+Simple 2Ch volume control with slew setting. The slew value should be between 5 and 15 (5 is more fast). If you use a value below 5 the DSP might make some cracking noises.
+
+* Internal Name: `volslew`
+* Required fields:
+    * `volume`
+        * the dB value (-50dB up to 0dB)
+    * `slew`
+        * the slew value (1 up to 15)
+
+
 ## dsp/structure.json ?
 This file defines the control structure for the webinterface.
 
-## dsp/Controls.csv ?
-This is a simple list of all controls available. First col of each row is the id, second is the address and the third is the type id (see list above).
+## dsp/constrols.json
+This file defines which controls are available and some internal information about them.
+
+Fields:
+* `id`
+    * id of this control, must match with structure.md
+* `addr`
+    * address of this control
+* `type`
+    * type of this control (internal id)
+* `const`
+    * the values should not be overwritten -> always same after reboot
+* `xyz`
+    * required value fields for the specific control type (see above)
