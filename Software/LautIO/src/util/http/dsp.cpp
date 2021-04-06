@@ -55,7 +55,6 @@ void websocket_dsp_handle_command(DynamicJsonDocument json_doc, AsyncWebSocketCl
                 return;
             }
 
-            log_debug("Updating volslew %d to %.02fdB with %d slew", id, volume, slew);
             dsp_update_volslew(id, volume, slew);
 
         }

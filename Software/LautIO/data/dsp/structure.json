@@ -14,10 +14,10 @@
                     "controls": [
                         {
                             "id": 0,
-                            "name": "main volume right",
+                            "name": "Main Volume Control",
                             "type": 0,
                             "group_idx": -1,
-                            "description": "Master volume control. Multiplied with Potentiometer on board"
+                            "description": "Main volume control. Multiplied with Potentiometer on board"
                         }
                     ]
                 }
