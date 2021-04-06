@@ -108,6 +108,15 @@
             </div>
         </div>
     </main>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted float-end">
+                <span class="con_dot disconnected" id="connection_dot"></span>
+                <span id="connection_text"></span>
+            </span>
+        </div>
+      </footer>
     
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
@@ -174,20 +183,55 @@
 
         /* websocket stuff */
         var ws;
+        var test_response_received = false;
 
         /* Common stuff */
+
+        function on_websocket_message(recv) {
+            var message = JSON.parse(recv.data);
+
+            if (message.message == "test command received!") {
+                // handle response to test command
+                test_response_received = true;
+            }
+
+        }
+
+        function update_connection_status() {
+            ws.send(JSON.stringify({
+                "command": "test"
+            }));
+            setTimeout(_display_connection_status, 100);
+        }
+
+        function _display_connection_status() {
+            if (test_response_received) {
+                test_response_received = false;
+                $("#connection_dot").removeClass("disconnected");
+                $("#connection_dot").addClass("connected");
+                $("#connection_text").text("Connected to device!");
+            }
+            else {
+                $("#connection_dot").removeClass("connected");
+                $("#connection_dot").addClass("disconnected");
+                $("#connection_text").text("Disconnected from device!");
+            }
+        }
 
         $( document ).ready(function () {
             update_amp_pills();
             create_dsp_controls($("#dsp_controls"));
 
             ws = new WebSocket("ws://" + location.hostname + "/ws");
+            ws.onmessage = on_websocket_message;
             dsp_register_websocket(ws);
+
+            setInterval(update_connection_status, 1000);
         });
 
         $( window ).on("beforeunload", function () {
             ws.close();
-        })        
+        })
 
     </script>
 
