@@ -14,7 +14,7 @@ var CTRL_SECOND_ORDER_EQ = 1;
 
 function generate_container(name, title, controls) {
     return `
-    <div class="card">
+    <div class="card mt-3">
         <h5 class="card-header">` + title + `
             <button class="btn btn-primary float-end" data-bs-toggle="collapse" data-bs-target="#` + name + `Collapse" aria-controls="` + name + `Collapse" aria-expanded="true">
                 Show/Hide
