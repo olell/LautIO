@@ -201,7 +201,7 @@
             ws.send(JSON.stringify({
                 "command": "test"
             }));
-            setTimeout(_display_connection_status, 100);
+            setTimeout(_display_connection_status, 500);
         }
 
         function _display_connection_status() {
@@ -226,7 +226,7 @@
             ws.onmessage = on_websocket_message;
             dsp_register_websocket(ws);
 
-            setInterval(update_connection_status, 1000);
+            setInterval(update_connection_status, 5000);
         });
 
         $( window ).on("beforeunload", function () {
