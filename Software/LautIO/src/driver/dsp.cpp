@@ -96,8 +96,6 @@ void init_dsp() {
 /* controls */
 void dsp_update_volslew(uint8_t id, float volume, uint8_t slew) {
     JsonObject ctrl = get_control(id);
-    //uint8_t slew = ctrl["slew"];
-    log_debug("Read slew value %d", slew);
     if ((uint8_t) ctrl["type"] == CTRL_VOLSLEW) {
         uint16_t addr = ctrl["addr"];
         log_debug("Updating volslew %d @ %d to %.02fdB with %d slew", id, addr, volume, slew);
@@ -106,6 +104,18 @@ void dsp_update_volslew(uint8_t id, float volume, uint8_t slew) {
             ctrl["volume"] = volume;
             ctrl["slew"] = slew;
             update_controls_json();
+        }
+    }
+}
+
+void dsp_update_soeq(uint8_t id, secondOrderEQ eq) {
+    JsonObject ctrl = get_control(id);
+    if ((uint8_t) ctrl["type"] == CTRL_SOEQ) {
+        uint16_t addr = ctrl["addr"];
+        log_debug("Updating soeq %d @ %d", id, addr);
+        dsp.EQsecondOrder(addr, eq);
+        if (ctrl["const"] == false) {
+            //todo update ctrl values!
         }
     }
 }

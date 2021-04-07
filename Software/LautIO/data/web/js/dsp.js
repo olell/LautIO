@@ -10,6 +10,7 @@
 
 // Control type ids
 var CTRL_VOLUME_SLEW = 0;
+var CTRL_SECOND_ORDER_EQ = 1;
 
 function generate_container(name, title, controls) {
     return `
@@ -45,6 +46,22 @@ function generate_volume_control(name, title, ctrl_id) {
     `);
 }
 
+function generate_soeq_control(name, title, ctrl_id) {
+    return generate_container(name, title, `
+    <label for="` + name + `_boost_value_range class="form-label">Boost (dB)</label>
+    <div class="d-flex justify-conecnt-center">
+        <span class="font-weight-bold me-2">-10dB</span>
+        <input type="range" oninput="update_soeq(` + ctrl_id + `, '` + name + `')" class="form-range" id="` + name + `_db_value" min="-10" max="10" step="0.1">
+        <span class="font-weight-bold ms-2">10dB</span>
+    </div>
+    <div class="mt-3">
+        <label for="` + name + `_frequency">Frequency
+        <input type="number" onchange="update_soeq(` + ctrl_id + `, '` + name + `')" class="form-control" id="` + name + `_freq" min="20" max="20000" value="440">
+        </label>
+    </div>
+    `)
+}
+
 function load_dsp_structure(cb) {
     $.getJSON("/dsp/get_structure", function (data) {
         cb(data);
@@ -61,6 +78,9 @@ function create_dsp_controls(container) {
                 group.controls.forEach(control => {
                     if (control.type == CTRL_VOLUME_SLEW) {
                         controls.push(generate_volume_control("volslew" + control.id, control.name, control.id));
+                    }
+                    if (control.type == CTRL_SECOND_ORDER_EQ) {
+                        controls.push(generate_soeq_control("soeq" + control.id, control.name, control.id));
                     }
                 });
                 groups.push(controls.join("\n")); // just a test placeholder
@@ -92,4 +112,23 @@ function update_volslew(ctrl_id, name) {
         "volume": volume,
         "slew": slew
     }));
+}
+
+function update_soeq(ctrl_id, name) {
+    var boost = $("#" + name + "_db_value").val();
+    var freq = $("#" + name + "_freq").val();
+
+    $("#" + name + "_pill").text(freq + "Hz " + boost + "dB");
+
+    ws.send(JSON.stringify({
+        "command": "dsp",
+        "action": "update_soeq",
+        "id": ctrl_id,
+        "filter_type": 0, // todo: input for this field
+        "boost": boost,
+        "freq": freq,
+        "Q": 1.41, // todo: input for this field
+        "state": 1 // todo: input for this field
+    }))
+
 }

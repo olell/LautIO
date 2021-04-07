@@ -20,6 +20,20 @@
                             "description": "Main volume control. Multiplied with Potentiometer on board"
                         }
                     ]
+                },
+                {
+                    "name": "filter",
+                    "info": "filter & equalizer",
+                    
+                    "controls": [
+                        {
+                            "id": 1,
+                            "name": "Second Order EQ (I)",
+                            "type": 1,
+                            "group_idx": -1,
+                            "description": "..."
+                        }
+                    ]
                 }
             ]
         }

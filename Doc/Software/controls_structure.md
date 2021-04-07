@@ -5,9 +5,10 @@ A control is a basic element for controlling the DSP. E.G. a volume control or a
 
 ## What type of controls are implemented
 
-| Control Type | Internal ID |
-|--------------|------------:|
-| Volume Slew  | 0           |
+| Control Type    | Internal ID |
+|-----------------|------------:|
+| Volume Slew     | 0           |
+| Second order EQ | 1           |
 
 ### Volume Slew (`0`)
 Simple 2Ch volume control with slew setting. The slew value should be between 5 and 15 (5 is more fast). If you use a value below 5 the DSP might make some cracking noises.
@@ -19,6 +20,16 @@ Simple 2Ch volume control with slew setting. The slew value should be between 5 
     * `slew`
         * the slew value (1 up to 15)
 
+### Second Order EQ (`1`)
+* Internal Name: `SOEQ`
+* Required fields:
+    * `filter_type`
+        * equalizer type (TODO Document types)
+    * `Q`
+    * `freq`
+    * `boost`
+    * `state`
+        * 0 -> bypass ; 1-> active
 
 ## dsp/structure.json ?
 This file defines the control structure for the webinterface.
