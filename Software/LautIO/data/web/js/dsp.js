@@ -12,6 +12,9 @@
 var CTRL_VOLUME_SLEW = 0;
 var CTRL_SECOND_ORDER_EQ = 1;
 
+var last_container = undefined;
+var ws;
+
 function generate_container(args, callback) {
     render_template("/static/tmpl/container.html", args,
     function (result) {
@@ -31,8 +34,6 @@ function load_dsp_structure(cb) {
         cb(data);
     });
 }
-
-var last_container = undefined;
 
 function add_control(html) {
     last_container.html(last_container.html() + html)
@@ -62,8 +63,6 @@ function create_dsp_controls(container) {
     });
 }
 
-var ws;
-
 function dsp_register_websocket(websocket) {
     ws = websocket;
 }
@@ -84,8 +83,22 @@ function update_volslew(ctrl_id, name) {
 }
 
 function update_soeq(ctrl_id, name) {
+    var filter_type = $("#" + name + "_filter_type").val();
+    
+    var state = $("#" + name + "_state").is(":checked");
+    if (state) state = 1;
+    else state = 0;
+    var phase = $("#" + name + "_phase").is(":checked");
+    if (phase) phase = 1;
+    else phase = 0;
+
     var boost = $("#" + name + "_db_value").val();
+    var gain = $("#" + name + "_gain").val();
+
     var freq = $("#" + name + "_freq").val();
+    var q = $("#" + name + "_q").val();
+    var s = $("#" + name + "_s").val();
+    var bandwidth = $("#" + name + "_bandwidth").val();
 
     $("#" + name + "_pill").text(freq + "Hz " + boost + "dB");
 
@@ -93,11 +106,15 @@ function update_soeq(ctrl_id, name) {
         "command": "dsp",
         "action": "update_soeq",
         "id": ctrl_id,
-        "filter_type": 0, // todo: input for this field
+        "filter_type": filter_type,
         "boost": boost,
+        "gain": gain,
         "freq": freq,
-        "Q": 1.41, // todo: input for this field
-        "state": 1 // todo: input for this field
+        "Q": q,
+        "S": s,
+        "bandwidth": bandwidth,
+        "phase": phase,
+        "state": state
     }))
 
 }
