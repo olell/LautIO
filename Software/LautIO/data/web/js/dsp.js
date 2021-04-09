@@ -13,7 +13,7 @@ var CTRL_VOLUME_SLEW = 0;
 var CTRL_SECOND_ORDER_EQ = 1;
 
 function generate_container(args, callback) {
-    render_template("/static/templates/collapse_container.html", args,
+    render_template("/static/tmpl/container.html", args,
     function (result) {
         callback(result);
     });
@@ -50,11 +50,11 @@ function create_dsp_controls(container) {
                     }
                     if (control.type == CTRL_VOLUME_SLEW) {
                         args.name = "volslew" + control.id;
-                        generate_control("/static/templates/dsp_volume_control.html", args, add_control);
+                        generate_control("/static/tmpl/dsp_volslew.html", args, add_control);
                     }
                     if (control.type == CTRL_SECOND_ORDER_EQ) {
                         args.name = "soeq" + control.id;
-                        generate_control("/static/templates/dsp_soeq_control.html", args, add_control);
+                        generate_control("/static/tmpl/dsp_soeq.html", args, add_control);
                     }
                 });
             })
