@@ -1,26 +1,31 @@
+:root {
+  --main-color-light: rgb(58, 49, 83);
+  --main-color-dark: rgb(11, 0, 53); 
+}
+
 [data-theme="dark"] {
-  background-color: rgb(41, 30, 54) !important;
+  background-color: var(--main-color-dark) !important;
   color: #eee;
 }
 
 [data-theme="dark"] .card {
-  border-color: rgb(58, 42, 77) !important;
+  border-color: var(--main-color-light) !important;
 }
 
 [data-theme="dark"] .card-header {
-  background-color: rgb(58, 42, 77) !important;
+  background-color: var(--main-color-light) !important;
 }
 
 [data-theme="dark"] .card-body {
-  background-color: rgb(41, 30, 54) !important;
+  background-color: var(--main-color-dark) !important;
 }
 
 [data-theme="dark"] .bg-light {
-  background-color: rgb(58, 42, 77) !important;
+  background-color: var(--main-color-light) !important;
 }
 
 [data-theme="dark"] .bg-white {
-  background-color: rgb(41, 30, 54) !important;
+  background-color: var(--main-color-dark) !important;
 }
 
 [data-theme="dark"] .bg-black {
@@ -28,7 +33,7 @@
 }
 
 [data-theme="dark"] .footer {
-  background-color: rgb(58, 42, 77);
+  background-color: var(--main-color-light);
   color: #eee;
 }
 
