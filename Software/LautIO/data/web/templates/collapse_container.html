@@ -1,0 +1,14 @@
+<div class="card mt-3">
+    <h5 class="card-header">{title|title}
+        <button class="btn btn-primary float-end" data-bs-toggle="collapse" data-bs-target="#{name}Collapse" aria-controls="{name}Collapse" aria-expanded="true">
+            Show/Hide
+        </button><br class="mb-1">
+
+        <span class="badge rounded-pill bg-secondary" id="{name}_pill">N/A</span>
+    </h5>
+    <div class="collapse show" id="{name}Collapse">
+        <div class="card-body">
+            {controls}
+        </div>
+    </div>
+</div>

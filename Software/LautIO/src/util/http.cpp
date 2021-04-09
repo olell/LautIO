@@ -44,6 +44,7 @@ void serve_static(AsyncWebServerRequest *request) {
     if (dir_name == "js") mime = "application/javascript";
     if (dir_name == "svg") mime = "image/svg+xml";
     if (dir_name == "png") mime = "image/png";
+    if (dir_name == "templates") mime = "text/plain";
 
     log_debug("Handling request for static file %s", path.c_str());
     request->send(SPIFFS, path, mime);
