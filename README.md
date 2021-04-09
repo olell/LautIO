@@ -20,6 +20,7 @@ This git repository contains links or files of the following projects:
 * `ESPAsyncWebServer` released under the GNU LGPL license. (c) 2021 https://github.com/me-no-dev
 * `SigmaDSP library` released under the GNU LGPL license. (c) 2021 https://github.com/MCUdude
 * `ArduinoJson library` released under the MIT license. (c) 2021 Benoît Blanchon
+* `Dark-Mode-Switch` released under the MIT license. (c) 2019 Christian Oliff (https://github.com/coliff/dark-mode-switch)
 
 ## License
 MIT License

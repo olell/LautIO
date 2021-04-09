@@ -1,0 +1,37 @@
+[data-theme="dark"] {
+  background-color: rgb(41, 30, 54) !important;
+  color: #eee;
+}
+
+[data-theme="dark"] .card {
+  border-color: rgb(58, 42, 77) !important;
+}
+
+[data-theme="dark"] .card-header {
+  background-color: rgb(58, 42, 77) !important;
+}
+
+[data-theme="dark"] .card-body {
+  background-color: rgb(41, 30, 54) !important;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: rgb(58, 42, 77) !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: rgb(41, 30, 54) !important;
+}
+
+[data-theme="dark"] .bg-black {
+  background-color: #eee !important;
+}
+
+[data-theme="dark"] .footer {
+  background-color: rgb(58, 42, 77);
+  color: #eee;
+}
+
+[data-theme="dark"] a {
+  color:rgb(116, 212, 38);
+}

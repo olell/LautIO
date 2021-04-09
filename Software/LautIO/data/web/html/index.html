@@ -8,6 +8,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='/static/css/main.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='/static/css/bootstrap.min.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/static/css/dmode.css'>
     <script src='/static/js/main.js'></script>
 </head>
 <body style="padding-top: 5rem">
@@ -111,10 +112,18 @@
 
     <footer class="footer">
         <div class="container">
-            <span class="text-muted float-end">
-                <span class="con_dot disconnected" id="connection_dot"></span>
-                <span id="connection_text"></span>
-            </span>
+            <div class="row">
+                <div class="col col-md-6">
+                    <label for="darkSwitch">Dark Mode
+                        <input type="checkbox" id="darkSwitch">
+                    </label>
+                </div>
+
+                <span class="col col-md-6 text-muted float-end">
+                    <span class="con_dot disconnected" id="connection_dot"></span>
+                    <span id="connection_text"></span>
+                </span>
+            </div>
         </div>
       </footer>
     
@@ -122,6 +131,7 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/tinytemplate.min.js"></script> <!-- dsp.js requires this -->
     <script src="/static/js/dsp.js"></script>
+    <script src="/static/js/dmodesw.js"></script>
 
     <script>
 
