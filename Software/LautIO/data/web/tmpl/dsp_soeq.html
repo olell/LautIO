@@ -28,13 +28,17 @@
 </div>
 <div class="input-group row mt-3">
     <div class="col col-md-6">
-        <div class="input-group" id="{name}_frequency_container">
+        <div id="{name}_frequency_container">
             <label class="fw-bold" for="{name}_frequency">Frequency
                 <input type="number" onchange="update_soeq({ctrl_id}, '{name}')" class="form-control" id="{name}_freq" min="20" max="20000" value="440">
             </label>
         </div>
     </div>
     <div class="col col-md-6">
-        <span class="">test</span>
+        <div id="{name}_q_container">
+            <label class="fw-bold" for="{name}_q">Q
+                <input type="number" onchange="update_soeq({ctrl_id}, '{name}')" class="form-control" id="{name}_q" min="0" max="16" value="1.41" step="any">
+            </label>
+        </div>
     </div>
 </div>
