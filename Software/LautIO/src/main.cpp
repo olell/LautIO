@@ -10,7 +10,16 @@
 
 #include <Arduino.h>
 
+// utils
+#include "util/log.h"
+
+// drivers
+
 void setup() {
+
+  init_logging();
+  log_info("Inited loggin.. starting system setup!");
+
 }
 
 void loop() {
