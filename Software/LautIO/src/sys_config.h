@@ -24,3 +24,9 @@
 #if HARDWARE_VERSION == HW_PROTO1
     #include "hardware_config/hw_proto1.h"
 #endif
+
+#ifdef HARDWARE_HAS_SDCARD
+    #define FILESYSTEM_TYPE FS_SDCARD
+#else
+    #define FILESYSTEM_TYPE FS_SPIFFS
+#endif
