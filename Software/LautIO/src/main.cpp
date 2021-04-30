@@ -18,7 +18,7 @@
 void setup() {
 
   init_logging();
-  log_info("Inited logging.. starting system setup!");
+  log_info("Starting system setup!");
 
 }
 
