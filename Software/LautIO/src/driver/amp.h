@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "config.h"
+#include "sys_config.h"
 
 #define AMP_AB 0
 #define AMP_CD 1
