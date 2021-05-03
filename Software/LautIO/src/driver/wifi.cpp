@@ -15,7 +15,7 @@
 // util
 #include "util/log.h"
 #include "util/config.h"
-#include "util/wifi.h"
+#include "driver/wifi.h"
 
 bool wifi_connect_to_network() {
     /*
