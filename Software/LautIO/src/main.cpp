@@ -12,6 +12,7 @@
 
 // utils
 #include "util/log.h"
+#include "util/config.h"
 
 // drivers
 #include "driver/amp.h"
@@ -24,6 +25,7 @@ void setup() {
     log_info("Starting system setup!");
     init_filesystem();
     init_amps(); // Starting amps first to prevent potential damages
+    Configuration::get_instance(); // Getting an instance to initialise
 
 }
 

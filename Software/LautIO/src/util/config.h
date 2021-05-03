@@ -11,7 +11,7 @@
 #pragma once
 
 #include "Arduino.h"
-
+#include "ArduinoJson.h"
 
 class Configuration {
     /*
@@ -21,8 +21,15 @@ class Configuration {
     public:
         static Configuration* get_instance();
 
+        static JsonObject section(const char* key);
+
+        static void write();
+
     private:
         static Configuration* _instance;
+        
+        DynamicJsonDocument json_doc;
+
         Configuration (); // private constructor to prevent creation of instances from other code
 
 };
