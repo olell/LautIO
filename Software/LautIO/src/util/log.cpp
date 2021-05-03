@@ -13,7 +13,7 @@
 #include <stdarg.h>
 
 #include "util/log.h"
-#include "config.h"
+#include "sys_config.h"
 
 // ANSI Escape Sequence colors
 const char* ANSI_BLACK   = "\u001b[30m";
