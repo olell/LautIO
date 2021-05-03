@@ -13,6 +13,7 @@ Mobile PA-System solution
 ## Third party resources
 This git repository contains links or files of the following projects:
 * `PlatformIO` released under the Apache 2.0 license. (c) 2021 PlatformIO
+* `ArduinoJson library` released under the MIT license. (c) 2021 Benoît Blanchon
 
 ## License
 MIT License
