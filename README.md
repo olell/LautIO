@@ -6,7 +6,8 @@ Mobile PA-System solution
 - [x] ESP32 (WiFi + Bluetooth)
 - [x] ADAU1701 Digital Signal Processor
 - [x] 12V, 5V & 3.3V Power Supply from Battery
-- [x] 2x TDA7498E Amplifier
+- [x] 2x TPA3255-Q1 Amplifier (615W each -> 1260W Amp Power)
+- [x] USB Ports to charge mobile phones, etc.
 
 ## Fancy Rendering
 ![PCB Rendering](Hardware/Images/pcb_rendering.png)
