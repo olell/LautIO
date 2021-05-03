@@ -19,11 +19,7 @@
 #define LOG_LEVEL LOGLEVEL_DEBUG // todo: this should be configurable while runtime. Will change it later.
 
 // Hardare configuration
-#define HARDWARE_VERSION HW_PROTO1
-
-#if HARDWARE_VERSION == HW_PROTO1
-    #include "hardware_config/hw_proto1.h"
-#endif
+#include "hardware_config/hw_proto2.h"
 
 #ifdef HARDWARE_HAS_SDCARD
     #define FILESYSTEM_TYPE FS_SDCARD

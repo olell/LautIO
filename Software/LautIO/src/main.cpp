@@ -14,11 +14,13 @@
 #include "util/log.h"
 
 // drivers
+#include "driver/amp.h"
 
 void setup() {
 
   init_logging();
   log_info("Starting system setup!");
+  init_amps(); // Starting amps first to prevent potential damages
 
 }
 
