@@ -6,7 +6,6 @@
     },
 
     "logging": {
-        "level": "DEBUG",
         "store_on_fs": false
     },
 
