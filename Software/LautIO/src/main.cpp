@@ -17,16 +17,18 @@
 // drivers
 #include "driver/amp.h"
 #include "driver/filesystem.h"
+#include "driver/wifi.h"
 
 void setup() {
 
     // System setup, starting with logging
     init_logging();
     log_info("Starting system setup!");
+    
     init_amps(); // Starting amps first to prevent potential damages
     init_filesystem();
     Configuration::get_instance(); // Getting an instance to initialise
-
+    init_wifi();
 }
 
 void loop() {
