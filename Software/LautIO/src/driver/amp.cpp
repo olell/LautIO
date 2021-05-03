@@ -18,27 +18,32 @@
 
 void init_amps() {
     /*
-    This method basically justs puts the amps in reset state
+    This method initialises all amplifier pins and puts all amps in reset state.
     */
 
-   log_info("Initing Amplifiers");
+    log_info("Initing Amplifiers");
 
-   // Pin Modes
-   pinMode(AMP_AB_OTW, INPUT);
-   pinMode(AMP_AB_FAULT, INPUT);
-   pinMode(AMP_AB_RESET, OUTPUT);
+    // Pin Modes
+    pinMode(AMP_AB_OTW, INPUT);
+    pinMode(AMP_AB_FAULT, INPUT);
+    pinMode(AMP_AB_RESET, OUTPUT);
 
-   pinMode(AMP_CD_OTW, INPUT);
-   pinMode(AMP_CD_FAULT, INPUT);
-   pinMode(AMP_CD_RESET, OUTPUT);
+    pinMode(AMP_CD_OTW, INPUT);
+    pinMode(AMP_CD_FAULT, INPUT);
+    pinMode(AMP_CD_RESET, OUTPUT);
 
-   // Put both amps in reset state
-   amp_set_reset_state(AMP_AB, 1);
-   amp_set_reset_state(AMP_CD, 1);
+    // Put both amps in reset state
+    amp_set_reset_state(AMP_AB, 1);
+    amp_set_reset_state(AMP_CD, 1);
 
 }
 
 void amp_set_reset_state(uint8_t amp, uint8_t state) {
+    /*
+    This method puts an amp in the given reset state:
+    state 1: reset state
+    state 0: running
+    */
     if (amp == AMP_AB) {
         log_debug("Putting Ch. A + B Amp in reset state %d", state);
         digitalWrite(AMP_AB_RESET, 1 - state);
@@ -51,6 +56,9 @@ void amp_set_reset_state(uint8_t amp, uint8_t state) {
 }
 
 void reset_amp(uint8_t amp) {
+    /*
+    This method pulses the reset state (e.g. to reset after a fault condition is solved)
+    */
     amp_set_reset_state(amp, 1);
     delay(50);
     amp_set_reset_state(amp, 0);

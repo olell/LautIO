@@ -41,6 +41,9 @@ void init_logging() {
 }
 
 void log_debug(const char* val, ...) {
+    /*
+    log a debug message; use like printf
+    */
     #if LOGLEVEL <= LOGLEVEL_DEBUG
         va_list args;
         va_start(args, val);
@@ -49,6 +52,9 @@ void log_debug(const char* val, ...) {
     #endif
 }
 void log_info(const char* val, ...) {
+    /*
+    log an info message; use like printf
+    */
     #if LOGLEVEL <= LOGLEVEL_INFO
         va_list args;
         va_start(args, val);
@@ -57,6 +63,9 @@ void log_info(const char* val, ...) {
     #endif
 }
 void log_warn(const char* val, ...) {
+    /*
+    log a warning message; use like printf
+    */
     #if LOGLEVEL <= LOGLEVEL_WARN
         va_list args;
         va_start(args, val);
@@ -65,6 +74,9 @@ void log_warn(const char* val, ...) {
     #endif
 }
 void log_error(const char* val, ...) {
+    /*
+    log an error message; use like printf
+    */
     #if LOGLEVEL <= LOGLEVEL_ERROR
         va_list args;
         va_start(args, val);
@@ -73,6 +85,9 @@ void log_error(const char* val, ...) {
     #endif
 }
 void log_fatal(const char* val, ...) {
+    /*
+    log a fatal error message; use like printf
+    */
     #if LOGLEVEL <= LOGLEVEL_FATAL
         va_list args;
         va_start(args, val);

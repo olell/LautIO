@@ -12,6 +12,7 @@
 
 #include "sys_config.h"
 
+// Amplifiers
 #define AMP_AB 0
 #define AMP_CD 1
 

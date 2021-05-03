@@ -12,9 +12,12 @@
 
 #include "sys_config.h"
 
+// Filesystem types
 #define FS_SPIFFS 0
 #define FS_SDCARD 1
 
+// use FSHANDLE if you want to interact with the filesystem in your code.
+// it is automatically SPIFFS or SD_MMC depending on system hardware & configuration
 #if FILESYSTEM_TYPE == FS_SPIFFS
     #include <SPIFFS.h>
     #define FSHANDLE SPIFFS

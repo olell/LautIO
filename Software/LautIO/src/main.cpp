@@ -19,11 +19,14 @@
 
 void setup() {
 
+    // System setup, starting with logging
     init_logging();
     log_info("Starting system setup!");
     init_amps(); // Starting amps first to prevent potential damages
     init_filesystem();
+
 }
 
 void loop() {
+    // Try to do the most thing async.. but repeating stuff here
 }

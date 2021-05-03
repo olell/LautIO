@@ -1,6 +1,9 @@
 /*
  *
  * This file is part of LautIO
+ *
+ * Hardware configuration file for the second prototype board.
+ * Containing pin definitions and feature switches
  * 
  * Copyright 2021 - olel
  * LautIO is licensed under MIT License
@@ -23,7 +26,10 @@
 // DSP Controls
 #define DSP_RESET_PIN      25
 
+// Microcontroller is not wired via i2s to dsp
 #define HARDWARE_NO_I2S
+
+// The board contains a micro sdcard socket
 #define HARDWARE_HAS_SDCARD
 
 #define HARDWARE_NAME "proto v2"
