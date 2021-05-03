@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "config.h"
+#include "sys_config.h"
 
 #define FS_SPIFFS 0
 #define FS_SDCARD 1
@@ -19,7 +19,8 @@
     #include <SPIFFS.h>
     #define FSHANDLE SPIFFS
 #elif FILESYSTEM_TYPE == FS_SDCARD
-    #define FSHANDLE SDCARD // TODO
+    #include <SD_MMC.h>
+    #define FSHANDLE SD_MMC
 #endif
 
 void init_filesystem();

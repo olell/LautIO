@@ -8,7 +8,7 @@
  * 
  */
 
-#include "config.h"
+#include "sys_config.h"
 
 #include "util/log.h"
 #include "driver/filesystem.h"
@@ -28,9 +28,36 @@ void init_filesystem() {
 #endif
 
 #if FILESYSTEM_TYPE == FS_SDCARD /* Place SD Card related code in this block */
+#include <SD_MMC.h>
 
 void init_filesystem() {
-    // TODO SD card stuffs
+    log_info("Initialising SD Card filesystem");
+    if(!SD_MMC.begin("/sdcard", true)) { // using 1 bit mode
+        log_fatal("An fatal error occured while mounting SD Card. Please reset controller!");
+        while(true) {}; // Halt; todo: some restarting?
+    }
+
+    uint8_t card_type = SD_MMC.cardType();
+    String card_name = "";
+    if (card_type == CARD_NONE) {
+        log_fatal("No SD Card inserted! Please insert a card and restart the controller!");
+        while(true) {};
+    }
+
+    else if (card_type == CARD_MMC)  card_name = "MMC";
+    else if (card_type == CARD_SD)   card_name = "SDSC";
+    else if (card_type == CARD_SDHC) card_name = "SDHC";
+    else card_name = "unknown";
+
+    log_debug("Inserted card type is %s", card_name.c_str());
+
+    uint64_t card_size = SD_MMC.cardSize() / 0x100000;
+    log_debug("Card size is %lluMB", card_size);
+    uint64_t card_left = (SD_MMC.totalBytes() - SD_MMC.usedBytes()) / 0x100000;
+    log_debug("Card space left: %lluMB", card_left);
+
+
+    log_info("SD Card up and running!");
 
 }
 #endif
