@@ -8,20 +8,11 @@ Mobile PA-System solution
 - [x] 12V, 5V & 3.3V Power Supply from Battery
 - [x] 2x TPA3255-Q1 Amplifier (615W each -> 1260W Amp Power)
 - [x] USB Ports to charge mobile phones, etc.
-
-## Fancy Rendering
-![PCB Rendering](Hardware/Images/pcb_rendering.png)
+- [x] SD Card socket
 
 ## Third party resources
 This git repository contains links or files of the following projects:
-* `Bootstrap 5` released under the MIT license. (c) 2021 Twitter
-* `jQuery 3.6.0` released under the MIT license. (c) 2021 OpenJS Foundation
 * `PlatformIO` released under the Apache 2.0 license. (c) 2021 PlatformIO
-* `ESPAsyncTCP` released under the GNU LGPL license. (c) 2021 https://github.com/me-no-dev
-* `ESPAsyncWebServer` released under the GNU LGPL license. (c) 2021 https://github.com/me-no-dev
-* `SigmaDSP library` released under the GNU LGPL license. (c) 2021 https://github.com/MCUdude
-* `ArduinoJson library` released under the MIT license. (c) 2021 Benoît Blanchon
-* `Dark-Mode-Switch` released under the MIT license. (c) 2019 Christian Oliff (https://github.com/coliff/dark-mode-switch)
 
 ## License
 MIT License
