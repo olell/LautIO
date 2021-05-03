@@ -19,7 +19,7 @@
 
 Configuration* Configuration::_instance = 0;
 
-Configuration* Configuration::get() {
+Configuration* Configuration::get_instance() {
     // Get the instance from this singleton class
     if (!Configuration::_instance)
         Configuration::_instance = new Configuration();

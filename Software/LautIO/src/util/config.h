@@ -19,7 +19,7 @@ class Configuration {
     */
     
     public:
-        static Configuration* get();
+        static Configuration* get_instance();
 
     private:
         static Configuration* _instance;
