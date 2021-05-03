@@ -16,7 +16,7 @@
 #include "util/log.h"
 
 // Configuration config
-#define CONFIG_FILE_PATH = "/config/config.json"
+#define CONFIG_FILE_PATH  "/config/config.json"
 
 // LOG config (not included in config files because needed before any files are loaded)
 #define LOG_SERIAL_BAUD 115200
