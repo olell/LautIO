@@ -21,6 +21,11 @@
 const char* wifi_config_client_mode = "client";
 const char* wifi_config_ap_mode = "ap";
 
+// Fixed wifi parameter
+IPAddress local_ip(10,0,0,1);
+IPAddress gateway_ip(10,0,0,1);
+IPAddress subnet_mask(255, 255, 255, 0);
+
 bool wifi_connect_to_network() {
     /*
     This method tries to connect to the configured wifi network, it returns the success status as boolean
@@ -28,6 +33,7 @@ bool wifi_connect_to_network() {
 
     bool success = false;
 
+    // Load client network parameter from config
     const char* ssid = Configuration::section("wifi")["ssid"];
     const char* pass = Configuration::section("wifi")["pass"];
 
@@ -95,7 +101,28 @@ bool wifi_start_accesspoint() {
     /*
     This method starts an accesspoint with the configured credentials
     */
-   return false;
+
+    bool success = false;
+
+    // Load access point parameter from config
+    const char* ssid = Configuration::section("wifi")["ap_ssid"];
+    const char* pass = Configuration::section("wifi")["ap_pass"];
+
+    log_info("Starting Access Point @ %s", ssid);
+
+    WiFi.mode(WIFI_AP);
+    WiFi.enableAP(true);
+    WiFi.softAP(ssid, pass);
+
+    log_debug("Started AP, waiting a bit");
+    delay(2000);
+    log_debug("AP will be ready soon!");
+
+    WiFi.softAPConfig(local_ip, gateway_ip, subnet_mask);
+    log_info("Access Point up and running!");
+
+    success = true; // hmm
+    return success;
 }
 
 void init_wifi() {
@@ -113,6 +140,7 @@ void init_wifi() {
 
         if (!success && fallback_ap) {
             // start fallback access point
+            log_warn("Failed to connect to network.. starting fallback Access Point");
             wifi_start_accesspoint();
         }
 
