@@ -10,8 +10,4 @@
 
 #pragma once
 
-// config values
-#define WIFI_CONFIG_PARAM_CLIENT "client"
-#define WIFI_CONFIG_PARAM_ACCESSPOINT     "ap"
-
 void init_wifi();

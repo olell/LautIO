@@ -17,6 +17,10 @@
 #include "util/config.h"
 #include "driver/wifi.h"
 
+// configuration values
+const char* wifi_config_client_mode = "client";
+const char* wifi_config_ap_mode = "ap";
+
 bool wifi_connect_to_network() {
     /*
     This method tries to connect to the configured wifi network, it returns the success status as boolean
@@ -28,13 +32,16 @@ bool wifi_connect_to_network() {
     const char* pass = Configuration::section("wifi")["pass"];
 
     log_info("Starting to connect to WiFi network: %s", ssid);
+    WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, pass);
 
     unsigned long connection_start_time = millis();
     unsigned long t_now = 0;
 
+    bool first_try = true; // trying to connect two times; quick fix for issue https://github.com/olell/LautIO/issues/7
+
     wl_status_t wifi_status = WiFi.status();
-    while (wifi_status != WL_CONNECTED) {
+    while (true) {
 
         if (wifi_status == WL_DISCONNECTED) {
             // Do nothing, waiting for connection
@@ -62,11 +69,17 @@ bool wifi_connect_to_network() {
         }
 
         else if (wifi_status == WL_CONNECT_FAILED) {
-            // todo: issue https://github.com/olell/LautIO/issues/7 happens here
-
             log_warn("WiFi connection failed, maybe invalid credentials?");
-            success = false;
-            break;
+            if (first_try) {
+                log_info("Trying to connect a second time.");
+                WiFi.begin(ssid, pass);
+                delay(500);
+            }
+            else {
+                success = false;
+                break;
+            }
+            
         }
 
         delay(500);
@@ -82,6 +95,7 @@ bool wifi_start_accesspoint() {
     /*
     This method starts an accesspoint with the configured credentials
     */
+   return false;
 }
 
 void init_wifi() {
@@ -89,7 +103,8 @@ void init_wifi() {
     // Load all base config parameters
     const char* mode = Configuration::section("wifi")["mode"];
 
-    if (mode == WIFI_CONFIG_PARAM_CLIENT) {
+    if (strcmp(mode, wifi_config_client_mode) == 0) {
+        log_info("Initialising wifi driver in client mode");
 
         // Load client mode specific config parameter
         const bool fallback_ap = Configuration::section("wifi")["fallback_ap"];
@@ -103,8 +118,9 @@ void init_wifi() {
 
     }
 
-    else if (mode == WIFI_CONFIG_PARAM_ACCESSPOINT) {
-
+    else if (strcmp(mode, wifi_config_ap_mode) == 0) {
+        log_info("Initialising wifi driver in ap mode");
+        wifi_start_accesspoint();
     }
 
 }
