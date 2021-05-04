@@ -19,3 +19,7 @@
 void init_amps();
 void amp_set_reset_state(uint8_t amp, uint8_t state);
 void reset_amp(uint8_t amp);
+
+bool get_amp_reset_state(uint8_t amp);
+bool get_amp_otw_state(uint8_t amp);
+bool get_amp_fault_state(uint8_t amp);
