@@ -86,7 +86,7 @@ bool get_amp_otw_state(uint8_t amp) {
     if (amp == AMP_AB) {
         return digitalRead(AMP_AB_OTW) == 0;
     }
-    else if (amp == AMP_CD) {
+    else {
         return digitalRead(AMP_CD_OTW) == 0;
     }
 }
