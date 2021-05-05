@@ -20,6 +20,7 @@
 #include "driver/filesystem.h"
 #include "driver/wifi.h"
 #include "driver/battery.h"
+#include "driver/dsp.h"
 
 void setup() {
 
@@ -32,6 +33,7 @@ void setup() {
     init_wifi();
     init_battery();
     init_ftp_server();
+    init_dsp();
 }
 
 void loop() {
