@@ -38,7 +38,7 @@ Configuration::Configuration() : json_doc(8192) {
     DeserializationError error = deserializeJson(json_doc, config_file);
     if (error) {
         log_fatal("Failed to read configuration.. please restart controller!");
-        while (true) {};
+        ESP.deepSleep(0);
     }
 
     log_debug("Successfully loaded configuration");

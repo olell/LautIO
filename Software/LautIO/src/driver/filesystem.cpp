@@ -23,7 +23,7 @@ void init_filesystem() {
     log_info("Initialising SPIFFS filesystem");
     if(!SPIFFS.begin(true)) {
         log_fatal("An fatal error occured while mounting SPIFFS. Please reset controller!");
-        while(true) {}; // Halt; todo: automatic reboot?
+        ESP.deepSleep(0);
     }
     log_info("SPIFFS up and running!");
 }
@@ -40,7 +40,7 @@ void init_filesystem() {
     log_info("Initialising SD Card filesystem");
     if(!SD_MMC.begin("/sdcard", true)) { // using 1 bit mode
         log_fatal("An fatal error occured while mounting SD Card. Please reset controller!");
-        while(true) {}; // Halt; todo: some restarting?
+        ESP.deepSleep(0); // Halt; todo: some restarting?
     }
 
     // Detected if no card is inserted
@@ -48,7 +48,7 @@ void init_filesystem() {
     String card_name = "";
     if (card_type == CARD_NONE) {
         log_fatal("No SD Card inserted! Please insert a card and restart the controller!");
-        while(true) {};
+        ESP.deepSleep(0);
     }
 
     // Log card type
