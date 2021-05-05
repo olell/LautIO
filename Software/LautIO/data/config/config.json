@@ -10,10 +10,6 @@
         "pass": "y0ur_n3tw0rk_p455w0rd"
     },
 
-    "logging": {
-        "store_on_fs": false
-    },
-
     "webinterface": {
         "host": true
     },
