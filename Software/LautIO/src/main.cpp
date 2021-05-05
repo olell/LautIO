@@ -13,6 +13,7 @@
 // utils
 #include "util/log.h"
 #include "util/config.h"
+#include "util/ftp.h"
 
 // drivers
 #include "driver/amp.h"
@@ -25,15 +26,15 @@ void setup() {
     // System setup, starting with logging
     init_logging();
     log_info("Starting system setup!");
-    
     init_amps(); // Starting amps first to prevent potential damages
     init_filesystem();
     Configuration::get_instance(); // Getting an instance to initialise
     init_wifi();
     init_battery();
-    log_debug("Current Battery Voltage: %.02f", get_battery_voltage() / 1000.0);
+    init_ftp_server();
 }
 
 void loop() {
     // Try to do the most thing async.. but repeating stuff here
+    ftp_server_loop();
 }

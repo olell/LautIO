@@ -16,5 +16,11 @@
 
     "webinterface": {
         "host": true
+    },
+
+    "ftp": {
+        "enable": true,
+        "username": "lautio",
+        "password": "lautio"
     }
 }
