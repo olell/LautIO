@@ -18,6 +18,7 @@
 #include "driver/amp.h"
 #include "driver/filesystem.h"
 #include "driver/wifi.h"
+#include "driver/battery.h"
 
 void setup() {
 
@@ -29,6 +30,8 @@ void setup() {
     init_filesystem();
     Configuration::get_instance(); // Getting an instance to initialise
     init_wifi();
+    init_battery();
+    log_debug("Current Battery Voltage: %.02f", get_battery_voltage() / 1000.0);
 }
 
 void loop() {

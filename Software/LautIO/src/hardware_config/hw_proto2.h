@@ -23,6 +23,9 @@
 #define AMP_CD_FAULT       23
 #define AMP_CD_RESET       33
 
+// Battery
+#define VBAT_MEASURE       35
+
 // DSP Controls
 #define DSP_RESET_PIN      25
 
