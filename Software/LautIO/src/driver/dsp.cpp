@@ -129,8 +129,51 @@ void dsp_ctrl_mux(JsonObject control, uint8_t index) {
 
 }
 
-void dsp_ctrl_eq_second_order(JsonObject control) {
-    // todo
+void dsp_ctrl_eq_second_order(JsonObject control, secondOrderEQ_t eq_param) {
+    // updates the value of a second order eq control
+    
+    // required json fields
+    // id          -> control id
+    // addr        -> control addr
+    // type        -> control type
+    // Q           -> range 0-16 (for filter types parametric & peaking)
+    // S           -> Slope, range 0-12 (for filter types lowShelf & highShelf)
+    // bandwidth   -> Bandwidth in octaves (for filter types bandPass & bandStop)
+    // boost       -> Range +/-15 (dB)
+    // freq        -> Range 20-20000 (Hz)
+    // gain        -> Range +/-15 (dB)
+    // filter_type -> parameters::filterType::*
+    // phase       -> parameters::phase::*
+    // state       -> parameters::state::*
+    // ro          -> read only, will skip overwrite if true
+    // change      -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_EQ_SECOND_ORDER) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            log_debug("Updating 2nd order EQ %d @ %d",
+                control_id, control_addr);
+
+            dsp.EQsecondOrder(control_addr, eq_param);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["Q"] = eq_param.Q;
+            control["S"] = eq_param.S;
+            control["bandwidth"] = eq_param.bandwidth;
+            control["boost"] = eq_param.boost;
+            control["freq"] = eq_param.freq;
+            control["gain"] = eq_param.gain;
+            control["filter_type"] = eq_param.filterType;
+            control["phase"] = eq_param.phase;
+            control["state"] = eq_param.state;
+            
+        }
+    }
 }
 
 void dsp_ctrl_mute_dac(JsonObject control) {
