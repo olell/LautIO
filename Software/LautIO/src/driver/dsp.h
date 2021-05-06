@@ -29,6 +29,8 @@
 #define DSP_CONTROL_COMPRESSOR_PEAK 15
 #define DSP_CONTROL_TONE_CONTROL    16
 #define DSP_CONTROL_STATE_VARIABLE  17
+#define DSP_CONTROL_MUTE_ADC        18
+#define DSP_CONTROL_MUTE_DAC        19
 
 void init_dsp();
 bool dsp_ping();
