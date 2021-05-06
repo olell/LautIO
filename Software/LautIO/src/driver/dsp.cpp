@@ -523,8 +523,35 @@ void dsp_ctrl_demux(JsonObject control, uint8_t index) {
 
 }
 
-void dsp_ctrl_soft_clip(JsonObject control) {
-    // todo
+void dsp_ctrl_soft_clip(JsonObject control, float alpha) {
+    // updates the value of a soft clip control
+    
+    // required json fields
+    // uint8   id      -> control id
+    // uint16  addr    -> control addr
+    // uint8   type    -> control type
+    // float   alpha   -> clipping coefficient (0.1 ... 10.0)
+    // bool    ro      -> read only, will skip overwrite if true
+    // bool    change  -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_SOFT_CLIP) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            log_debug("Updating soft clip control %d @ %d to %f",
+                control_id, control_addr, alpha);
+
+            dsp.softClip(control_addr, alpha);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["alpha"] = alpha;
+            
+        }
+    }
 }
 
 void dsp_ctrl_hard_clip(JsonObject control) {
