@@ -204,8 +204,33 @@ void dsp_ctrl_mute_dac(JsonObject control, bool mute) {
     }
 }
 
-void dsp_ctrl_mute_adc(JsonObject control) {
-    // todo
+void dsp_ctrl_mute_adc(JsonObject control, bool mute) {
+    // updates the value of the adc mute
+    
+    // required json fields
+    // uint8   id      -> control id
+    // uint8   type    -> control type
+    // bool    mute    -> mute state
+    // bool    ro      -> read only, will skip overwrite if true
+    // bool    change  -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_MUTE_ADC) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            log_debug("Setting ADC mute state to %s",
+                mute ? "mute" : "unmute");
+
+            dsp.muteADC(mute);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["mute"] = mute;
+            
+        }
+    }
 }
 
 void dsp_ctrl_dc_source(JsonObject control) {
