@@ -490,7 +490,7 @@ void dsp_ctrl_gain(JsonObject control, float gain) {
 }
 
 void dsp_ctrl_demux(JsonObject control, uint8_t index) {
-    // updates the value of a mux control
+    // updates the value of a demux control
     
     // required json fields
     // uint8   id      -> control id
