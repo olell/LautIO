@@ -357,8 +357,35 @@ void dsp_ctrl_sawtooth_source(JsonObject control, float freq) {
     }
 }
 
-void dsp_ctrl_triangle_source(JsonObject control) {
-    // todo
+void dsp_ctrl_triangle_source(JsonObject control, float freq) {
+    // updates the value of a triangle source control
+    
+    // required json fields
+    // uint8   id      -> control id
+    // uint16  addr    -> control addr
+    // uint8   type    -> control type
+    // float   freq    -> frequency
+    // bool    ro      -> read only, will skip overwrite if true
+    // bool    change  -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_TRIANGLE_SOURCE) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            log_debug("Updating triangle source control %d @ %d to %f",
+                control_id, control_addr, freq);
+
+            dsp.triangleSource(control_addr, freq);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["freq"] = freq;
+            
+        }
+    }
 }
 
 void dsp_ctrl_audio_delay(JsonObject control) {
