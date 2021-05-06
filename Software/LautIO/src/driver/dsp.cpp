@@ -76,11 +76,11 @@ void dsp_ctrl_volslew(JsonObject control, float volume, uint8_t slew) {
 
     uint8_t control_type = control["type"];
     if (control_type == DSP_CONTROL_VOLSLEW) { // check if control type is correct
-        uint8_t control_id = control["id"];
-        uint16_t control_addr = control["addr"];
 
         bool read_only = control["ro"];
         if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
             log_debug("Updating volslew %d @ %d to %.02fdB with %d slew",
                 control_id, control_addr, volume, slew);
 
@@ -96,78 +96,107 @@ void dsp_ctrl_volslew(JsonObject control, float volume, uint8_t slew) {
 
 }
 
-void dsp_ctrl_mux() {
+void dsp_ctrl_mux(JsonObject control, uint8_t index) {
+    // updates the value of a mux control
+    
+    // required json fields
+    // id      -> control id
+    // addr    -> control addr
+    // type    -> control type
+    // index   -> mux index
+    // ro     -> read only, will skip overwrite if true
+    // change -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_MUX) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            uint8_t num_idx = control["num_idx"];
+            log_debug("Updating mux %d @ %d to %d",
+                control_id, control_addr, index);
+
+            dsp.mux(control_addr, index);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["index"] = index;
+            
+        }
+    }
+
+}
+
+void dsp_ctrl_eq_second_order(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_eq_second_order() {
+void dsp_ctrl_mute_dac(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_mute_dac() {
+void dsp_ctrl_mute_adc(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_mute_adc() {
+void dsp_ctrl_dc_source(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_dc_source() {
+void dsp_ctrl_sine_source(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_sine_source() {
+void dsp_ctrl_square_source(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_square_source() {
+void dsp_ctrl_sawtooth_source(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_sawtooth_source() {
+void dsp_ctrl_triangle_source(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_triangle_source() {
+void dsp_ctrl_audio_delay(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_audio_delay() {
+void dsp_ctrl_eq_first_order(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_eq_first_order() {
+void dsp_ctrl_gain(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_gain() {
+void dsp_ctrl_demux(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_demux() {
+void dsp_ctrl_soft_clip(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_soft_clip() {
+void dsp_ctrl_hard_clip(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_hard_clip() {
+void dsp_ctrl_compressor_RMS(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_compressor_RMS() {
+void dsp_ctrl_compressor_peak(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_compressor_peak() {
+void dsp_ctrl_tone_control(JsonObject control) {
     // todo
 }
 
-void dsp_ctrl_tone_control() {
-    // todo
-}
-
-void dsp_ctrl_state_variable() {
+void dsp_ctrl_state_variable(JsonObject control) {
     // todo
 }
