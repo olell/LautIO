@@ -114,7 +114,6 @@ void dsp_ctrl_mux(JsonObject control, uint8_t index) {
         if (!read_only) { // Do not update if readonly prop is true
             uint8_t control_id = control["id"];
             uint16_t control_addr = control["addr"];
-            uint8_t num_idx = control["num_idx"];
             log_debug("Updating mux %d @ %d to %d",
                 control_id, control_addr, index);
 
@@ -176,8 +175,33 @@ void dsp_ctrl_eq_second_order(JsonObject control, secondOrderEQ_t eq_param) {
     }
 }
 
-void dsp_ctrl_mute_dac(JsonObject control) {
-    // todo
+void dsp_ctrl_mute_dac(JsonObject control, bool mute) {
+    // updates the value of the dac mute
+    
+    // required json fields
+    // uint8   id      -> control id
+    // uint8   type    -> control type
+    // bool    mute    -> mute state
+    // bool    ro      -> read only, will skip overwrite if true
+    // bool    change  -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_MUTE_DAC) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            log_debug("Setting DAC mute state to %s",
+                mute ? "mute" : "unmute");
+
+            dsp.muteDAC(mute);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["mute"] = mute;
+            
+        }
+    }
 }
 
 void dsp_ctrl_mute_adc(JsonObject control) {
