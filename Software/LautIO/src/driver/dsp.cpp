@@ -489,8 +489,38 @@ void dsp_ctrl_gain(JsonObject control, float gain) {
     }
 }
 
-void dsp_ctrl_demux(JsonObject control) {
-    // todo
+void dsp_ctrl_demux(JsonObject control, uint8_t index) {
+    // updates the value of a mux control
+    
+    // required json fields
+    // uint8   id      -> control id
+    // uint16  addr    -> control addr
+    // uint8   type    -> control type
+    // uint8   index   -> demux index
+    // uint8_t num_idx -> number of indexes
+    // bool    ro      -> read only, will skip overwrite if true
+    // bool    change  -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_DEMUX) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            uint8_t num_idx = control["num_idx"];
+            log_debug("Updating demux %d @ %d to %d/%d",
+                control_id, control_addr, index, num_idx);
+
+            dsp.demux(control_addr, index, num_idx);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["index"] = index;
+            
+        }
+    }
+
 }
 
 void dsp_ctrl_soft_clip(JsonObject control) {
