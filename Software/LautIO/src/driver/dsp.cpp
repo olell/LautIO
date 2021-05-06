@@ -587,8 +587,45 @@ void dsp_ctrl_hard_clip(JsonObject control, float high_threshold, float low_thre
     }
 }
 
-void dsp_ctrl_compressor_RMS(JsonObject control) {
-    // todo
+void dsp_ctrl_compressor_RMS(JsonObject control, compressor_t compressor_param) {
+    // updates the value of a compressor rms control
+    
+    // required json fields
+    // uint8   id             -> control id
+    // uint16  addr           -> control addr
+    // uint8   type           -> control type
+    // float   threshold      -> -90 / +6 dB
+    // float   ratio          -> 1 ... 100
+    // float   attack         -> 1 ... 500 ms
+    // float   hold           -> 0 ... 500 ms
+    // float   decay          -> 0 ... 2000 ms
+    // float   postgain       -> -30 ... +24 dB
+    // bool    ro             -> read only, will skip overwrite if true
+    // bool    change         -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_COMPRESSOR_RMS) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            log_debug("Updating compressor rms control %d @ %d",
+                control_id, control_addr);
+
+            dsp.compressorRMS(control_addr, compressor_param);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["threshold"] = compressor_param.threshold;
+            control["ratio"] = compressor_param.ratio;
+            control["attack"] = compressor_param.attack;
+            control["hold"] = compressor_param.hold;
+            control["decay"] = compressor_param.decayMs;
+            control["postgain"] = compressor_param.postgain;
+            
+        }
+    }
 }
 
 void dsp_ctrl_compressor_peak(JsonObject control) {
