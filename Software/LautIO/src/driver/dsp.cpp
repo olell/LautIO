@@ -66,13 +66,13 @@ void dsp_ctrl_volslew(JsonObject control, float volume, uint8_t slew) {
     // Updates the value of an volume/slew control
 
     // required json fields
-    // id     -> control id
-    // addr   -> control addr
-    // type   -> control type
-    // volume -> current volume
-    // slew   -> current slew
-    // ro     -> read only, will skip overwrite if true
-    // change -> change json to new value after updating control
+    // uint8   id     -> control id
+    // uint16  addr   -> control addr
+    // uint8   type   -> control type
+    // float   volume -> current volume
+    // uint8   slew   -> current slew
+    // bool    ro     -> read only, will skip overwrite if true
+    // bool    change -> change json to new value after updating control
 
     uint8_t control_type = control["type"];
     if (control_type == DSP_CONTROL_VOLSLEW) { // check if control type is correct
@@ -100,12 +100,12 @@ void dsp_ctrl_mux(JsonObject control, uint8_t index) {
     // updates the value of a mux control
     
     // required json fields
-    // id      -> control id
-    // addr    -> control addr
-    // type    -> control type
-    // index   -> mux index
-    // ro     -> read only, will skip overwrite if true
-    // change -> change json to new value after updating control
+    // uint8   id      -> control id
+    // uint16  addr    -> control addr
+    // uint8   type    -> control type
+    // uint8   index   -> mux index
+    // bool    ro     -> read only, will skip overwrite if true
+    // bool    change -> change json to new value after updating control
 
     uint8_t control_type = control["type"];
     if (control_type == DSP_CONTROL_MUX) { // check if control type is correct
@@ -133,20 +133,20 @@ void dsp_ctrl_eq_second_order(JsonObject control, secondOrderEQ_t eq_param) {
     // updates the value of a second order eq control
     
     // required json fields
-    // id          -> control id
-    // addr        -> control addr
-    // type        -> control type
-    // Q           -> range 0-16 (for filter types parametric & peaking)
-    // S           -> Slope, range 0-12 (for filter types lowShelf & highShelf)
-    // bandwidth   -> Bandwidth in octaves (for filter types bandPass & bandStop)
-    // boost       -> Range +/-15 (dB)
-    // freq        -> Range 20-20000 (Hz)
-    // gain        -> Range +/-15 (dB)
-    // filter_type -> parameters::filterType::*
-    // phase       -> parameters::phase::*
-    // state       -> parameters::state::*
-    // ro          -> read only, will skip overwrite if true
-    // change      -> change json to new value after updating control
+    // uint8   id          -> control id
+    // uint16  addr        -> control addr
+    // uint8   type        -> control type
+    // float   Q           -> range 0-16 (for filter types parametric & peaking)
+    // float   S           -> Slope, range 0-12 (for filter types lowShelf & highShelf)
+    // float   bandwidth   -> Bandwidth in octaves (for filter types bandPass & bandStop)
+    // float   boost       -> Range +/-15 (dB)
+    // float   freq        -> Range 20-20000 (Hz)
+    // float   gain        -> Range +/-15 (dB)
+    // uint8   filter_type -> parameters::filterType::*
+    // uint8   phase       -> parameters::phase::*
+    // uint8   state       -> parameters::state::*
+    // bool    ro          -> read only, will skip overwrite if true
+    // bool    change      -> change json to new value after updating control
 
     uint8_t control_type = control["type"];
     if (control_type == DSP_CONTROL_EQ_SECOND_ORDER) { // check if control type is correct
