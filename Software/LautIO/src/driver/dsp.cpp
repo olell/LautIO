@@ -190,7 +190,6 @@ void dsp_ctrl_mute_dac(JsonObject control, bool mute) {
 
         bool read_only = control["ro"];
         if (!read_only) { // Do not update if readonly prop is true
-            uint8_t control_id = control["id"];
             log_debug("Setting DAC mute state to %s",
                 mute ? "mute" : "unmute");
 
@@ -219,7 +218,6 @@ void dsp_ctrl_mute_adc(JsonObject control, bool mute) {
 
         bool read_only = control["ro"];
         if (!read_only) { // Do not update if readonly prop is true
-            uint8_t control_id = control["id"];
             log_debug("Setting ADC mute state to %s",
                 mute ? "mute" : "unmute");
 
