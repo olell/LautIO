@@ -388,8 +388,35 @@ void dsp_ctrl_triangle_source(JsonObject control, float freq) {
     }
 }
 
-void dsp_ctrl_audio_delay(JsonObject control) {
-    // todo
+void dsp_ctrl_audio_delay(JsonObject control, float delay_ms) {
+    // updates the value of an audio delay control
+    
+    // required json fields
+    // uint8   id      -> control id
+    // uint16  addr    -> control addr
+    // uint8   type    -> control type
+    // float   delay   -> delay in ms
+    // bool    ro      -> read only, will skip overwrite if true
+    // bool    change  -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_AUDIO_DELAY) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            log_debug("Updating audio delay control %d @ %d to %f ms",
+                control_id, control_addr, delay_ms);
+
+            dsp.audioDelay(control_addr, delay_ms);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["dela"] = delay_ms;
+            
+        }
+    }
 }
 
 void dsp_ctrl_eq_first_order(JsonObject control) {
