@@ -417,8 +417,43 @@ void dsp_ctrl_audio_delay(JsonObject control, float delay_ms) {
     }
 }
 
-void dsp_ctrl_eq_first_order(JsonObject control) {
-    // todo
+void dsp_ctrl_eq_first_order(JsonObject control, firstOrderEQ_t eq_param) {
+    // updates the value of a first order eq control
+    
+    // required json fields
+    // uint8   id          -> control id
+    // uint16  addr        -> control addr
+    // uint8   type        -> control type
+    // float   freq        -> Range 20-20000 (Hz)
+    // float   gain        -> Range +/-15 (dB)
+    // uint8   filter_type -> parameters::filterType::*
+    // uint8   phase       -> parameters::phase::*
+    // uint8   state       -> parameters::state::*
+    // bool    ro          -> read only, will skip overwrite if true
+    // bool    change      -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_EQ_FIRST_ORDER) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            log_debug("Updating 1st order EQ %d @ %d",
+                control_id, control_addr);
+
+            dsp.EQfirstOrder(control_addr, eq_param);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["freq"] = eq_param.freq;
+            control["gain"] = eq_param.gain;
+            control["filter_type"] = eq_param.filterType;
+            control["phase"] = eq_param.phase;
+            control["state"] = eq_param.state;
+            
+        }
+    }
 }
 
 void dsp_ctrl_gain(JsonObject control) {
