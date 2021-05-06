@@ -233,8 +233,35 @@ void dsp_ctrl_mute_adc(JsonObject control, bool mute) {
     }
 }
 
-void dsp_ctrl_dc_source(JsonObject control) {
-    // todo
+void dsp_ctrl_dc_source(JsonObject control, float level) {
+    // updates the value of a dc source control
+    
+    // required json fields
+    // uint8   id      -> control id
+    // uint16  addr    -> control addr
+    // uint8   type    -> control type
+    // float   level   -> dc source level
+    // bool    ro      -> read only, will skip overwrite if true
+    // bool    change  -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_DC_SOURCE) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            log_debug("Updating DC control %d @ %d to %f",
+                control_id, control_addr, level);
+
+            dsp.dcSource(control_addr, level);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["level"] = level;
+            
+        }
+    }
 }
 
 void dsp_ctrl_sine_source(JsonObject control) {
