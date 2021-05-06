@@ -554,8 +554,37 @@ void dsp_ctrl_soft_clip(JsonObject control, float alpha) {
     }
 }
 
-void dsp_ctrl_hard_clip(JsonObject control) {
-    // todo
+void dsp_ctrl_hard_clip(JsonObject control, float high_threshold, float low_threshold) {
+    // updates the value of a hard clip control
+    
+    // required json fields
+    // uint8   id             -> control id
+    // uint16  addr           -> control addr
+    // uint8   type           -> control type
+    // float   high_threshold -> high threshold (-1.0 ... 0.0)
+    // float   low_threshold  -> low threshold (0.0 ... 1.0)
+    // bool    ro             -> read only, will skip overwrite if true
+    // bool    change         -> change json to new value after updating control
+
+    uint8_t control_type = control["type"];
+    if (control_type == DSP_CONTROL_HARD_CLIP) { // check if control type is correct
+
+        bool read_only = control["ro"];
+        if (!read_only) { // Do not update if readonly prop is true
+            uint8_t control_id = control["id"];
+            uint16_t control_addr = control["addr"];
+            log_debug("Updating hard clip control %d @ %d to %f %f",
+                control_id, control_addr, low_threshold, high_threshold);
+
+            dsp.hardClip(control_addr, high_threshold, low_threshold);
+
+            // write changes to control object
+            // Change prop will be interpreted on write to some file
+            control["high_threshold"] = high_threshold;
+            control["low_threshold"] = low_threshold;
+            
+        }
+    }
 }
 
 void dsp_ctrl_compressor_RMS(JsonObject control) {
