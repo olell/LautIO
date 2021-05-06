@@ -411,7 +411,7 @@ void dsp_ctrl_audio_delay(JsonObject control, float delay_ms) {
 
             // write changes to control object
             // Change prop will be interpreted on write to some file
-            control["dela"] = delay_ms;
+            control["delay"] = delay_ms;
             
         }
     }
