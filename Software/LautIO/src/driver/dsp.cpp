@@ -265,7 +265,7 @@ void dsp_ctrl_dc_source(JsonObject control, float level) {
 }
 
 void dsp_ctrl_sine_source(JsonObject control, float freq) {
-    // updates the value of a dc source control
+    // updates the value of a sine source control
     
     // required json fields
     // uint8   id      -> control id
@@ -296,7 +296,7 @@ void dsp_ctrl_sine_source(JsonObject control, float freq) {
 }
 
 void dsp_ctrl_square_source(JsonObject control, float freq) {
-    // updates the value of a dc source control
+    // updates the value of a square source control
     
     // required json fields
     // uint8   id      -> control id
