@@ -11,10 +11,8 @@
 #include "AsyncWebSocket.h"
 #include "ArduinoJson.h"
 
-// http
-#include "websockets.h"
-
 // util
+#include "util/websockets.h"
 #include "util/log.h"
 
 AsyncWebSocket ws("/ws");
@@ -30,7 +28,6 @@ void handle_websocket_data(const char* message, AsyncWebSocketClient* client) {
 void on_websocket_event(AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type, void* arg, uint8_t* data, size_t len) {
     if (type == WS_EVT_CONNECT) {
         log_debug("New websocket connection received");
-        // todo
         client->text("{\"status\": \"ok\", \"message\": \"connection successfully established!\"}");
     }
     else if (type == WS_EVT_DATA) {

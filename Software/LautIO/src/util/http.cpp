@@ -10,11 +10,9 @@
 
 #include <ESPAsyncWebServer.h>
 
-// http
-#include "http.h"
-#include "websockets.h"
-
 // util
+#include "util/http.h"
+#include "util/websockets.h"
 #include "util/log.h"
 
 
