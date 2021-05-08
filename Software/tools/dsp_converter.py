@@ -259,7 +259,7 @@ def convert_file(filename, outdir):
                     alg_type = sigma_ctrl_type_names[t]
 
             if (alg_type >= 0):
-                base = ctrl_base_objects[alg_type]
+                base = dict(ctrl_base_objects[alg_type])
                 base["id"] = ctrl_id
                 base["name"] = mod["CellName"]
 
@@ -269,7 +269,7 @@ def convert_file(filename, outdir):
                 base["addr"] = mod_param["Address"]
 
                 controls["controls"].append(base)
-
+                
                 ctrl_id += 1
                 
 
