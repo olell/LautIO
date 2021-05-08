@@ -18,5 +18,10 @@
         "enable": true,
         "username": "lautio",
         "password": "lautio"
+    },
+
+    "dsp": {
+    	"default_firmware": "base",
+    	"fw_available": ["base"]
     }
 }
