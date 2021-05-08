@@ -222,6 +222,86 @@ DSP Control functions
 todo: currently in dev order, place later in meaningful order
 */
 
+void dsp_update_from_updated_json(JsonObject control) {
+    // wrapper to simplify the update of any control
+    uint8_t ctrl_type = control["type"];
+    if (ctrl_type == DSP_CONTROL_VOLSLEW) {
+        dsp_ctrl_volslew(control, (float) control["volume"], (uint8_t) control["slew"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_MUX) {
+        dsp_ctrl_mux(control, (uint8_t) control["index"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_EQ_SECOND_ORDER) {
+        secondOrderEQ_t param;
+        param.Q = (float) control["Q"];
+        param.S = (float) control["S"];
+        param.bandwidth = (float) control["bandwidth"];
+        param.freq = (float) control["freq"];
+        param.gain = (float) control["gain"];
+        param.filterType = (uint8_t) control["filter_type"];
+        param.phase = (uint8_t) control["phase"];
+        param.state = (uint8_t) control["state"];
+        dsp_ctrl_eq_second_order(control, param);
+    }
+    else if (ctrl_type = DSP_CONTROL_MUTE_DAC) {
+        dsp_ctrl_mute_dac(control, (bool) control["mute"]);
+    }
+    else if (ctrl_type = DSP_CONTROL_MUTE_ADC) {
+        dsp_ctrl_mute_adc(control, (bool) control["mute"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_DC_SOURCE) {
+        dsp_ctrl_dc_source(control, (float) control["level"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_SINE_SOURCE) {
+        dsp_ctrl_sine_source(control, (float) control["freq"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_SQUARE_SOURCE) {
+        dsp_ctrl_square_source(control, (float) control["freq"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_SAWTOOTH_SOURCE) {
+        dsp_ctrl_sawtooth_source(control, (float) control["freq"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_TRIANGLE_SOURCE) {
+        dsp_ctrl_triangle_source(control, (float) control["freq"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_AUDIO_DELAY) {
+        dsp_ctrl_audio_delay(control, (float) control["delay"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_EQ_FIRST_ORDER) {
+        firstOrderEQ_t param;
+        param.freq = (float) control["freq"];
+        param.gain = (float) control["gain"];
+        param.filterType = (uint8_t) control["filter_type"];
+        param.phase = (uint8_t) control["phase"];
+        param.state = (uint8_t) control["state"];
+        dsp_ctrl_eq_first_order(control, param);
+    }
+    else if (ctrl_type == DSP_CONTROL_GAIN) {
+        dsp_ctrl_gain(control, (float) control["gain"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_DEMUX) {
+        dsp_ctrl_demux(control, (uint8_t) control["index"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_SOFT_CLIP) {
+        dsp_ctrl_soft_clip(control, (float) control["alpha"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_HARD_CLIP) {
+        dsp_ctrl_hard_clip(control, (float) control["high_threshold"], (float) control["low_threshold"]);
+    }
+    else if (ctrl_type == DSP_CONTROL_COMPRESSOR_RMS) {
+        // todo
+    }
+    else if (ctrl_type == DSP_CONTROL_COMPRESSOR_PEAK) {
+        // todo
+    }
+    else if (ctrl_type == DSP_CONTROL_TONE_CONTROL) {
+        // todo
+    }
+    else if (ctrl_type == DSP_CONTROL_STATE_VARIABLE) {
+        // todo
+    }
+}
+
 void dsp_ctrl_volslew(JsonObject control, float volume, uint8_t slew) {
     // Updates the value of an volume/slew control
 
