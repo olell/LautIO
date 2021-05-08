@@ -51,6 +51,7 @@ sigma_ctrl_type_names = { # incomplete!
 
 ctrl_base_objects = { # incomplete!
     DSP_CONTROL_VOLSLEW: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_VOLSLEW,
@@ -60,6 +61,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_MUX: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_MUX,
@@ -68,6 +70,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_EQ_SECOND_ORDER: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_EQ_SECOND_ORDER,
@@ -96,6 +99,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_DC_SOURCE: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_DC_SOURCE,
@@ -104,6 +108,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_SINE_SOURCE: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_SINE_SOURCE,
@@ -112,6 +117,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_SQUARE_SOURCE: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_SQUARE_SOURCE,
@@ -120,6 +126,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_SAWTOOTH_SOURCE: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_SAWTOOTH_SOURCE,
@@ -128,6 +135,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_TRIANGLE_SOURCE: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_TRIANGLE_SOURCE,
@@ -136,6 +144,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_AUDIO_DELAY: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_AUDIO_DELAY,
@@ -144,6 +153,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_EQ_FIRST_ORDER: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_EQ_FIRST_ORDER,
@@ -156,6 +166,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_GAIN: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_GAIN,
@@ -165,6 +176,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_DEMUX: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_DEMUX,
@@ -174,6 +186,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_SOFT_CLIP: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_SOFT_CLIP,
@@ -182,6 +195,7 @@ ctrl_base_objects = { # incomplete!
         "change": False
     },
     DSP_CONTROL_HARD_CLIP: {
+        "name": "unknown",
         "id": 0,
         "addr": 0,
         "type": DSP_CONTROL_HARD_CLIP,
@@ -243,9 +257,11 @@ def convert_file(filename, outdir):
             for t in sigma_ctrl_type_names.keys():
                 if alg_name.startswith(t):
                     alg_type = sigma_ctrl_type_names[t]
+
             if (alg_type >= 0):
                 base = ctrl_base_objects[alg_type]
                 base["id"] = ctrl_id
+                base["name"] = mod["CellName"]
 
                 mod_param = mod["Algorithm"]["ModuleParameter"]
                 if (type(mod_param) == list):
@@ -262,7 +278,7 @@ def convert_file(filename, outdir):
 
     with open(os.path.join(outdir, "controls.json"), "w+") as target:
         json.dump(controls, target)
-        
+
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
