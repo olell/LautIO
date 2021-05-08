@@ -217,6 +217,14 @@ DynamicJsonDocument* get_controls_json() {
     return &dsp_controls;
 }
 
+JsonObject get_control_by_id(uint8_t ctrl_id) {
+    for (int i = 0; i < dsp_controls["controls"].size(); i ++) {
+        if ((uint8_t) dsp_controls["controls"][i]["id"] == ctrl_id) {
+            return dsp_controls["controls"][i];
+        }
+    }
+}
+
 /*
 DSP Control functions
 todo: currently in dev order, place later in meaningful order
@@ -246,10 +254,10 @@ void dsp_ctrl_volslew(JsonObject control, float volume, uint8_t slew) {
 
             dsp.volume_slew(control_addr, volume, slew);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["volume"] = volume;
-            control["slew"] = slew;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["volume"] = volume;
+            ctrl["slew"] = slew;
             
         }
     }
@@ -279,9 +287,9 @@ void dsp_ctrl_mux(JsonObject control, uint8_t index) {
 
             dsp.mux(control_addr, index);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["index"] = index;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["index"] = index;
             
         }
     }
@@ -319,17 +327,17 @@ void dsp_ctrl_eq_second_order(JsonObject control, secondOrderEQ_t eq_param) {
 
             dsp.EQsecondOrder(control_addr, eq_param);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["Q"] = eq_param.Q;
-            control["S"] = eq_param.S;
-            control["bandwidth"] = eq_param.bandwidth;
-            control["boost"] = eq_param.boost;
-            control["freq"] = eq_param.freq;
-            control["gain"] = eq_param.gain;
-            control["filter_type"] = eq_param.filterType;
-            control["phase"] = eq_param.phase;
-            control["state"] = eq_param.state;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["Q"] = eq_param.Q;
+            ctrl["S"] = eq_param.S;
+            ctrl["bandwidth"] = eq_param.bandwidth;
+            ctrl["boost"] = eq_param.boost;
+            ctrl["freq"] = eq_param.freq;
+            ctrl["gain"] = eq_param.gain;
+            ctrl["filter_type"] = eq_param.filterType;
+            ctrl["phase"] = eq_param.phase;
+            ctrl["state"] = eq_param.state;
             
         }
     }
@@ -355,9 +363,9 @@ void dsp_ctrl_mute_dac(JsonObject control, bool mute) {
 
             dsp.muteDAC(mute);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["mute"] = mute;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["mute"] = mute;
             
         }
     }
@@ -383,9 +391,9 @@ void dsp_ctrl_mute_adc(JsonObject control, bool mute) {
 
             dsp.muteADC(mute);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["mute"] = mute;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["mute"] = mute;
             
         }
     }
@@ -414,9 +422,9 @@ void dsp_ctrl_dc_source(JsonObject control, float level) {
 
             dsp.dcSource(control_addr, level);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["level"] = level;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["level"] = level;
             
         }
     }
@@ -445,9 +453,9 @@ void dsp_ctrl_sine_source(JsonObject control, float freq) {
 
             dsp.sineSource(control_addr, freq);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["freq"] = freq;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["freq"] = freq;
             
         }
     }
@@ -476,9 +484,9 @@ void dsp_ctrl_square_source(JsonObject control, float freq) {
 
             dsp.squareSource(control_addr, freq);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["freq"] = freq;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["freq"] = freq;
             
         }
     }
@@ -507,9 +515,9 @@ void dsp_ctrl_sawtooth_source(JsonObject control, float freq) {
 
             dsp.sawtoothSource(control_addr, freq);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["freq"] = freq;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["freq"] = freq;
             
         }
     }
@@ -538,9 +546,9 @@ void dsp_ctrl_triangle_source(JsonObject control, float freq) {
 
             dsp.triangleSource(control_addr, freq);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["freq"] = freq;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["freq"] = freq;
             
         }
     }
@@ -569,9 +577,9 @@ void dsp_ctrl_audio_delay(JsonObject control, float delay_ms) {
 
             dsp.audioDelay(control_addr, delay_ms);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["delay"] = delay_ms;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["delay"] = delay_ms;
             
         }
     }
@@ -604,13 +612,13 @@ void dsp_ctrl_eq_first_order(JsonObject control, firstOrderEQ_t eq_param) {
 
             dsp.EQfirstOrder(control_addr, eq_param);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["freq"] = eq_param.freq;
-            control["gain"] = eq_param.gain;
-            control["filter_type"] = eq_param.filterType;
-            control["phase"] = eq_param.phase;
-            control["state"] = eq_param.state;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["freq"] = eq_param.freq;
+            ctrl["gain"] = eq_param.gain;
+            ctrl["filter_type"] = eq_param.filterType;
+            ctrl["phase"] = eq_param.phase;
+            ctrl["state"] = eq_param.state;
             
         }
     }
@@ -641,9 +649,9 @@ void dsp_ctrl_gain(JsonObject control, float gain) {
 
             dsp.gain(control_addr, gain, channels);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["gain"] = gain;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["gain"] = gain;
             
         }
     }
@@ -674,9 +682,9 @@ void dsp_ctrl_demux(JsonObject control, uint8_t index) {
 
             dsp.demux(control_addr, index, num_idx);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["index"] = index;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["index"] = index;
             
         }
     }
@@ -706,9 +714,9 @@ void dsp_ctrl_soft_clip(JsonObject control, float alpha) {
 
             dsp.softClip(control_addr, alpha);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["alpha"] = alpha;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["alpha"] = alpha;
             
         }
     }
@@ -738,10 +746,10 @@ void dsp_ctrl_hard_clip(JsonObject control, float high_threshold, float low_thre
 
             dsp.hardClip(control_addr, high_threshold, low_threshold);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["high_threshold"] = high_threshold;
-            control["low_threshold"] = low_threshold;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["high_threshold"] = high_threshold;
+            ctrl["low_threshold"] = low_threshold;
             
         }
     }
@@ -775,14 +783,14 @@ void dsp_ctrl_compressor_RMS(JsonObject control, compressor_t compressor_param) 
 
             dsp.compressorRMS(control_addr, compressor_param);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["threshold"] = compressor_param.threshold;
-            control["ratio"] = compressor_param.ratio;
-            control["attack"] = compressor_param.attack;
-            control["hold"] = compressor_param.hold;
-            control["decay"] = compressor_param.decayMs;
-            control["postgain"] = compressor_param.postgain;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["threshold"] = compressor_param.threshold;
+            ctrl["ratio"] = compressor_param.ratio;
+            ctrl["attack"] = compressor_param.attack;
+            ctrl["hold"] = compressor_param.hold;
+            ctrl["decay"] = compressor_param.decayMs;
+            ctrl["postgain"] = compressor_param.postgain;
             
         }
     }
@@ -816,14 +824,14 @@ void dsp_ctrl_compressor_peak(JsonObject control, compressor_t compressor_param)
 
             dsp.compressorPeak(control_addr, compressor_param);
 
-            // write changes to control object
-            // Change prop will be interpreted on write to some file
-            control["threshold"] = compressor_param.threshold;
-            control["ratio"] = compressor_param.ratio;
-            control["attack"] = compressor_param.attack;
-            control["hold"] = compressor_param.hold;
-            control["decay"] = compressor_param.decayMs;
-            control["postgain"] = compressor_param.postgain;
+            // write changes to local control object
+            JsonObject ctrl = get_control_by_id(control["id"]);
+            ctrl["threshold"] = compressor_param.threshold;
+            ctrl["ratio"] = compressor_param.ratio;
+            ctrl["attack"] = compressor_param.attack;
+            ctrl["hold"] = compressor_param.hold;
+            ctrl["decay"] = compressor_param.decayMs;
+            ctrl["postgain"] = compressor_param.postgain;
             
         }
     }
