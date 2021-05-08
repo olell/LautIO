@@ -22,6 +22,18 @@
 #include "driver/dsp.h"
 #include "driver/filesystem.h" // to load firmware from fs
 
+// dsp register size / addr vars
+uint16_t cr0_size, cr0_addr;
+uint16_t cr4_size, cr4_addr;
+uint16_t program_size, program_addr;
+uint16_t param_size, param_addr;
+uint16_t hwconf_size, hwconf_addr;
+
+uint8_t* cr0_data;
+uint8_t* cr4_data;
+uint8_t* program_data;
+uint8_t* param_data;
+uint8_t* hwconf_data;
 
 SigmaDSP dsp(Wire, DSP_I2C_ADDRESS, 48000.00f, DSP_RESET_PIN);
 
@@ -45,7 +57,10 @@ void init_dsp() {
         ESP.deepSleep(0); // Put into deepsleep, basically halt
     }
 
-    dsp_load_firmware();
+    // load data from default firmware
+    dsp_load_data((const char*) Configuration::section("dsp")["default_firmware"]);
+    // upload dsp firmware
+    dsp_upload_firmware();
 }
 
 bool dsp_ping() {
@@ -53,8 +68,126 @@ bool dsp_ping() {
     return dsp.ping() == 0;
 }
 
-void dsp_load_firmware() {
+void dsp_load_data(const char* dirname) {
+    log_info("Loading dsp data from directory %s", dirname);
+
+    // loading sizes and addresses from register.json file
+    char file_path[32]; // will be reused
+    sprintf(file_path, "/dsp/%s/registers.json", dirname);
+    File reg_file = FSHANDLE.open(file_path);
+    StaticJsonDocument<512> register_json;
+    DeserializationError e = deserializeJson(register_json, reg_file);
+    if (e) {
+        log_fatal("Failed to load registers.json from dsp firmware!");
+        log_fatal(": %s", e.c_str());
+        ESP.deepSleep(0);
+    }
+    cr0_addr = register_json["cr0"][0];
+    cr0_size = register_json["cr0"][1];
+    cr4_addr = register_json["cr4"][0];
+    cr4_size = register_json["cr4"][1];
+    param_addr = register_json["param"][0];
+    param_size = register_json["param"][1];
+    hwconf_addr = register_json["hwconf"][0];
+    hwconf_size = register_json["hwconf"][1];
+    program_addr = register_json["program"][0];
+    program_size = register_json["program"][1];
+
+    // free unused data
+    reg_file.close();
+    register_json.clear();
+    
+    log_debug("Loaded register size/addr file");
+    log_debug("| REGISTER | ADDR | SIZE |");
+    log_debug("|----------|------|------|");
+    log_debug("|      CR0 | %4d | %4d |", cr0_addr, cr0_size);
+    log_debug("|      CR4 | %4d | %4d |", cr4_addr, cr4_size);
+    log_debug("|   HWCONF | %4d | %4d |", hwconf_addr, hwconf_size);
+    log_debug("|    PARAM | %4d | %4d |", param_addr, param_size);
+    log_debug("|  PROGRAM | %4d | %4d |", program_addr, program_size);
+
+    // load register data from seperate files
+
+    // allocate memory
+    cr0_data = (uint8_t*) malloc(cr0_size);
+    cr4_data = (uint8_t*) malloc(cr4_size);
+    param_data = (uint8_t*) malloc(param_size);
+    hwconf_data = (uint8_t*) malloc(hwconf_size);
+    program_data = (uint8_t*) malloc(program_size);
+
+    log_debug("Allocated memory for dsp firmware");
+
+    // load program file
+    sprintf(file_path, "/dsp/%s/program.bin", dirname);
+    File program_file = FSHANDLE.open(file_path);
+    uint16_t addr = 0;
+    while(program_file.available()) {
+        program_data[addr] = program_file.read();
+        addr ++;
+    }
+    log_debug("Loaded program data");
+    program_file.close();
+
+    // load param file
+    sprintf(file_path, "/dsp/%s/param.bin", dirname);
+    File param_file = FSHANDLE.open(file_path);
+    addr = 0;
+    while(param_file.available()) {
+        param_data[addr] = param_file.read();
+        addr ++;
+    }
+    log_debug("Loaded param data");
+    param_file.close();
+
+    // load cr0 file
+    sprintf(file_path, "/dsp/%s/cr0.bin", dirname);
+    File cr0_file = FSHANDLE.open(file_path);
+    addr = 0;
+    while(cr0_file.available()) {
+        cr0_data[addr] = cr0_file.read();
+        addr ++;
+    }
+    log_debug("Loaded cr0 data");
+    cr0_file.close();
+
+    // load cr4 file
+    sprintf(file_path, "/dsp/%s/cr4.bin", dirname);
+    File cr4_file = FSHANDLE.open(file_path);
+    addr = 0;
+    while(cr4_file.available()) {
+        cr4_data[addr] = cr4_file.read();
+        addr ++;
+    }
+    log_debug("Loaded cr4 data");
+    cr4_file.close();
+
+    // load hwconf file
+    sprintf(file_path, "/dsp/%s/hwconf.bin", dirname);
+    File hwconf_file = FSHANDLE.open(file_path);
+    addr = 0;
+    while(hwconf_file.available()) {
+        hwconf_data[addr] = hwconf_file.read();
+        addr ++;
+    }
+    log_debug("Loaded hwconf data");
+    hwconf_file.close();
+
+}
+
+void dsp_upload_firmware() {
     // upload firmware to dsp
+    log_info("Uploading firmware to dsp");
+    dsp.writeRegister(cr0_addr, cr0_size, cr0_data);
+    log_debug("Uploaded CR0 data");
+    dsp.writeRegisterBlock(program_addr, program_size, program_data, PROGRAM_REGSIZE);
+    log_debug("Uploaded PROGRAM data");
+    dsp.writeRegisterBlock(param_addr, param_size, param_data, PARAM_REGSIZE);
+    log_debug("Uplaoded PARAM data");
+    dsp.writeRegister(hwconf_addr, hwconf_size, hwconf_data);
+    log_debug("Uploaded HWCONF data");
+    dsp.writeRegister(cr4_addr, cr4_size, cr4_data);
+    log_debug("Uploaded CR4 data, all done!");
+    log_info("Uploaded data!");
 }
 
 /*

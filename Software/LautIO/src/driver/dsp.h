@@ -32,6 +32,11 @@
 #define DSP_CONTROL_MUTE_ADC        18
 #define DSP_CONTROL_MUTE_DAC        19
 
+#define PROGRAM_REGSIZE 5
+#define PARAM_REGSIZE 4
+
 void init_dsp();
 bool dsp_ping();
-void dsp_load_firmware();
+
+void dsp_load_data(const char* dirname);
+void dsp_upload_firmware();
