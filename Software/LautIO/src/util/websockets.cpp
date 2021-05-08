@@ -14,15 +14,24 @@
 // util
 #include "util/websockets.h"
 #include "util/log.h"
+#include "util/interfaces/interfaces.h"
 
 AsyncWebSocket ws("/ws");
 unsigned long ws_last_cleanup_millis = 0;
 
 void handle_websocket_data(const char* message, AsyncWebSocketClient* client) {
     /* This method handles all incoming websocket data (on websocket 0.0.0.0/ws) */
+    log_debug("Handling websocket data");
     DynamicJsonDocument json_document(1024);
-    deserializeJson(json_document, message);
-    // todo
+    log_debug("Created json doc");
+    DeserializationError e = deserializeJson(json_document, message);
+    if (e) {
+        log_debug("Websocket json parsing error %s!", e.c_str());
+        client->text("JSON Error!");
+        return;
+    }
+    log_debug("parsed json");
+    client->text(handle_interfaces(json_document));
 }
 
 void on_websocket_event(AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type, void* arg, uint8_t* data, size_t len) {

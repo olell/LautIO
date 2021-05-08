@@ -14,6 +14,8 @@
 #include "util/log.h"
 #include "util/config.h"
 #include "util/ftp.h"
+#include "util/http.h"
+#include "util/websockets.h"
 
 // drivers
 #include "driver/amp.h"
@@ -21,10 +23,6 @@
 #include "driver/wifi.h"
 #include "driver/battery.h"
 #include "driver/dsp.h"
-
-// http
-#include "http/http.h"
-#include "http/websockets.h"
 
 void setup() {
 
