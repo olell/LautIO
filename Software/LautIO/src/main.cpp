@@ -22,6 +22,10 @@
 #include "driver/battery.h"
 #include "driver/dsp.h"
 
+// http
+#include "http/http.h"
+#include "http/websockets.h"
+
 void setup() {
 
     // System setup, starting with logging
@@ -34,9 +38,11 @@ void setup() {
     init_battery();
     init_ftp_server();
     init_dsp();
+    init_http(); // inits http & websockets
 }
 
 void loop() {
     // Try to do the most thing async.. but repeating stuff here
     ftp_server_loop();
+    websocket_loop();
 }
