@@ -37,6 +37,8 @@ uint8_t* hwconf_data;
 
 SigmaDSP dsp(Wire, DSP_I2C_ADDRESS, 48000.00f, DSP_RESET_PIN);
 
+DynamicJsonDocument dsp_controls(2048); // maybe to small..
+
 void init_dsp() {
     // initialise dsp
     log_info("Initialising DSP");
@@ -57,11 +59,10 @@ void init_dsp() {
         ESP.deepSleep(0); // Put into deepsleep, basically halt
     }
 
-    // load data from default firmware
-    dsp_load_data((const char*) Configuration::section("dsp")["default_firmware"]);
-    // upload dsp firmware
-    dsp_upload_firmware();
+    dsp_change_firmware((const char*) Configuration::section("dsp")["default_firmware"]);
+
 }
+
 
 bool dsp_ping() {
     // Ping one time and get success status
@@ -188,6 +189,32 @@ void dsp_upload_firmware() {
     dsp.writeRegister(cr4_addr, cr4_size, cr4_data);
     log_debug("Uploaded CR4 data, all done!");
     log_info("Uploaded data!");
+}
+
+void dsp_load_controls(const char* dirname) {
+    log_info("Loading dsp controls");
+    char filename[32];
+    sprintf(filename, "/dsp/%s/controls.json", dirname);
+    File controls_file = FSHANDLE.open(filename);
+    DeserializationError e = deserializeJson(dsp_controls, controls_file);
+    if (e) {
+        log_fatal("Failed to load controls.. dsp controls will not be available!");
+        log_debug("Fail reason: %s", e.c_str());
+    }
+    log_debug("loaded controls. %d controls found!", dsp_controls["controls"].size());
+}
+
+void dsp_change_firmware(const char* firmware_name) {
+    // load data from default firmware
+    dsp_load_data(firmware_name);
+    // upload dsp firmware
+    dsp_upload_firmware();
+    // loading dsp controls
+    dsp_load_controls(firmware_name);    
+}
+
+DynamicJsonDocument* get_controls_json() {
+    return &dsp_controls;
 }
 
 /*

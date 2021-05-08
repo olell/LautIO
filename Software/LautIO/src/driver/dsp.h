@@ -38,5 +38,5 @@
 void init_dsp();
 bool dsp_ping();
 
-void dsp_load_data(const char* dirname);
-void dsp_upload_firmware();
+void dsp_change_firmware(const char* firmware_name);
+DynamicJsonDocument* get_controls_json();
