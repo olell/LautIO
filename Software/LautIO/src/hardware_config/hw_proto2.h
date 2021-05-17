@@ -21,7 +21,7 @@
 // Amp CD Controls
 #define AMP_CD_OTW         19
 #define AMP_CD_FAULT       23
-#define AMP_CD_RESET       33
+#define AMP_CD_RESET       27
 
 // Battery
 #define VBAT_MEASURE       35
