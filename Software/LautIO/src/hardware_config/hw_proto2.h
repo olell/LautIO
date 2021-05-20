@@ -30,6 +30,9 @@
 #define DSP_RESET_PIN      25
 #define DSP_I2C_ADDRESS    0x34 //(0x68 >> 1) & 0xFE (7-Bit addr)
 
+// LED
+#define SYS_LED_PIN        17
+
 // Microcontroller is not wired via i2s to dsp
 #define HARDWARE_NO_I2S
 

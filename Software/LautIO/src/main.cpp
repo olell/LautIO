@@ -26,6 +26,9 @@
 
 void setup() {
 
+    // Pin Modes for stuff without dedicated driver
+    pinMode(SYS_LED_PIN, OUTPUT);
+
     // System setup, starting with logging
     init_logging();
     log_info("Starting system setup!");
