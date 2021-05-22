@@ -22,7 +22,7 @@ const char* system_interface_handler(DynamicJsonDocument input) {
         ESP.restart();
         return "{\"status\": \"ok\", \"message\": \"done!\", \"cmd\": \"system_restart\"}"; // not actually required
     }
-    if (strcmp(command, "log") == 0) {
+    else if (strcmp(command, "log") == 0) {
         const char* msg = input["msg"];
         const char* level = input["level"];
         if (strcmp(level, "debug") == 0)
@@ -37,10 +37,13 @@ const char* system_interface_handler(DynamicJsonDocument input) {
             log_fatal("EXT: %s", msg);
         return "{\"status\": \"ok\", \"message\": \"done!\", \"cmd\": \"system_log\"}";
     }
-    if (strcmp(command, "led") == 0) {
+    else if (strcmp(command, "led") == 0) {
         uint8_t state = input["state"];
         digitalWrite(SYS_LED_PIN, state);
         return "{\"status\": \"ok\", \"message\": \"done!\", \"cmd\": \"system_led\"}";
+    }
+    else if (strcmp(command, "test_connection") == 0) {
+        return "{\"status\": \"ok\", \"cmd\": \"system_test_connection\"}";
     }
     else {
         return "";
