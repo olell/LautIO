@@ -36,7 +36,7 @@ const char* dsp_interface_handler(DynamicJsonDocument input) {
     if (strcmp(command, "get_controls") == 0) {
         return _dsp_get_controls();
     }
-    if (strcmp(command, "update_control") == 0) {
+    else if (strcmp(command, "update_control") == 0) {
         return _dsp_update_control(input);
     }
     else {

@@ -50,7 +50,7 @@ const char* config_interface_handler(DynamicJsonDocument input) {
     if (strcmp(command, "get_section") == 0) {
         return _config_get_section(input); // returns selected section content
     }
-    if (strcmp(command, "update_field") == 0) {
+    else if (strcmp(command, "update_field") == 0) {
         return _config_update_field(input);
     }
     else {
