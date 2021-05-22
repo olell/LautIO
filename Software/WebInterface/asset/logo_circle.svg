@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60mm"
+   height="60mm"
+   viewBox="0 0 60 60"
+   version="1.1"
+   id="svg866"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="logo_circle.svg">
+  <defs
+     id="defs860" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.2918748"
+     inkscape:cx="92.634807"
+     inkscape:cy="235.20054"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1004"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata863">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-75.833333,-118.16666)">
+    <g
+       id="g1472"
+       transform="translate(55.833333,108.75)">
+      <circle
+         style="fill:#000000;stroke-width:0.1;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+         id="path952"
+         cx="50"
+         cy="39.416664"
+         r="30" />
+      <g
+         id="g1103"
+         transform="matrix(1.3043478,0,0,1.3043478,-15.21739,-25.800724)">
+        <circle
+           style="fill:#ffffff;fill-opacity:0.367834;stroke:none;stroke-width:9.99998;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+           id="path835-6"
+           cx="50"
+           cy="50"
+           r="10" />
+        <circle
+           style="fill:#ffffff;fill-opacity:0.367834;stroke:none;stroke-width:23;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+           id="path835-6-7-5-2-9"
+           cx="50"
+           cy="50"
+           r="23" />
+        <circle
+           style="fill:#ffffff;fill-opacity:0.367834;stroke:none;stroke-width:12.5;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+           id="path835-6-7"
+           cx="50"
+           cy="50"
+           r="12.5" />
+        <circle
+           style="fill:#ffffff;fill-opacity:0.367834;stroke:none;stroke-width:15.5;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+           id="path835-6-7-5"
+           cx="50"
+           cy="50"
+           r="15.5" />
+        <circle
+           style="fill:#ffffff;fill-opacity:0.367834;stroke:none;stroke-width:19;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+           id="path835-6-7-5-2"
+           cx="50"
+           cy="50"
+           r="19" />
+        <path
+           id="rect999-1"
+           style="fill:#f32b00;fill-opacity:0.367834;stroke:none;stroke-width:2.94838;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+           d="m 49.966151,27.000111 a 23,23 0 0 0 -22.966039,23.000147 23,23 0 0 0 0,0.03411 23,23 0 0 0 23.000146,22.965524 V 27.000111 Z" />
+        <path
+           id="rect999"
+           style="fill:#ff7e11;fill-opacity:0.367834;stroke:none;stroke-width:2.94838;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+           d="m 50.000258,27.000111 v 45.999778 h 0.03411 a 23,23 0 0 0 22.965524,-22.999631 23,23 0 0 0 0,-0.03462 23,23 0 0 0 -22.99963,-22.965524 z" />
+        <circle
+           style="fill:#ffffff;fill-opacity:0.367834;stroke:none;stroke-width:4.99999;stroke-linecap:round;paint-order:stroke fill markers;stop-color:#000000"
+           id="path835"
+           cx="50"
+           cy="50"
+           r="5" />
+      </g>
+    </g>
+  </g>
+</svg>

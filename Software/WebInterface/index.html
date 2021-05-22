@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>LautIO</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
+    <link rel="shortcut icon" type="image/png" href="/asset/icon.png">
+</head>
+<body>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <img class="loading-logo" src="/asset/logo.svg" alt="">
+        <div class="loading-message">
+            <span id="loading_msg">Connecting to device</span>
+            <div class="loadot loading-dots">
+                <span>.</span><span>.</span><span>.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-light bg-light">
+        <span class="navbar-brand mb-0 h1">
+            <img src="/asset/logo_text.svg" width="150" height="30" alt="" style="filter: invert(100%)">
+        </span>
+        <div class="quick-onoff me-4">
+            <img src="/asset/off.svg" class="p-1" width="45" height="45">
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item d-grid gap-2 p-1">
+                            <button class="btn btn-lg btn-secondary" type="button">Overview</button> <!-- active -->
+                        </li>
+                        <li class="nav-item d-grid gap-2 p-1">
+                            <button class="btn btn-lg btn-outline-light" type="button">Controls</button>
+                        </li>
+                        <li class="nav-item d-grid gap-2 p-1">
+                            <button class="btn btn-lg btn-outline-light" type="button">Settings</button>
+                        </li>
+                        <li class="nav-item d-grid gap-2 p-1">
+                            <button class="btn btn-lg btn-outline-light" type="button">Status</button>
+                        </li>
+                        <li class="nav-item d-grid p-1 fixed-bottom">
+                            <h4>About</h4>
+                            <span>
+                                LautIO vXYZ<br>
+                                olel 2021<br>
+                                <a href="https://github.com/olell/LautIO">Star on Github</a><br>
+                            </span>
+                            <span class="mt-4 float-end" id="connection_state">
+                                Not Connected!
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main role="main" id="main_container" class="main-container col-md-10 mt-4">
+
+            </main>
+        </div>
+    </div>
+
+    
+    <script src='/js/jquery-3.6.0.min.js'></script>
+    <script src='/js/tinytemplate.min.js'></script>
+    <script src='/js/lautio.js'></script>
+    <script src='/js/main.js'></script>
+
+    <script>
+        device_addr = "192.168.0.123"; // for dev
+        $(document).ready(startup);
+    </script>
+
+</body>
+</html>

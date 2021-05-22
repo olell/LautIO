@@ -1,0 +1,58 @@
+.loading-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: $body-bg;
+    z-index: 10000; // above everything else    
+}
+
+.loading-logo {
+    width: 20vw;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-message {
+    position: absolute;
+    top: 70%;
+    width: 100vw;
+    font-size: 2vw;
+    text-align: center;
+}
+
+.loading-dots {
+    font-size: 2.75vw;
+}
+
+// Loadot animation (...)
+
+@keyframes loadot {
+    0% {
+      opacity: .2;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: .2;
+    }
+}
+
+.loadot span {
+    animation-name: loadot;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.loadot span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.loadot span:nth-child(3) {
+    animation-delay: .4s;
+}
