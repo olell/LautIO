@@ -12,7 +12,13 @@ Mobile PA-System solution
 
 ## Third party resources
 This git repository contains links or files of the following projects:
+* `Bootstrap 5` released under the MIT license. (c) 2021 Twitter
+* `Bootswach` released under the MIT license. (c) 2021 Thomas Park
+* `jQuery 3.6.0` released under the MIT license. (c) 2021 OpenJS Foundation
 * `PlatformIO` released under the Apache 2.0 license. (c) 2021 PlatformIO
+* `ESPAsyncTCP` released under the GNU LGPL license. (c) 2021 https://github.com/me-no-dev
+* `ESPAsyncWebServer` released under the GNU LGPL license. (c) 2021 https://github.com/me-no-dev
+* `SigmaDSP library` released under the GNU LGPL license. (c) 2021 https://github.com/MCUdude
 * `ArduinoJson library` released under the MIT license. (c) 2021 Benoît Blanchon
 
 ## License
