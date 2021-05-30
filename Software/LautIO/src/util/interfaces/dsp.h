@@ -25,7 +25,7 @@ const char* _dsp_get_controls() {
 }
 
 const char* _dsp_update_control(DynamicJsonDocument input) {
-    dsp_update_from_updated_json(input["control"].as<JsonObject>());
+    dsp_update_from_updated_json(input["control"]);
     return "{\"status\": \"ok\", \"message\": \"done!\", \"cmd\": \"dsp_update_control\"}";
 }
 
