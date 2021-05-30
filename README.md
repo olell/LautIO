@@ -10,6 +10,9 @@ Mobile PA-System solution
 - [x] USB Ports to charge mobile phones, etc.
 - [x] SD Card socket
 
+## Fancy Rendering
+![LautIO Rendering](Hardware/ProtoV2/case/case_rendering_front.jpeg)
+
 ## Third party resources
 This git repository contains links or files of the following projects:
 * `Bootstrap 5` released under the MIT license. (c) 2021 Twitter
