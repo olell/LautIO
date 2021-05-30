@@ -4,6 +4,10 @@
     <meta charset='utf-8'>
     <title>LautIO</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="/asset/app_icon.png">
+    <link rel="manifest" href="/manifest.json">
     <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>
     <link rel="shortcut icon" type="image/png" href="/asset/icon.png">
 </head>
@@ -21,33 +25,40 @@
     </div>
 
     <!-- Top Navbar -->
-    <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">
-            <img src="/asset/logo_text.svg" width="150" height="30" alt="" style="filter: invert(100%)">
-        </span>
-        <div class="quick-onoff me-4">
-            <img src="/asset/off.svg" class="p-1" width="45" height="45">
+    <nav class="navbar navbar-expand-md navbar-light bg-primary sticky-top">
+        <div class="container-fluid bg-primary">
+            <span class="navbar-brand mb-0 h1">
+                <img src="/asset/logo_text.svg" width="150" height="30" alt="" style="filter: invert(100%)">
+            </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item d-grid gap-2 p-1">
+                        <button class="btn btn-lg btn-secondary" onclick="change_view(VIEW_OVERVIEW);" id="view_switch_overview" type="button">Overview</button> <!-- active -->
+                    </li>
+                    <li class="nav-item d-grid gap-2 p-1">
+                        <button class="btn btn-lg btn-outline-secondary" onclick="change_view(VIEW_CONTROLS);" id="view_switch_controls" type="button">Controls</button>
+                    </li>
+                    <li class="nav-item d-grid gap-2 p-1">
+                        <button class="btn btn-lg btn-outline-secondary" onclick="change_view(VIEW_SETTINGS);" id="view_switch_settings" type="button">Settings</button>
+                    </li>
+                    <li class="nav-item d-grid gap-2 p-1">
+                        <button class="btn btn-lg btn-outline-secondary" onclick="change_view(VIEW_STATUS);" id="view_switch_status" type="button">Status</button>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <!-- Sidebar -->
+    <!-- Sidebar
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
-                        <li class="nav-item d-grid gap-2 p-1">
-                            <button class="btn btn-lg btn-secondary" type="button">Overview</button> <!-- active -->
-                        </li>
-                        <li class="nav-item d-grid gap-2 p-1">
-                            <button class="btn btn-lg btn-outline-light" type="button">Controls</button>
-                        </li>
-                        <li class="nav-item d-grid gap-2 p-1">
-                            <button class="btn btn-lg btn-outline-light" type="button">Settings</button>
-                        </li>
-                        <li class="nav-item d-grid gap-2 p-1">
-                            <button class="btn btn-lg btn-outline-light" type="button">Status</button>
-                        </li>
+                        
                         <li class="nav-item d-grid p-1 fixed-bottom">
                             <h4>About</h4>
                             <span>
@@ -63,15 +74,17 @@
                 </div>
             </nav>
 
-            <!-- Main content -->
-            <main role="main" id="main_container" class="main-container col-md-10 mt-4">
-
-            </main>
+            
         </div>
-    </div>
+    </div> -->
 
     
+    <main role="main" id="main_container" class="main-container mt-4">
+                
+    </main>
+
     <script src='/js/jquery-3.6.0.min.js'></script>
+    <script src='/js/bootstrap.bundle.min.js'></script>
     <script src='/js/tinytemplate.min.js'></script>
     <script src='/js/lautio.js'></script>
     <script src='/js/main.js'></script>

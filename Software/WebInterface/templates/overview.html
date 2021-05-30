@@ -1,13 +1,29 @@
 <div class="container">
     <div class="row">
         <div class="col col-md-6">
-            <h3>Overview</h3>
-            <hr>
-            Amps is in reset state bla bla
+            <h3 class="mb-4">Overview</h3>
+            <!-- Amp AB -->
+            <div class="card border-primary mb-3">
+                <div class="card-header">Amp AB Status</div>
+                <div class="card-body">
+                    <h4 class="card-title">Amp AB is <span id="amp_ab_state">in reset state</span></h4>
+                    <p class="card-text">Overtemperature/Clipping: <span id="amp_ab_otw_clip_state">Yes</span> <br>Fault condition: <span id="amp_ab_fault_state">Yes</span></p>
+                    <button type="button" id="amp_ab_enable_button" onclick="amp_ab_en_toggler()" class="btn btn-outline-success">Enable </button>
+                </div>
+            </div>
+            <!-- Amp CD -->
+            <div class="card border-primary mb-3">
+                <div class="card-header">Amp CD Status</div>
+                <div class="card-body">
+                    <h4 class="card-title">Amp CD is <span id="amp_cd_state">in reset state</span></h4>
+                    <p class="card-text">Overtemperature/Clipping: <span id="amp_cd_otw_clip_state">Yes</span> <br>Fault condition: <span id="amp_cd_fault_state">Yes</span></p>
+                    <button type="button" id="amp_cd_enable_button" onclick="amp_cd_en_toggler()" class="btn btn-outline-success">Enable </button>
+                </div>
+            </div>
         </div>
         <div class="col col-md-6">
-            <h3>Quick Controls</h3>
-            <hr>
+            <h3 class="mb-4">Quick Controls</h3>
+            <div id="quick_controls"></div>
         </div>
     </div>
 </div>

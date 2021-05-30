@@ -8,6 +8,31 @@
  * 
  */
 
+var AMP_AB = "AB";
+var AMP_CD = "CD";
+
+// control type defs
+var DSP_CONTROL_VOLSLEW         =  0
+var DSP_CONTROL_MUX             =  1
+var DSP_CONTROL_EQ_SECOND_ORDER =  2
+var DSP_CONTROL_DC_SOURCE       =  3
+var DSP_CONTROL_SINE_SOURCE     =  4
+var DSP_CONTROL_SQUARE_SOURCE   =  5
+var DSP_CONTROL_SAWTOOTH_SOURCE =  6
+var DSP_CONTROL_TRIANGLE_SOURCE =  7
+var DSP_CONTROL_AUDIO_DELAY     =  8
+var DSP_CONTROL_EQ_FIRST_ORDER  =  9
+var DSP_CONTROL_GAIN            = 10
+var DSP_CONTROL_DEMUX           = 11
+var DSP_CONTROL_SOFT_CLIP       = 12
+var DSP_CONTROL_HARD_CLIP       = 13
+var DSP_CONTROL_COMPRESSOR_RMS  = 14
+var DSP_CONTROL_COMPRESSOR_PEAK = 15
+var DSP_CONTROL_TONE_CONTROL    = 16
+var DSP_CONTROL_STATE_VARIABLE  = 17
+var DSP_CONTROL_MUTE_ADC        = 18
+var DSP_CONTROL_MUTE_DAC        = 19
+
 class LautIO {
     constructor(address) {
         this.address = address;
@@ -24,6 +49,8 @@ class LautIO {
 
         this.amp_status = {"AB": undefined, "CD": undefined};
         this.updated_amp_status_callback = function() {};
+
+        this.led = false;
     }
 
     // getter/setter
@@ -87,6 +114,20 @@ class LautIO {
 
     update_amp_status() {
         this._send_lautio_command("amp", "get_status");
+    }
+
+    set_led_state(state) {
+        this.led = state;
+        this._send_lautio_command("system", "led", {"state": this.led})
+    }
+
+    set_amp_reset_state(amp, state) {
+        this._send_lautio_command("amp", "set_reset_state", {"amp": amp, "state": state})
+        setTimeout(this.update_amp_status.bind(this), 500);
+    }
+
+    update_control(control) {
+        this._send_lautio_command("dsp", "update_control", {"control": control})
     }
     
     // functions
