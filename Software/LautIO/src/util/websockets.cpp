@@ -15,6 +15,7 @@
 #include "util/websockets.h"
 #include "util/log.h"
 #include "util/interfaces/interfaces.h"
+#include "util/interfaces/com.h"
 
 AsyncWebSocket ws("/ws");
 unsigned long ws_last_cleanup_millis = 0;
@@ -40,9 +41,17 @@ void on_websocket_event(AsyncWebSocket* server, AsyncWebSocketClient* client, Aw
     }
 }
 
+void send_all_handler(DynamicJsonDocument data) {
+    size_t length = measureJson(data) + 1;
+    char* text = (char*) malloc(length);
+    serializeJson(data, text, length);
+    ws.textAll(text);
+}
+
 void init_websocket(AsyncWebServer* webserver) {
     ws.onEvent(on_websocket_event);
     webserver->addHandler(&ws);
+    register_send_all_handler(send_all_handler);
     log_debug("Added websocket handler to webserver!");
 }
 
