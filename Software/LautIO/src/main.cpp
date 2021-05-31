@@ -40,6 +40,9 @@ void setup() {
     init_ftp_server();
     init_dsp();
     init_http(); // inits http & websockets
+
+    float vbat = get_battery_voltage();
+    log_info("Current battery voltage %.02fV", vbat);
 }
 
 void loop() {
