@@ -21,5 +21,12 @@ void init_battery() {
 float get_battery_voltage() {
     // Get battery voltage in volts
     uint16_t adc_input = analogRead(VBAT_MEASURE);
-    return adc_input / 77.28301886792453;
+    float vin;
+    if (adc_input > 3000) {
+        vin = 0.0005 * adc_input + 1.0874;
+    }
+    else {
+        vin = 0.0008 * adc_input + 0.1372;
+    }
+    return vin * 16.0303;
 }
