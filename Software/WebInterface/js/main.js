@@ -287,7 +287,7 @@ function update_soeq(control) {
         $(`#${control.name}_bandwidth_container`).hide();
 
     }
-    else if (new_filter_type == 1) { // Low Pass
+    else if (new_filter_type == 4) { // Low Pass
         $(`#${control.name}_pill`).text(`Low Pass filter (${new_freq}Hz)`)
         gain = 0;
         boost = 0;
@@ -301,7 +301,7 @@ function update_soeq(control) {
         $(`#${control.name}_bandwidth_container`).hide();
 
     }
-    else if (new_filter_type == 2) { // High Pass
+    else if (new_filter_type == 5) { // High Pass
         $(`#${control.name}_pill`).text(`High Pass filter (${new_freq}Hz)`)
         gain = 0;
         boost = 0;
@@ -315,7 +315,7 @@ function update_soeq(control) {
         $(`#${control.name}_bandwidth_container`).hide();
 
     }
-    else if (new_filter_type == 3) { // Band Pass
+    else if (new_filter_type == 6) { // Band Pass
         $(`#${control.name}_pill`).text(`Band Pass filter (${new_freq}Hz ${new_gain}dB)`)
         boost = 0;
         q = 0;
