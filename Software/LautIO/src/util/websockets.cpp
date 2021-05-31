@@ -41,10 +41,7 @@ void on_websocket_event(AsyncWebSocket* server, AsyncWebSocketClient* client, Aw
     }
 }
 
-void send_all_handler(DynamicJsonDocument data) {
-    size_t length = measureJson(data) + 1;
-    char* text = (char*) malloc(length);
-    serializeJson(data, text, length);
+void send_all_handler(const char* text) {
     ws.textAll(text);
 }
 

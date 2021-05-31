@@ -10,6 +10,7 @@
 
 #pragma once
 
-using SendAllHandler = void (*) (DynamicJsonDocument);
+using SendAllHandler = void (*) (const char*);
 void send_all(DynamicJsonDocument data);
+void send_all(const char* text);
 void register_send_all_handler(SendAllHandler h);

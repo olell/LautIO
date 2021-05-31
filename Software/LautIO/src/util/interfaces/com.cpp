@@ -20,6 +20,13 @@ void register_send_all_handler(SendAllHandler h) {
 }
 
 void send_all(DynamicJsonDocument data) {
+    size_t length = measureJson(data) + 1;
+    char* text = (char*) malloc(length);
+    serializeJson(data, text, length);
+    send_all(text);
+}
+
+void send_all(const char* text) {
     for (int i = 0; i < handlers_count; i ++)
-        handlers[i](data);
+        handlers[i](text);
 }
