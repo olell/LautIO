@@ -19,10 +19,6 @@
 AsyncWebSocket ws("/ws");
 unsigned long ws_last_cleanup_millis = 0;
 
-void handle_websocket_data(const char* message, AsyncWebSocketClient* client) {
-    /* This method handles all incoming websocket data (on websocket 0.0.0.0/ws) */
-}
-
 void on_websocket_event(AsyncWebSocket* server, AsyncWebSocketClient* client, AwsEventType type, void* arg, uint8_t* data, size_t len) {
     if (type == WS_EVT_CONNECT) {
         log_debug("New websocket connection received");
