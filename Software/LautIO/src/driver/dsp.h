@@ -42,4 +42,4 @@ void dsp_change_firmware(const char* firmware_name);
 DynamicJsonDocument* get_controls_json();
 
 void dsp_update_from_updated_json(DynamicJsonDocument control);
-DynamicJsonDocument get_control_by_id(uint8_t ctrl_id);
+JsonObject get_control_by_id(uint8_t ctrl_id);

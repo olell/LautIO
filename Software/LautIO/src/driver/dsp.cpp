@@ -227,7 +227,7 @@ DynamicJsonDocument* get_controls_json() {
     return &dsp_controls;
 }
 
-DynamicJsonDocument get_control_by_id(uint8_t ctrl_id) {
+JsonObject get_control_by_id(uint8_t ctrl_id) {
     for (int i = 0; i < dsp_controls["controls"].size(); i ++) {
         if ((uint8_t) dsp_controls["controls"][i]["id"] == ctrl_id) {
             return dsp_controls["controls"][i];
@@ -265,7 +265,7 @@ void dsp_ctrl_volslew(DynamicJsonDocument control, float volume, uint8_t slew) {
             dsp.volume_slew(control_addr, volume, slew);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["volume"] = volume;
             ctrl["slew"] = slew;
             
@@ -298,7 +298,7 @@ void dsp_ctrl_mux(DynamicJsonDocument control, uint8_t index) {
             dsp.mux(control_addr, index);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["index"] = index;
             
         }
@@ -338,7 +338,7 @@ void dsp_ctrl_eq_second_order(DynamicJsonDocument control, secondOrderEQ_t &eq_p
             dsp.EQsecondOrder(control_addr, eq_param);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["Q"] = eq_param.Q;
             ctrl["S"] = eq_param.S;
             ctrl["bandwidth"] = eq_param.bandwidth;
@@ -373,7 +373,7 @@ void dsp_ctrl_mute_dac(DynamicJsonDocument control, bool mute) {
             dsp.muteDAC(mute);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["mute"] = mute;
             
         }
@@ -401,7 +401,7 @@ void dsp_ctrl_mute_adc(DynamicJsonDocument control, bool mute) {
             dsp.muteADC(mute);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["mute"] = mute;
             
         }
@@ -432,7 +432,7 @@ void dsp_ctrl_dc_source(DynamicJsonDocument control, float level) {
             dsp.dcSource(control_addr, level);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["level"] = level;
             
         }
@@ -463,7 +463,7 @@ void dsp_ctrl_sine_source(DynamicJsonDocument control, float freq) {
             dsp.sineSource(control_addr, freq);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["freq"] = freq;
             
         }
@@ -494,7 +494,7 @@ void dsp_ctrl_square_source(DynamicJsonDocument control, float freq) {
             dsp.squareSource(control_addr, freq);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["freq"] = freq;
             
         }
@@ -525,7 +525,7 @@ void dsp_ctrl_sawtooth_source(DynamicJsonDocument control, float freq) {
             dsp.sawtoothSource(control_addr, freq);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["freq"] = freq;
             
         }
@@ -556,7 +556,7 @@ void dsp_ctrl_triangle_source(DynamicJsonDocument control, float freq) {
             dsp.triangleSource(control_addr, freq);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["freq"] = freq;
             
         }
@@ -587,7 +587,7 @@ void dsp_ctrl_audio_delay(DynamicJsonDocument control, float delay_ms) {
             dsp.audioDelay(control_addr, delay_ms);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["delay"] = delay_ms;
             
         }
@@ -622,7 +622,7 @@ void dsp_ctrl_eq_first_order(DynamicJsonDocument control, firstOrderEQ_t eq_para
             dsp.EQfirstOrder(control_addr, eq_param);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["freq"] = eq_param.freq;
             ctrl["gain"] = eq_param.gain;
             ctrl["filter_type"] = eq_param.filterType;
@@ -659,7 +659,7 @@ void dsp_ctrl_gain(DynamicJsonDocument control, float gain) {
             dsp.gain(control_addr, gain, channels);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["gain"] = gain;
             
         }
@@ -692,7 +692,7 @@ void dsp_ctrl_demux(DynamicJsonDocument control, uint8_t index) {
             dsp.demux(control_addr, index, num_idx);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["index"] = index;
             
         }
@@ -724,7 +724,7 @@ void dsp_ctrl_soft_clip(DynamicJsonDocument control, float alpha) {
             dsp.softClip(control_addr, alpha);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["alpha"] = alpha;
             
         }
@@ -756,7 +756,7 @@ void dsp_ctrl_hard_clip(DynamicJsonDocument control, float high_threshold, float
             dsp.hardClip(control_addr, high_threshold, low_threshold);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["high_threshold"] = high_threshold;
             ctrl["low_threshold"] = low_threshold;
             
@@ -793,7 +793,7 @@ void dsp_ctrl_compressor_RMS(DynamicJsonDocument control, compressor_t compresso
             dsp.compressorRMS(control_addr, compressor_param);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["threshold"] = compressor_param.threshold;
             ctrl["ratio"] = compressor_param.ratio;
             ctrl["attack"] = compressor_param.attack;
@@ -834,7 +834,7 @@ void dsp_ctrl_compressor_peak(DynamicJsonDocument control, compressor_t compress
             dsp.compressorPeak(control_addr, compressor_param);
 
             // write changes to local control object
-            DynamicJsonDocument ctrl = get_control_by_id(control["id"]);
+            JsonObject ctrl = get_control_by_id(control["id"]);
             ctrl["threshold"] = compressor_param.threshold;
             ctrl["ratio"] = compressor_param.ratio;
             ctrl["attack"] = compressor_param.attack;
