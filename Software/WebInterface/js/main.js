@@ -151,14 +151,10 @@ function render_overview_view() {
 
         // quick controls (todo currently all controls)
         lautio.dsp_controls.filter(obj => obj.type == DSP_CONTROL_VOLSLEW).forEach(control => { // volslews
-            render_template("templates/controls/volslew.html", {"lautio": lautio, "control": control}, function(html) {
-                $("#quick_controls").html($("#quick_controls").html() + html);
-            })
+            render_volslew(control, "#quick_controls", true);
         });
         lautio.dsp_controls.filter(obj => obj.type == DSP_CONTROL_EQ_SECOND_ORDER).forEach(control => { // volslews
-            render_template("templates/controls/2nd_order_eq.html", {"lautio": lautio, "control": control}, function(html) {
-                $("#quick_controls").html($("#quick_controls").html() + html);
-            })
+            render_soeq(control, "#quick_controls", true);
         });
         
         update_overview_values();
@@ -252,12 +248,40 @@ function update_control(control_id) {
     }
 }
 
+function render_volslew(control, container, append) {
+    render_template("templates/controls/volslew.html", {"lautio": lautio, "control": control}, function(html) {
+        // put html to container
+        if (append)
+            $(container).html($(container).html() + html);
+        else
+            $(container).html(html);
+    })
+}
+
 function update_volslew(control) {
     var new_db_val = $(`#${control.name}_db_value`).val();
     var new_slew_val = $(`#${control.name}_slew_rate`).val();
     control.volume = new_db_val;
     control.slew = new_slew_val;
     lautio.update_control(control);
+}
+
+function render_soeq(control, container, append) {
+    render_template("templates/controls/2nd_order_eq.html", {"lautio": lautio, "control": control}, function(html) {
+        // put html to container
+        if (append)
+            $(container).html($(container).html() + html);
+        else
+            $(container).html(html);
+
+        // update select
+        $(`#${control.name}_filter_type`).val(control.filter_type);
+
+        // update checkboxes
+        $(`#${control.name}_state`).prop("checked", control.state);
+        $(`#${control.name}_phase`).prop("checked", control.phase);
+
+    })
 }
 
 function update_soeq(control) {
