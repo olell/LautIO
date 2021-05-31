@@ -34,7 +34,7 @@
             <label class="fw-bold form-label col-md-12" for="{control.name}_boost_value_range">Boost (dB)
             <div class="fw-normal d-flex justify-content-center">
                 <span class="me-2">-15dB</span>
-                <input type="range" oninput="update_control({control.id})" class="form-range" id="{control.name}_boost" min="-15" max="15" step="0.1">
+                <input type="range" oninput="update_control({control.id})" class="form-range" id="{control.name}_boost" value="{control.boost}" min="-15" max="15" step="0.1">
                 <span class="ms-2">15dB</span>
             </div>
             </label>
@@ -44,7 +44,7 @@
             <label class="fw-bold form-label col-md-12" for="{control.name}_gain">Gain (dB)
             <div class="fw-normal d-flex justify-content-center">
                 <span class="me-2">-15dB</span>
-                <input type="range" oninput="update_control({control.id})" class="form-range" id="{control.name}_gain" min="-15" max="15" step="0.1">
+                <input type="range" oninput="update_control({control.id})" class="form-range" id="{control.name}_gain" value="{control.gain}" min="-15" max="15" step="0.1">
                 <span class="ms-2">15dB</span>
             </div>
             </label>
@@ -52,23 +52,23 @@
         <div class="row mt-3">
             <div class="col col-md-6" id="{control.name}_frequency_container">
                 <label class="fw-bold" for="{control.name}_frequency">Frequency (Hz)
-                    <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_freq" min="20" max="20000" value="440">
+                    <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_freq" value="{control.freq}" min="20" max="20000">
                 </label>
             </div>
             <div class="col col-md-6" id="{control.name}_q_container">
                 <label class="fw-bold" for="{control.name}_q">Q
-                    <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_q" min="0" max="16" value="1.41" step="any">
+                    <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_q" value="{control.Q}" min="0" max="16" step="any">
                 </label>
             </div>
             
             <div class="col col-md-6" id="{control.name}_s_container">
                 <label class="fw-bold" for="{control.name}_s">S
-                    <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_s" min="0" max="2" value="0" step="any">
+                    <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_s" value="{control.S}" min="0" max="2" step="any">
                 </label>
             </div>
             <div class="col col-md-6" id="{control.name}_bandwidth_container">
                 <label class="fw-bold" for="{control.name}_bandwidth">Bandwidth (octaves)
-                    <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_bandwidth" min="0" max="11" value="0" step="any">
+                    <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_bandwidth" value="{control.bandwidth}" min="0" max="11" step="any">
                 </label>
             </div>
         </div>
