@@ -17,6 +17,10 @@
 #include "util/http.h"
 #include "util/websockets.h"
 
+// interfaces
+#include "util/interfaces/com.h"
+#include "util/interfaces/amp.h"
+
 // drivers
 #include "driver/amp.h"
 #include "driver/filesystem.h"
@@ -49,4 +53,9 @@ void loop() {
     // Try to do the most thing async.. but repeating stuff here
     ftp_server_loop();
     websocket_loop();
+
+    if (millis() % 3000) { // every three seconds -.. todo config
+        // Update amp status
+        send_all(amp_get_status());
+    }
 }
