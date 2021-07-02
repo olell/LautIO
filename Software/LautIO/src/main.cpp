@@ -53,9 +53,4 @@ void loop() {
     // Try to do the most thing async.. but repeating stuff here
     ftp_server_loop();
     websocket_loop();
-
-    if (millis() % 3000) { // every three seconds -.. todo config
-        // Update amp status
-        send_all(amp_get_status());
-    }
 }
