@@ -5,8 +5,9 @@
 #include "driver/amp.h"
 #include "util/log.h"
 
+DynamicJsonDocument amp_status(256);
+
 const char* amp_get_status() {
-    DynamicJsonDocument amp_status(256);
     amp_status["AB"]["reset_state"] = get_amp_reset_state(AMP_AB);
     amp_status["AB"]["otw_state"] = get_amp_otw_state(AMP_AB);
     amp_status["AB"]["fault_state"] = get_amp_fault_state(AMP_AB);
