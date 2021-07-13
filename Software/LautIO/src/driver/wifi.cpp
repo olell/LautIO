@@ -39,7 +39,13 @@ bool wifi_connect_to_network() {
 
     log_info("Starting to connect to WiFi network: %s", ssid);
     WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, pass);
+
+    if (strcmp(pass, "") == 0) { // no wifi password
+        WiFi.begin(ssid);
+    }
+    else {
+        WiFi.begin(ssid, pass);
+    }
 
     unsigned long connection_start_time = millis();
     unsigned long t_now = 0;
