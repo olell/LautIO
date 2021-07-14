@@ -44,10 +44,10 @@ void load_ui_config() {
     ui_config_loaded = true;
 }
 
-const char* ui_get_quick_controls() {
+const char* ui_get_config() {
     if (!ui_config_loaded) load_ui_config();
     DynamicJsonDocument response_json(512);
-    response_json["controls"] = ui_config["quick_controls"];
+    response_json["config"] = ui_config;
     response_json["cmd"] = "ui_quick_controls";
     const uint8_t l = measureJson(response_json);
     char* response = (char*) malloc(l + 1);
@@ -59,8 +59,8 @@ const char* ui_interface_handler(DynamicJsonDocument input) {
     // handle interface commands with section ui
     log_debug("Handling UI command");
     const char* command = input["command"];
-    if (strcmp(command, "get_quick_controls") == 0) {
-        return ui_get_quick_controls();
+    if (strcmp(command, "get_ui_config") == 0) {
+        return ui_get_config();
     }
     else if (strcmp(command, "add_quick_control") == 0) {
         return "";
