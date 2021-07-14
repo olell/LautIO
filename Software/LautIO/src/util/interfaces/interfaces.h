@@ -15,6 +15,7 @@
 #include "util/interfaces/amp.h"
 #include "util/interfaces/config.h"
 #include "util/interfaces/system.h"
+#include "util/interfaces/ui.h"
 
 const char* handle_interfaces(DynamicJsonDocument input) {
     const char* category = input["category"];
@@ -29,6 +30,9 @@ const char* handle_interfaces(DynamicJsonDocument input) {
     }
     else if (strcmp(category, "system") == 0) {
         return system_interface_handler(input);
+    }
+    else if (strcmp(category, "ui") == 0) {
+        return ui_interface_handler(input);
     }
     else {
         return "";
