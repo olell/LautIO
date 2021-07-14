@@ -48,7 +48,7 @@ const char* ui_get_config() {
     if (!ui_config_loaded) load_ui_config();
     DynamicJsonDocument response_json(512);
     response_json["config"] = ui_config;
-    response_json["cmd"] = "ui_quick_controls";
+    response_json["cmd"] = "ui_config";
     const uint8_t l = measureJson(response_json);
     char* response = (char*) malloc(l + 1);
     serializeJson(response_json, response, l + 1);
