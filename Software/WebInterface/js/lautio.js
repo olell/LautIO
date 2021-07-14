@@ -50,6 +50,9 @@ class LautIO {
         this.amp_status = {"AB": undefined, "CD": undefined};
         this.updated_amp_status_callback = function() {};
 
+        this.ui_config = {"name": undefined, "quick_controls": []}
+        this.updated_ui_config_callback = function() {};
+
         this.led = false;
     }
 
@@ -71,6 +74,7 @@ class LautIO {
     set_connection_status_callback(callback) { this.connection_status_callback = callback; }
     set_updated_controls_callback(callback) { this.updated_controls_callback = callback; }
     set_updated_amp_status_callback(callback) { this.updated_amp_status_callback = callback; }
+    set_updated_ui_config_callback(callback) { this.updated_ui_config_callback = callback; }
     
 
     
@@ -129,6 +133,10 @@ class LautIO {
     update_control(control) {
         this._send_lautio_command("dsp", "update_control", {"control": control})
     }
+
+    update_ui_config() {
+        this._send_lautio_command("ui", "get_ui_config");
+    }
     
     // functions
     _ws_msg_handler(recv) {
@@ -152,6 +160,12 @@ class LautIO {
             this.amp_status.CD = message.CD;
             this.updated_amp_status_callback();
         }
+
+        else if (message.cmd == "ui_config") {
+            this.ui_config = message.config;
+            this.updated_ui_config_callback();
+        }
+
     }
 
     connect() {

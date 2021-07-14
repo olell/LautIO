@@ -50,6 +50,14 @@ function updated_amp_status_callback() {
     update_view();
     if (setup_process == 3) {
         setup_process += 1;
+        setup_load_ui_config();
+    }
+}
+
+function updated_ui_config_callback() {
+    update_view();
+    if (setup_process == 4) {
+        setup_process += 1;
         setup_done();
     }
 }
@@ -61,8 +69,13 @@ function setup_load_controls() {
 }
 
 function setup_load_status() {
-    update_loading_message("Fetching amp status")
+    update_loading_message("Fetching amp status");
     lautio.update_amp_status();
+}
+
+function setup_load_ui_config() {
+    update_loading_message("Loading UI config");
+    lautio.update_ui_config();
 }
 
 function setup_done() {
@@ -83,6 +96,7 @@ function startup () {
 
     lautio.set_updated_controls_callback(updated_controls_callback);
     lautio.set_updated_amp_status_callback(updated_amp_status_callback);
+    lautio.set_updated_ui_config_callback(updated_ui_config_callback);
 
     update_loading_message("Connecting to device");
     lautio.connect();
@@ -150,10 +164,14 @@ function render_overview_view() {
         $("#main_container").html(html);
 
         // quick controls (todo currently all controls)
-        lautio.dsp_controls.filter(obj => obj.type == DSP_CONTROL_VOLSLEW).forEach(control => { // volslews
+        console.log(lautio.ui_config);
+
+        var quick_controls = lautio.dsp_controls.filter(obj => lautio.ui_config.quick_controls.includes(obj.id));
+
+        quick_controls.filter(obj => obj.type == DSP_CONTROL_VOLSLEW).forEach(control => { // volslews
             render_volslew(control, "#quick_controls", true);
         });
-        lautio.dsp_controls.filter(obj => obj.type == DSP_CONTROL_EQ_SECOND_ORDER).forEach(control => { // volslews
+        quick_controls.filter(obj => obj.type == DSP_CONTROL_EQ_SECOND_ORDER).forEach(control => { // volslews
             render_soeq(control, "#quick_controls", true);
         });
         
@@ -250,11 +268,13 @@ function update_control(control_id) {
 
 function render_volslew(control, container, append) {
     render_template("templates/controls/volslew.html", {"lautio": lautio, "control": control}, function(html) {
-        // put html to container
-        if (append)
-            $(container).html($(container).html() + html);
-        else
-            $(container).html(html);
+        render_template("templates/controls/control.html", {"control": control, "lautio": lautio, "body": html}, function(html) {
+            // put html to container
+            if (append)
+                $(container).html($(container).html() + html);
+            else
+                $(container).html(html);
+        });
     })
 }
 
@@ -268,13 +288,18 @@ function update_volslew(control) {
 
 function render_soeq(control, container, append) {
     render_template("templates/controls/2nd_order_eq.html", {"lautio": lautio, "control": control}, function(html) {
-        // put html to container
-        if (append)
-            $(container).html($(container).html() + html);
-        else
-            $(container).html(html);
 
-        update_soeq_ui(control);
+        render_template("templates/controls/control.html", {"control": control, "lautio": lautio, "body": html}, function(html) {
+
+            // put html to container
+            if (append)
+                $(container).html($(container).html() + html);
+            else
+                $(container).html(html);
+
+            update_soeq_ui(control);
+
+        })
         
     })
 }
