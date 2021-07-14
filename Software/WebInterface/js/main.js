@@ -163,9 +163,7 @@ function render_overview_view() {
     function (html) {
         $("#main_container").html(html);
 
-        // quick controls (todo currently all controls)
-        console.log(lautio.ui_config);
-
+        // quick controls
         var quick_controls = lautio.dsp_controls.filter(obj => lautio.ui_config.quick_controls.includes(obj.id));
 
         quick_controls.filter(obj => obj.type == DSP_CONTROL_VOLSLEW).forEach(control => { // volslews
@@ -243,7 +241,23 @@ function amp_cd_en_toggler() {
 
 // controls
 function render_controls_view() {
-    $("#main_container").html("controls lol");
+    render_template("templates/controls.html", {
+        "lautio": lautio,
+    },
+    function (html) {
+        $("#main_container").html(html);
+
+        // all controls (todo currently all controls)
+        // ditte is ja ooch irjenwie doppeldjemoppelt
+        lautio.dsp_controls.filter(obj => obj.type == DSP_CONTROL_VOLSLEW).forEach(control => { // volslews
+            render_volslew(control, "#controls", true);
+        });
+        lautio.dsp_controls.filter(obj => obj.type == DSP_CONTROL_EQ_SECOND_ORDER).forEach(control => { // volslews
+            render_soeq(control, "#controls", true);
+        });
+        
+        //update_overview_values();
+    });
 }
 // settings
 function render_settings_view() {
