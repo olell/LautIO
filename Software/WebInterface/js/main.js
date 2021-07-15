@@ -280,16 +280,28 @@ function update_control(control_id) {
     }
 }
 
-function render_volslew(control, container, append) {
-    render_template("templates/controls/volslew.html", {"lautio": lautio, "control": control}, function(html) {
-        render_template("templates/controls/control.html", {"control": control, "lautio": lautio, "body": html}, function(html) {
-            // put html to container
-            if (append)
-                $(container).html($(container).html() + html);
-            else
-                $(container).html(html);
-        });
+function render_control(control, container, append) {
+    var control_name;
+    if (control.type == DSP_CONTROL_VOLSLEW) control_name = "volslew";
+    if (control.type == DSP_CONTROL_EQ_SECOND_ORDER) control_name = "2nd_order_eq";
+
+    console.log(control_name, control);
+
+    render_template(`templates/controls/${control_name}.html`, {"lautio": lautio, "control": control}, function(ctrl_html) {
+        render_template("templates/controls/settings.html", {"lautio": lautio, "control": control}, function(settings_html) {
+            render_template("templates/controls/control.html", {"control": control, "lautio": lautio, "body": ctrl_html, "modal": settings_html}, function(html) {
+                // put html to container
+                if (append)
+                    $(container).html($(container).html() + html);
+                else
+                    $(container).html(html);
+            });  
+        })
     })
+}
+
+function render_volslew(control, container, append) {
+    render_control(control, container, append);
 }
 
 function update_volslew(control) {
