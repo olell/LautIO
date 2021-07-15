@@ -305,8 +305,8 @@ function render_volslew(control, container, append) {
 }
 
 function update_volslew(control) {
-    var new_db_val = $(`#${control.name}_db_value`).val();
-    var new_slew_val = $(`#${control.name}_slew_rate`).val();
+    var new_db_val = $(`#ctrl_${control.id}_db_value`).val();
+    var new_slew_val = $(`#ctrl_${control.id}_slew_rate`).val();
     control.volume = new_db_val;
     control.slew = new_slew_val;
     lautio.update_control(control);
@@ -332,66 +332,66 @@ function render_soeq(control, container, append) {
 
 function update_soeq_ui(control) {
     // update select
-    $(`#${control.name}_filter_type`).val(control.filter_type);
+    $(`#ctrl_${control.id}_filter_type`).val(control.filter_type);
 
     // update checkboxes
-    $(`#${control.name}_state`).prop("checked", control.state);
-    $(`#${control.name}_phase`).prop("checked", control.phase);
+    $(`#ctrl_${control.id}_state`).prop("checked", control.state);
+    $(`#ctrl_${control.id}_phase`).prop("checked", control.phase);
 
     // update UI
     if (control.filter_type == 0) { // Peaking filter
-        $("#" + control.name + "_pill").text(`Peaking filter (${control.freq}Hz ${control.boost}dB)`);
+        $(`#ctrl_${control.id}_pill`).text(`Peaking filter (${control.freq}Hz ${control.boost}dB)`);
         gain = 0;
         s = 0;
         bandwidth = 0;
 
         // Type & frequency & active & phase always visible
-        $(`#${control.name}_boost_container`).show();
-        $(`#${control.name}_gain_container`).hide();
-        $(`#${control.name}_q_container`).show();
-        $(`#${control.name}_s_container`).hide();
-        $(`#${control.name}_bandwidth_container`).hide();
+        $(`#ctrl_${control.id}_boost_container`).show();
+        $(`#ctrl_${control.id}_gain_container`).hide();
+        $(`#ctrl_${control.id}_q_container`).show();
+        $(`#ctrl_${control.id}_s_container`).hide();
+        $(`#ctrl_${control.id}_bandwidth_container`).hide();
 
     }
     else if (control.filter_type == 4) { // Low Pass
-        $(`#${control.name}_pill`).text(`Low Pass filter (${control.freq}Hz)`)
+        $(`#ctrl_${control.id}_pill`).text(`Low Pass filter (${control.freq}Hz)`)
         gain = 0;
         boost = 0;
         s = 0;
         bandwidth = 0;
 
-        $(`#${control.name}_gain_container`).hide();
-        $(`#${control.name}_boost_container`).hide();
-        $(`#${control.name}_q_container`).show();
-        $(`#${control.name}_s_container`).hide();
-        $(`#${control.name}_bandwidth_container`).hide();
+        $(`#ctrl_${control.id}_gain_container`).hide();
+        $(`#ctrl_${control.id}_boost_container`).hide();
+        $(`#ctrl_${control.id}_q_container`).show();
+        $(`#ctrl_${control.id}_s_container`).hide();
+        $(`#ctrl_${control.id}_bandwidth_container`).hide();
 
     }
     else if (control.filter_type == 5) { // High Pass
-        $(`#${control.name}_pill`).text(`High Pass filter (${control.freq}Hz)`)
+        $(`#ctrl_${control.id}_pill`).text(`High Pass filter (${control.freq}Hz)`)
         gain = 0;
         boost = 0;
         s = 0;
         bandwidth = 0;
 
-        $(`#${control.name}_gain_container`).hide();
-        $(`#${control.name}_boost_container`).hide();
-        $(`#${control.name}_q_container`).show();
-        $(`#${control.name}_s_container`).hide();
-        $(`#${control.name}_bandwidth_container`).hide();
+        $(`#ctrl_${control.id}_gain_container`).hide();
+        $(`#ctrl_${control.id}_boost_container`).hide();
+        $(`#ctrl_${control.id}_q_container`).show();
+        $(`#ctrl_${control.id}_s_container`).hide();
+        $(`#ctrl_${control.id}_bandwidth_container`).hide();
 
     }
     else if (control.filter_type == 6) { // Band Pass
-        $(`#${control.name}_pill`).text(`Band Pass filter (${control.freq}Hz ${control.gain}dB)`)
+        $(`#ctrl_${control.id}_pill`).text(`Band Pass filter (${control.freq}Hz ${control.gain}dB)`)
         boost = 0;
         q = 0;
         s = 0;
 
-        $(`#${control.name}_gain_container`).show();
-        $(`#${control.name}_boost_container`).hide();
-        $(`#${control.name}_q_container`).hide();
-        $(`#${control.name}_s_container`).hide();
-        $(`#${control.name}_bandwidth_container`).show();
+        $(`#ctrl_${control.id}_gain_container`).show();
+        $(`#ctrl_${control.id}_boost_container`).hide();
+        $(`#ctrl_${control.id}_q_container`).hide();
+        $(`#ctrl_${control.id}_s_container`).hide();
+        $(`#ctrl_${control.id}_bandwidth_container`).show();
 
     }
 
@@ -399,15 +399,15 @@ function update_soeq_ui(control) {
 
 function update_soeq(control) {
     // load new values from inputs
-    var new_filter_type = parseInt($(`#${control.name}_filter_type`).val());
-    var new_q = parseFloat($(`#${control.name}_q`).val());
-    var new_s = parseFloat($(`#${control.name}_s`).val());
-    var new_freq = parseFloat($(`#${control.name}_freq`).val());
-    var new_bandwidth = parseFloat($(`#${control.name}_bandwidth`).val());
-    var new_gain = parseFloat($(`#${control.name}_gain`).val());
-    var new_boost = parseFloat($(`#${control.name}_boost`).val());
-    var new_state = $(`#${control.name}_state`).prop("checked") ? 1 : 0;
-    var new_phase = $(`#${control.name}_phase`).prop("checked") ? 1 : 0;
+    var new_filter_type = parseInt($(`#ctrl_${control.id}_filter_type`).val());
+    var new_q = parseFloat($(`#ctrl_${control.id}_q`).val());
+    var new_s = parseFloat($(`#ctrl_${control.id}_s`).val());
+    var new_freq = parseFloat($(`#ctrl_${control.id}_freq`).val());
+    var new_bandwidth = parseFloat($(`#ctrl_${control.id}_bandwidth`).val());
+    var new_gain = parseFloat($(`#ctrl_${control.id}_gain`).val());
+    var new_boost = parseFloat($(`#ctrl_${control.id}_boost`).val());
+    var new_state = $(`#ctrl_${control.id}_state`).prop("checked") ? 1 : 0;
+    var new_phase = $(`#ctrl_${control.id}_phase`).prop("checked") ? 1 : 0;
 
     control.filter_type = new_filter_type;
     control.Q = new_q;

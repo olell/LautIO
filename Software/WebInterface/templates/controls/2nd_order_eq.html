@@ -1,7 +1,7 @@
 <div class="input-group row">
-    <div class="col col-md-6" id="{control.name}_filter_type_container">
-        <label class="fw-bold" for="{control.name}_filter_type">Filter Type
-        <select oninput="update_control({control.id})" name="{control.name}_filter_type" id="{control.name}_filter_type" class="form-select">
+    <div class="col col-md-6" id="ctrl_{control.id}_filter_type_container">
+        <label class="fw-bold" for="ctrl_{control.id}_filter_type">Filter Type
+        <select oninput="update_control({control.id})" name="ctrl_{control.id}_filter_type" id="ctrl_{control.id}_filter_type" class="form-select">
             <option value="0" selected>Peaking</option>
             <option value="4">Low Pass</option>
             <option value="5">High Pass</option>
@@ -10,60 +10,60 @@
         </select>
         </label>
     </div>
-    <div class="col col-md-6" id="{control.name}_bypass_container">
+    <div class="col col-md-6" id="ctrl_{control.id}_bypass_container">
         <div class="row">
             <div class="form-switch form-input float-end">
-                <input oninput="update_control({control.id})" type="checkbox" class="form-check-input" name="{control.name}_state" id="{control.name}_state">
-                <label for="{control.name}_state">Active</label>
+                <input oninput="update_control({control.id})" type="checkbox" class="form-check-input" name="ctrl_{control.id}_state" id="ctrl_{control.id}_state">
+                <label for="ctrl_{control.id}_state">Active</label>
             </div>
         </div>
         <div class="row">
             <div class="form-switch form-input float-end">
-                <input oninput="update_control({control.id})" type="checkbox" class="form-check-input" name="{control.name}_phase" id="{control.name}_phase">
-                <label for="{control.name}_phase">Invert phase</label>
+                <input oninput="update_control({control.id})" type="checkbox" class="form-check-input" name="ctrl_{control.id}_phase" id="ctrl_{control.id}_phase">
+                <label for="ctrl_{control.id}_phase">Invert phase</label>
             </div>
         </div>
     </div>
 </div>
-<div class="mt-3" id="{control.name}_boost_container">
-    <label class="fw-bold form-label col-md-12" for="{control.name}_boost_value_range">Boost (dB)
+<div class="mt-3" id="ctrl_{control.id}_boost_container">
+    <label class="fw-bold form-label col-md-12" for="ctrl_{control.id}_boost_value_range">Boost (dB)
     <div class="fw-normal d-flex justify-content-center">
         <span class="me-2">-15dB</span>
-        <input type="range" oninput="update_control({control.id})" class="form-range" id="{control.name}_boost" value="{control.boost}" min="-15" max="15" step="0.1">
+        <input type="range" oninput="update_control({control.id})" class="form-range" id="ctrl_{control.id}_boost" value="{control.boost}" min="-15" max="15" step="0.1">
         <span class="ms-2">15dB</span>
     </div>
     </label>
 </div>
 
-<div class="mt-3" id="{control.name}_gain_container">
-    <label class="fw-bold form-label col-md-12" for="{control.name}_gain">Gain (dB)
+<div class="mt-3" id="ctrl_{control.id}_gain_container">
+    <label class="fw-bold form-label col-md-12" for="ctrl_{control.id}_gain">Gain (dB)
     <div class="fw-normal d-flex justify-content-center">
         <span class="me-2">-15dB</span>
-        <input type="range" oninput="update_control({control.id})" class="form-range" id="{control.name}_gain" value="{control.gain}" min="-15" max="15" step="0.1">
+        <input type="range" oninput="update_control({control.id})" class="form-range" id="ctrl_{control.id}_gain" value="{control.gain}" min="-15" max="15" step="0.1">
         <span class="ms-2">15dB</span>
     </div>
     </label>
 </div>
 <div class="row mt-3">
-    <div class="col col-md-6" id="{control.name}_frequency_container">
-        <label class="fw-bold" for="{control.name}_frequency">Frequency (Hz)
-            <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_freq" value="{control.freq}" min="20" max="20000">
+    <div class="col col-md-6" id="ctrl_{control.id}_frequency_container">
+        <label class="fw-bold" for="ctrl_{control.id}_frequency">Frequency (Hz)
+            <input type="number" onchange="update_control({control.id})" class="form-control" id="ctrl_{control.id}_freq" value="{control.freq}" min="20" max="20000">
         </label>
     </div>
-    <div class="col col-md-6" id="{control.name}_q_container">
-        <label class="fw-bold" for="{control.name}_q">Q
-            <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_q" value="{control.Q}" min="0" max="16" step="any">
+    <div class="col col-md-6" id="ctrl_{control.id}_q_container">
+        <label class="fw-bold" for="ctrl_{control.id}_q">Q
+            <input type="number" onchange="update_control({control.id})" class="form-control" id="ctrl_{control.id}_q" value="{control.Q}" min="0" max="16" step="any">
         </label>
     </div>
     
-    <div class="col col-md-6" id="{control.name}_s_container">
-        <label class="fw-bold" for="{control.name}_s">S
-            <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_s" value="{control.S}" min="0" max="2" step="any">
+    <div class="col col-md-6" id="ctrl_{control.id}_s_container">
+        <label class="fw-bold" for="ctrl_{control.id}_s">S
+            <input type="number" onchange="update_control({control.id})" class="form-control" id="ctrl_{control.id}_s" value="{control.S}" min="0" max="2" step="any">
         </label>
     </div>
-    <div class="col col-md-6" id="{control.name}_bandwidth_container">
-        <label class="fw-bold" for="{control.name}_bandwidth">Bandwidth (octaves)
-            <input type="number" onchange="update_control({control.id})" class="form-control" id="{control.name}_bandwidth" value="{control.bandwidth}" min="0" max="11" step="any">
+    <div class="col col-md-6" id="ctrl_{control.id}_bandwidth_container">
+        <label class="fw-bold" for="ctrl_{control.id}_bandwidth">Bandwidth (octaves)
+            <input type="number" onchange="update_control({control.id})" class="form-control" id="ctrl_{control.id}_bandwidth" value="{control.bandwidth}" min="0" max="11" step="any">
         </label>
     </div>
 </div>
