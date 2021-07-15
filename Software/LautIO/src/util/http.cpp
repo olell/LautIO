@@ -10,6 +10,9 @@
 
 #include <ESPAsyncWebServer.h>
 
+// driver
+#include "driver/filesystem.h"
+
 // util
 #include "util/http.h"
 #include "util/websockets.h"
@@ -18,11 +21,11 @@
 
 AsyncWebServer webserver(HTTP_PORT);
 
-
 void init_http() {
-    log_info("Initialising HTTP");
+    log_info("Initialising HTTP"); 
 
     // Routes
+    webserver.serveStatic("/", FSHANDLE, "/web/").setDefaultFile("index.html").setCacheControl("max-age=600");;
 
     // Handler
     init_websocket(&webserver);
