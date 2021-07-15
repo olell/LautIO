@@ -1,5 +1,21 @@
-<div>
-    <label for="ctrl_{control.id}_name" class="fw-bold">Name
-        <input type="text" class="form-control" id="ctrl_{control.id}_name" value="{control.name}">
-    </label>
+<div class="container">
+    <div class="row">
+        <label for="ctrl_{control.id}_name" class="fw-bold">Name
+            <input type="text" class="form-control" id="ctrl_{control.id}_name" value="{control.name}">
+        </label>
+    </div>
+    <div class="row mt-3">
+        <div class="form-switch form-input float-end">
+            <label for="ctrl_{control.id}_ro">
+                <input type="checkbox" class="form-check-input" name="ctrl_{control.id}_ro" id="ctrl_{control.id}_ro">
+            Read only</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-switch form-input float-end">
+            <label for="ctrl_{control.id}_change">
+                <input type="checkbox" class="form-check-input" name="ctrl_{control.id}_change" id="ctrl_{control.id}_change">
+            Keep changes after reboot</label>
+        </div>
+    </div>
 </div>

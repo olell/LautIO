@@ -858,6 +858,14 @@ void dsp_update_from_updated_json(DynamicJsonDocument control) {
     // wrapper to simplify the update of any control
     log_debug("Updating control on core %d", xPortGetCoreID());
     uint8_t ctrl_type = control["type"];
+
+
+    // update control settings
+    JsonObject actual_ctrl = get_control_by_id(control["id"]);
+    actual_ctrl["name"] = control["name"].as<String>();
+    actual_ctrl["ro"] = control["ro"];
+    actual_ctrl["change"] = control["change"];
+
     if (ctrl_type == DSP_CONTROL_VOLSLEW) {
         dsp_ctrl_volslew(control, (float) control["volume"], (uint8_t) control["slew"]);
     }
