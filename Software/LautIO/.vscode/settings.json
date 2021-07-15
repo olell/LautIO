@@ -3,6 +3,11 @@
         "stdexcept": "cpp",
         "*.tcc": "cpp",
         "istream": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "deque": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "vector": "cpp"
     }
 }
