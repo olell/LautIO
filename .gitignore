@@ -1,1 +1,9 @@
 Software/LautIO/data/wifi_cred.txt
+Software/tools/testserver.py
+Software/tools/mock_firmware/controls.json
+Software/tools/mock_firmware/cr0.bin
+Software/tools/mock_firmware/cr4.bin
+Software/tools/mock_firmware/hwconf.bin
+Software/tools/mock_firmware/param.bin
+Software/tools/mock_firmware/program.bin
+Software/tools/mock_firmware/registers.json
