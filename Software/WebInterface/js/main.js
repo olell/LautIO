@@ -239,6 +239,16 @@ function amp_cd_en_toggler() {
     lautio.set_amp_reset_state(AMP_CD, !cur_stat);
 }
 
+function amp_both_enable() {
+    lautio.set_amp_reset_state(AMP_AB, 0);
+    lautio.set_amp_reset_state(AMP_CD, 0);
+}
+
+function amp_both_disable() {
+    lautio.set_amp_reset_state(AMP_AB, 1);
+    lautio.set_amp_reset_state(AMP_CD, 1);
+}
+
 // controls
 function render_controls_view() {
     render_template("templates/controls.html", {
