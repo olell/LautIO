@@ -3,10 +3,17 @@
         <label class="fw-bold" for="ctrl_{control.id}_filter_type">Filter Type
         <select oninput="update_control({control.id})" name="ctrl_{control.id}_filter_type" id="ctrl_{control.id}_filter_type" class="form-select">
             <option value="0" selected>Peaking</option>
+            <option value="1">Parametric</option>
+            <option value="2">Low Shelf</option>
+            <option value="3">High Shelf</option>
             <option value="4">Low Pass</option>
             <option value="5">High Pass</option>
             <option value="6">Band Pass</option>
             <option value="7">Band Stop</option>
+            <option value="8">Butterworth Low Pass</option>
+            <option value="9">Butterworth High Pass</option>
+            <option value="10">Bessel Low Pass</option>
+            <option value="11">Bessel High Pass</option>
         </select>
         </label>
     </div>

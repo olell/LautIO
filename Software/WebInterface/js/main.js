@@ -369,12 +369,32 @@ function update_soeq_ui(control) {
     $(`#ctrl_${control.id}_state`).prop("checked", control.state);
     $(`#ctrl_${control.id}_phase`).prop("checked", control.phase);
 
-    // update UI
-    if (control.filter_type == 0) { // Peaking filter
+    // update pill
+    if (control.filter_type == SOEQ_FILTER_TYPE_PARAMETRIC) 
+        $(`#ctrl_${control.id}_pill`).text(`Parametric filter (${control.freq}Hz ${control.boost}dB)`);
+    if (control.filter_type == SOEQ_FILTER_TYPE_PEAKING) 
         $(`#ctrl_${control.id}_pill`).text(`Peaking filter (${control.freq}Hz ${control.boost}dB)`);
-        gain = 0;
-        s = 0;
-        bandwidth = 0;
+    if (control.filter_type == SOEQ_FILTER_TYPE_LOW_SHELF)
+        $(`#ctrl_${control.id}_pill`).text(`Low Shelf filter (${control.freq}Hz)`);
+    if (control.filter_type == SOEQ_FILTER_TYPE_HIGH_SHELF)
+        $(`#ctrl_${control.id}_pill`).text(`High Shelf filter (${control.freq}Hz)`);
+    if (control.filter_type == SOEQ_FILTER_TYPE_LOWPASS)
+        $(`#ctrl_${control.id}_pill`).text(`Lowpass filter (${control.freq}Hz)`);
+    if (control.filter_type == SOEQ_FILTER_TYPE_HIGHPASS)
+        $(`#ctrl_${control.id}_pill`).text(`Highpass filter (${control.freq}Hz)`);
+    if (control.filter_type == SOEQ_FILTER_TYPE_BUTTERWORTH_LOWPASS)
+        $(`#ctrl_${control.id}_pill`).text(`Butterworth lowpass filter (${control.freq}Hz ${control.gain}dB)`);
+    if (control.filter_type == SOEQ_FILTER_TYPE_BUTTERWORTH_HIGHPASS)
+        $(`#ctrl_${control.id}_pill`).text(`Butterworht highpass filter (${control.freq}Hz ${control.gain}dB)`);
+    if (control.filter_type == SOEQ_FILTER_TYPE_BESSEL_LOWPASS)
+        $(`#ctrl_${control.id}_pill`).text(`Bessel lowpass filter (${control.freq}Hz ${control.gain}dB)`);
+    if (control.filter_type == SOEQ_FILTER_TYPE_BESSEL_HIGHPASS)
+        $(`#ctrl_${control.id}_pill`).text(`Bessel highpass filter (${control.freq}Hz ${control.gain}dB)`);
+
+
+    // update UI
+    if (control.filter_type == SOEQ_FILTER_TYPE_PARAMETRIC ||
+        control.filter_type == SOEQ_FILTER_TYPE_PEAKING) { // Peaking filter
 
         // Type & frequency & active & phase always visible
         $(`#ctrl_${control.id}_boost_container`).show();
@@ -384,12 +404,16 @@ function update_soeq_ui(control) {
         $(`#ctrl_${control.id}_bandwidth_container`).hide();
 
     }
-    else if (control.filter_type == 4) { // Low Pass
-        $(`#ctrl_${control.id}_pill`).text(`Low Pass filter (${control.freq}Hz)`)
-        gain = 0;
-        boost = 0;
-        s = 0;
-        bandwidth = 0;
+    else if (control.filter_type == SOEQ_FILTER_TYPE_LOW_SHELF ||
+             control.filter_type == SOEQ_FILTER_TYPE_HIGH_SHELF) {
+        $(`#ctrl_${control.id}_boost_container`).show();
+        $(`#ctrl_${control.id}_gain_container`).show();
+        $(`#ctrl_${control.id}_q_container`).hide();
+        $(`#ctrl_${control.id}_s_container`).show();
+        $(`#ctrl_${control.id}_bandwidth_container`).hide();
+    }
+    else if (control.filter_type == SOEQ_FILTER_TYPE_LOWPASS ||
+             control.filter_type == SOEQ_FILTER_TYPE_HIGHPASS) {
 
         $(`#ctrl_${control.id}_gain_container`).hide();
         $(`#ctrl_${control.id}_boost_container`).hide();
@@ -398,25 +422,8 @@ function update_soeq_ui(control) {
         $(`#ctrl_${control.id}_bandwidth_container`).hide();
 
     }
-    else if (control.filter_type == 5) { // High Pass
-        $(`#ctrl_${control.id}_pill`).text(`High Pass filter (${control.freq}Hz)`)
-        gain = 0;
-        boost = 0;
-        s = 0;
-        bandwidth = 0;
-
-        $(`#ctrl_${control.id}_gain_container`).hide();
-        $(`#ctrl_${control.id}_boost_container`).hide();
-        $(`#ctrl_${control.id}_q_container`).show();
-        $(`#ctrl_${control.id}_s_container`).hide();
-        $(`#ctrl_${control.id}_bandwidth_container`).hide();
-
-    }
-    else if (control.filter_type == 6) { // Band Pass
-        $(`#ctrl_${control.id}_pill`).text(`Band Pass filter (${control.freq}Hz ${control.gain}dB)`)
-        boost = 0;
-        q = 0;
-        s = 0;
+    else if (control.filter_type == SOEQ_FILTER_TYPE_BANDPASS ||
+             control.filter_type == SOEQ_FILTER_TYPE_BANDSTOP) {
 
         $(`#ctrl_${control.id}_gain_container`).show();
         $(`#ctrl_${control.id}_boost_container`).hide();
@@ -424,6 +431,24 @@ function update_soeq_ui(control) {
         $(`#ctrl_${control.id}_s_container`).hide();
         $(`#ctrl_${control.id}_bandwidth_container`).show();
 
+    }
+    else if (control.filter_type == SOEQ_FILTER_TYPE_BUTTERWORTH_HIGHPASS ||
+             control.filter_type == SOEQ_FILTER_TYPE_BUTTERWORTH_HIGHPASS) {
+
+        $(`#ctrl_${control.id}_gain_container`).show();
+        $(`#ctrl_${control.id}_boost_container`).hide();
+        $(`#ctrl_${control.id}_q_container`).hide();
+        $(`#ctrl_${control.id}_s_container`).hide();
+        $(`#ctrl_${control.id}_bandwidth_container`).hide();
+    }
+    else if (control.filter_type == SOEQ_FILTER_TYPE_BESSEL_LOWPASS ||
+             control.filter_type == SOEQ_FILTER_TYPE_BESSEL_HIGHPASS) {
+
+        $(`#ctrl_${control.id}_gain_container`).show();
+        $(`#ctrl_${control.id}_boost_container`).hide();
+        $(`#ctrl_${control.id}_q_container`).hide();
+        $(`#ctrl_${control.id}_s_container`).hide();
+        $(`#ctrl_${control.id}_bandwidth_container`).hide();
     }
 
 }

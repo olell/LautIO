@@ -33,6 +33,19 @@ var DSP_CONTROL_STATE_VARIABLE  = 17
 var DSP_CONTROL_MUTE_ADC        = 18
 var DSP_CONTROL_MUTE_DAC        = 19
 
+var SOEQ_FILTER_TYPE_PEAKING             = 0
+var SOEQ_FILTER_TYPE_PARAMETRIC          = 1
+var SOEQ_FILTER_TYPE_LOW_SHELF           = 2
+var SOEQ_FILTER_TYPE_HIGH_SHELF          = 3
+var SOEQ_FILTER_TYPE_LOWPASS             = 4
+var SOEQ_FILTER_TYPE_HIGHPASS            = 5
+var SOEQ_FILTER_TYPE_BANDPASS            = 6
+var SOEQ_FILTER_TYPE_BANDSTOP            = 7
+var SOEQ_FILTER_TYPE_BUTTERWORTH_LOWPASS  = 8
+var SOEQ_FILTER_TYPE_BUTTERWORTH_HIGHPASS = 9
+var SOEQ_FILTER_TYPE_BESSEL_LOWPASS      = 10
+var SOEQ_FILTER_TYPE_BESSEL_HIGHPASS     = 11
+
 class LautIO {
     constructor(address) {
         this.address = address;
