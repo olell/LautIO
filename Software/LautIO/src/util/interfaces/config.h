@@ -17,20 +17,22 @@
 
 const char* _config_get_section(DynamicJsonDocument input) {
     const char* section = input["section"];
-    DynamicJsonDocument content = Configuration::section(section);
+    DynamicJsonDocument response(1024);
+    response["content"] = Configuration::section(section);
     // blurring passwords.. todo maybe some smarter way
     if (strcmp(section, "wifi") == 0) {
-        content["pass"] = "********";
-        content["ap_pass"] = "********";
+        response["content"]["pass"] = "********";
+        response["content"]["ap_pass"] = "********";
     }
     else if (strcmp(section, "ftp") == 0) {
-        content["password"] = "********";
+        response["content"]["password"] = "********";
     }
-    content["cmd"] = "config_get_section";
-    content["section"] = section;
-    char* response = (char*) malloc(1024);
-    serializeJson(content, response, 1024);
-    return response;
+    response["cmd"] = "config_get_section";
+    response["section"] = section;
+    size_t json_size = measureJson(response) + 1;
+    char* response_text = (char*) malloc(json_size);
+    serializeJson(response, response_text, json_size);
+    return response_text;
 }
 
 const char* _config_update_field(DynamicJsonDocument input) {
