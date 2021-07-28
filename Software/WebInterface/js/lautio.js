@@ -66,6 +66,9 @@ class LautIO {
         this.ui_config = {"name": undefined, "quick_controls": []}
         this.updated_ui_config_callback = function() {};
 
+        this.dsp_config = {}
+        this.updated_dsp_config_callback = function() {};
+
         this.led = false;
     }
 
@@ -150,6 +153,10 @@ class LautIO {
     update_ui_config() {
         this._send_lautio_command("ui", "get_ui_config");
     }
+
+    update_dsp_config() {
+        this._send_lautio_command("config", "get_section", {"section": "dsp"})
+    }
     
     // functions
     _ws_msg_handler(recv) {
@@ -177,6 +184,12 @@ class LautIO {
         else if (message.cmd == "ui_config") {
             this.ui_config = message.config;
             this.updated_ui_config_callback();
+        }
+
+        else if (message.cmd == "config_get_section") {
+            if (message.section == "dsp") {
+                this.dsp_config = message["content"];
+            }
         }
 
     }
