@@ -89,11 +89,20 @@
     <script src='/js/bootstrap.bundle.min.js'></script>
     <script src='/js/tinytemplate.min.js'></script>
     <script src='/js/lautio.js'></script>
+
+    <script src='/js/controls/controls.js'></script>
+    <script src='/js/controls/soeq.js'></script>
+    <script src='/js/controls/volslew.js'></script>
+
+    <script src='/js/views/views.js'></script>
+    <script src='/js/views/overview.js'></script>
+    <script src='/js/views/controls.js'></script>
+
     <script src='/js/main.js'></script>
 
     <script>
-        //device_addr = "192.168.3.107"; // for dev
-        device_addr = location.hostname;
+        device_addr = "192.168.0.123"; // for dev
+        //device_addr = location.host;
         $(document).ready(startup);
     </script>
 
