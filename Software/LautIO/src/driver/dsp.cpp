@@ -39,6 +39,8 @@ SigmaDSP dsp(Wire, DSP_I2C_ADDRESS, 48000.00f, DSP_RESET_PIN);
 
 DynamicJsonDocument dsp_controls(2048); // maybe to small..
 
+char current_fw_name[64];
+
 void init_dsp() {
     // initialise dsp
     log_info("Initialising DSP");
@@ -212,7 +214,19 @@ void dsp_load_controls(const char* dirname) {
     log_debug("loaded controls. %d controls found!", dsp_controls["controls"].size());
 }
 
+void dsp_write_controls(const char* dirname) {
+    log_info("Writing dsp controls (%s)", dirname);
+    char filename[32];
+    sprintf(filename, "/dsp/%s/controls.json", dirname);
+    File controls_file = FSHANDLE.open(filename, "w");
+    serializeJson(dsp_controls, Serial);
+    serializeJson(dsp_controls, controls_file);
+    controls_file.close();
+    log_debug("Controls saved :)");
+}
+
 void dsp_change_firmware(const char* firmware_name) {
+    strcpy(current_fw_name, firmware_name);
     // load data from default firmware
     dsp_load_data(firmware_name);
     // upload dsp firmware
@@ -864,6 +878,7 @@ void dsp_update_from_updated_json(DynamicJsonDocument control) {
     JsonObject actual_ctrl = get_control_by_id(control["id"]);
     actual_ctrl["name"] = control["name"].as<String>();
     actual_ctrl["ro"] = control["ro"];
+    bool prev_change = actual_ctrl["change"];
     actual_ctrl["change"] = control["change"];
 
     if (ctrl_type == DSP_CONTROL_VOLSLEW) {
@@ -941,5 +956,10 @@ void dsp_update_from_updated_json(DynamicJsonDocument control) {
     }
     else if (ctrl_type == DSP_CONTROL_STATE_VARIABLE) {
         // todo
+    }
+
+    bool change_ctrl = actual_ctrl["change"];
+    if (change_ctrl || (prev_change && !change_ctrl)) { // write changes to sd card
+        dsp_write_controls(current_fw_name);
     }
 }
