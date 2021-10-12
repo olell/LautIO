@@ -11280,4 +11280,12 @@ legend {
   color: #44d9e8;
 }
 
+.debug-console {
+  position: fixed;
+  height: 20vh;
+  width: 100vw;
+  top: 80vh;
+  overflow: hidden;
+}
+
 /*# sourceMappingURL=main.css.map */

@@ -85,6 +85,14 @@
                 
     </main>
 
+    <div class="debug-console bg-dark p-2 d-none" id="debug_console">
+        <pre class="row ps-4" style="overflow-x: hidden; overflow-y: scroll; max-height: 15vh;" id="debug_console_output">
+        </pre>
+        <div class="row fixed-bottom ms-1 me-1" style="max-height: 5vh;">
+            <input type="text" placeholder="input" class="form-control" id="debug_console_input" onkeydown="debug_console_keydown();">
+        </div>
+    </div>
+
     <script src='/js/jquery-3.6.0.min.js'></script>
     <script src='/js/bootstrap.bundle.min.js'></script>
     <script src='/js/tinytemplate.min.js'></script>
@@ -97,11 +105,15 @@
     <script src='/js/views/views.js'></script>
     <script src='/js/views/overview.js'></script>
     <script src='/js/views/controls.js'></script>
+    <script src='/js/views/settings.js'></script>
+    <script src='/js/views/status.js'></script>
 
+    <script src='/js/console.js'></script>
     <script src='/js/main.js'></script>
 
     <script>
-        device_addr = "192.168.0.123"; // for dev
+        //device_addr = "172.20.10.3"; // for dev (mobile AP)
+        device_addr = "192.168.0.123"; // for dev (home)
         //device_addr = location.host;
         $(document).ready(startup);
     </script>

@@ -104,7 +104,9 @@ class LautIO {
                 ...data
             };
             try {
-                this.websocket.send(JSON.stringify(send));
+                var payload = JSON.stringify(send);
+                this.websocket.send(payload);
+                console_log_wsout(payload);
             }
             catch (e) {
                 // assuming connection loss
@@ -117,10 +119,12 @@ class LautIO {
 
     _update_connection_status() {
         try {
-            this.websocket.send(JSON.stringify({
+            var payload = JSON.stringify({
                 "category": "system",
                 "command": "test_connection"
-            }));
+            });
+            console_log_wsout(payload);
+            this.websocket.send(payload);
         }
         catch (e) {
             console.log(e);
@@ -157,9 +161,14 @@ class LautIO {
     update_dsp_config() {
         this._send_lautio_command("config", "get_section", {"section": "dsp"})
     }
+
+    reboot() {
+        this._send_lautio_command("system", "restart");
+    }
     
     // functions
     _ws_msg_handler(recv) {
+        console_log_wsin(recv.data);
         var message = JSON.parse(recv.data);
 
         if (message.cmd == "system_test_connection") {

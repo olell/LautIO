@@ -3,6 +3,7 @@ var device_addr = location.hostname;
 
 var setup_process = 1;
 
+var console_visible = false;
 
 /* Loading Screen */
 function show_loading_screen() {
