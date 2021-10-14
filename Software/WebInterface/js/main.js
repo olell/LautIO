@@ -21,13 +21,17 @@ function update_loading_message(msg) {
 /* Callbacks */
 function connection_status_callback (state) {
     if (state) {
-        $("#connection_state").text(`Connected`);
+        $("#connection_state").text(`Connected!`);
+        $("#connection_state").removeClass("bg-danger");
+        $("#connection_state").addClass("bg-success");
         if (setup_process == 1) { // continue with next setup step
             setup();
         }
     }
     else {
         $("#connection_state").text("Not Connected!");
+        $("#connection_state").addClass("bg-danger");
+        $("#connection_state").removeClass("bg-success");
         lautio.connect()
         console.log("Disconnected?")
     }
