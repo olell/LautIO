@@ -50,12 +50,17 @@ class LautIO {
     constructor(address) {
         this.address = address;
 
-        this.connection_status_update_interval = 3000; // twice a minute
+        this.connection_status_update_interval = 1000; // twice a minute
         
         this.connected = false;
         this.websocket = null;
         this._connection_update_interval = null;
         this.connection_status_callback = function(x) {};
+        this._waiting_for_connection_status = null;
+        this.connection_timeout = 2;
+
+        this.ws_out_log_cb = null;
+        this.ws_in_log_cb = null;
 
         this.dsp_controls = [];
         this.updated_controls_callback = function() {};
@@ -80,10 +85,8 @@ class LautIO {
 
     set_connection_status_update_interval(milliseconds) {
         this.connection_status_update_interval = milliseconds;
-        if (this._connection_update_interval) {
-            clearInterval(this._connection_update_interval);
-            this._connection_update_interval = setInterval(this._update_connection_status.bind(this), this.connection_status_update_interval);
-        }
+        clearInterval(this._connection_update_interval);
+        this._connection_update_interval = setInterval(this._update_connection_status.bind(this), this.connection_status_update_interval);
     }
     get_connection_status_update_interval() { return this.connection_status_update_interval; }
 
@@ -106,7 +109,7 @@ class LautIO {
             try {
                 var payload = JSON.stringify(send);
                 this.websocket.send(payload);
-                console_log_wsout(payload);
+                this.ws_out_log_cb(payload);
             }
             catch (e) {
                 // assuming connection loss
@@ -123,8 +126,13 @@ class LautIO {
                 "category": "system",
                 "command": "test_connection"
             });
-            console_log_wsout(payload);
+            // console_log_wsout(payload); // do not log connection status update message
             this.websocket.send(payload);
+            if (this._waiting_for_connection_status === null)
+                this._waiting_for_connection_status = Date.now();
+            if (Date.now() - this._waiting_for_connection_status > this.connection_timeout * 1000) {
+                this.connection_status_callback(false);
+            }
         }
         catch (e) {
             console.log(e);
@@ -168,13 +176,15 @@ class LautIO {
     
     // functions
     _ws_msg_handler(recv) {
-        console_log_wsin(recv.data);
         var message = JSON.parse(recv.data);
+        
+        if (message.cmd != "system_test_connection") this.ws_in_log_cb(recv.data);
 
         if (message.cmd == "system_test_connection") {
             var state = message.status == "ok";
             this.connected = state;
             this.connection_status_callback(state);
+            this._waiting_for_connection_status = null;
         }
 
         else if (message.cmd == "dsp_controls") {
@@ -206,8 +216,8 @@ class LautIO {
     connect() {
         this.websocket = new WebSocket(`ws://${this.address}/ws`);
         this.websocket.onmessage = this._ws_msg_handler.bind(this);
+        this.set_connection_status_update_interval(this.connection_status_update_interval);
         this._update_connection_status();
-        this._connection_update_interval = setInterval(this._update_connection_status.bind(this), this.connection_status_update_interval);
     }
 
 

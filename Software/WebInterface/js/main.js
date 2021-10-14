@@ -26,14 +26,17 @@ function connection_status_callback (state) {
             setup();
         }
     }
-    else
+    else {
         $("#connection_state").text("Not Connected!");
+        lautio.connect()
+        console.log("Disconnected?")
+    }
 }
 
 function setup() {
     if (setup_process == 1) {
         setup_process += 1;
-        lautio.set_connection_status_update_interval(10000);
+        //lautio.set_connection_status_update_interval(10000);
         setup_load_controls();
     }
 }
@@ -93,8 +96,11 @@ function startup () {
     update_loading_message("Initialising");
 
     lautio = new LautIO(device_addr);
+
+    lautio.ws_in_log_cb = console_log_wsin
+    lautio.ws_out_log_cb = console_log_wsout
     lautio.set_connection_status_callback(connection_status_callback);
-    lautio.set_connection_status_update_interval(1500);
+    lautio.set_connection_status_update_interval(2500);
 
     lautio.set_updated_controls_callback(updated_controls_callback);
     lautio.set_updated_amp_status_callback(updated_amp_status_callback);

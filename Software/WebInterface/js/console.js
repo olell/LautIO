@@ -8,13 +8,24 @@
  * 
  */
 
+function IsJsonString(str) {
+    // (c) Gumbo
+    // https://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 function debug_console_keydown(evt) {
     evt = evt || window.event;
     if(evt.keyCode == 13) {
         var payload = $("#debug_console_input").val();
         console_log_wsout(payload);
         if (lautio !== null) {
-            if (lautio.connected) {
+            if (lautio.connected && IsJsonString(payload)) {
                 lautio.websocket.send(payload);
             }
         }
