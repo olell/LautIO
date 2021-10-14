@@ -155,7 +155,7 @@ class LautIO {
 
     set_amp_reset_state(amp, state) {
         this._send_lautio_command("amp", "set_reset_state", {"amp": amp, "state": state})
-        setTimeout(this.update_amp_status.bind(this), 500);
+        
     }
 
     update_control(control) {
@@ -192,6 +192,10 @@ class LautIO {
                 this.dsp_controls = message.controls;
                 this.updated_controls_callback();
             }
+        }
+
+        else if (message.cmd == "amp_set_reset_state") {
+            this.update_amp_status()
         }
 
         else if (message.cmd == "amp_status") {
